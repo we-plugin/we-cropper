@@ -22,14 +22,13 @@ Page({
         let device = self.getDevice()
 
         let innerAspectRadio = res.width / res.height
-        //对比图片尺寸比例与外框比例，并与计算图片左上角坐标
 
         self.croperTarget = src
 
         self.rectX = 0
-        //  此时根据公式  图片高度 * 宽高比差值 ／ （2 * 图片宽高比）可得到图片自适应时的纵向坐标
+
         self.baseWidth= width * device.windowWidth/ 750
-        //  此时图片基础高度  外框高度 * 外框宽高比 ／ 图片宽高比
+
         self.baseHeight = width * device.windowWidth / (innerAspectRadio * 750)
 
         self.rectY = (height * device.windowWidth/ 750 - self.baseHeight) / 2
