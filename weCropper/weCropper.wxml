@@ -1,0 +1,11 @@
+<view class="croper-wrapper">
+    <canvas
+        class="croper"
+        disable-scroll="true"
+        bindtouchstart="uploadScaleStart"
+        bindtouchmove="uploadScaleMove"
+        bindtouchend="uploadScaleEnd"
+        style="width:{{width}}rpx;height:{{height}}rpx;"
+        canvas-id="croper">
+    </canvas>
+</view>

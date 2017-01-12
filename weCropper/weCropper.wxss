@@ -1,0 +1,12 @@
+.croper-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height:1200rpx;
+    border-bottom: 1px solid #d7d7d7;
+}
+
+.croper{
+    background-color: rgba(0,0,0,.8);
+}
