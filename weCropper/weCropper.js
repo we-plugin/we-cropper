@@ -2,9 +2,10 @@ Page({
   data: {
     id: 'croper',
     width: 750,
-    height:750,
+    height: 750,
     minScale: 1,
-    maxScale: 2.5
+    maxScale: 2.5,
+    src: ''
   },
   getDevice () {
     let self = this
@@ -125,7 +126,7 @@ Page({
   },
   onLoad (option) {
     let self = this
-    let { src } = option
+    let { src } = self.data
     self.initCanvas(src)
   }
 })
