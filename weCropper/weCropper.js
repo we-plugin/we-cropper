@@ -16,30 +16,21 @@ Page({
     wx.getImageInfo({
       src,
       success (res) {
-
         let { id, width, height } = self.data
-
         let device = self.getDevice()
-
         let innerAspectRadio = res.width / res.height
 
         self.croperTarget = src
-
         self.rectX = 0
-
         self.baseWidth= width * device.windowWidth/ 750
-
         self.baseHeight = width * device.windowWidth / (innerAspectRadio * 750)
-
         self.rectY = (height * device.windowWidth/ 750 - self.baseHeight) / 2
-
         self.scaleWidth = self.baseWidth
         self.scaleHeight = self.baseHeight
         self.oldScale = 1
 
         //  画布绘制图片
         self.ctx = wx.createCanvasContext(id)
-
         self.ctx.drawImage(src, self.rectX, self.rectY, self.baseWidth, self.baseHeight)
         self.ctx.draw()
       }
@@ -48,14 +39,12 @@ Page({
   //  图片手势初始监测
   uploadScaleStart (e) {
     let self = this
-    
     let xMove, yMove, oldDistance
     let [touch0, touch1] = e.touches
 
     //计算第一个触摸点的位置，并参照改点进行缩放
     self.touchX = touch0.x
     self.touchY = touch0.y
-
     self.imgLeft = self.rectX
     self.imgTop = self.rectY
 
@@ -64,14 +53,14 @@ Page({
 
     // 两指手势触发
     if (e.touches.length >= 2) {
-
       self.touchX = self.rectX + self.scaleWidth / 2
       self.touchY = self.rectY + self.scaleHeight / 2
-
+      
       //计算两指距离
       xMove = touch1.x - touch0.x
       yMove = touch1.y - touch0.y
       oldDistance = Math.sqrt(xMove * xMove + yMove * yMove)
+      
       // 保存至
       self.oldDistance = oldDistance
     }
@@ -79,11 +68,8 @@ Page({
   //  图片手势动态缩放
   uploadScaleMove (e) {
     let self = this
-
     let { minScale, maxScale } = self.data
-
     let [ touch0, touch1 ] = e.touches
-
     let xMove, yMove, newDistance
 
     if (e.timeStamp - self.timeOneFinger < 100) {
@@ -105,7 +91,6 @@ Page({
 
       self.ctx.drawImage(self.croperTarget, self.imgLeft, self.imgTop, self.scaleWidth, self.scaleHeight)
       self.ctx.draw()
-
     }
     // 两指手势触发
     if (e.touches.length >= 2) {
@@ -129,7 +114,6 @@ Page({
 
       self.ctx.drawImage(self.croperTarget, self.imgLeft, self.imgTop, self.scaleWidth, self.scaleHeight)
       self.ctx.draw()
-
     }
   },
   uploadScaleEnd (e) {
@@ -142,9 +126,6 @@ Page({
   onLoad (option) {
     let self = this
     let { src } = option
-
-    console.log(src)
-
     self.initCanvas(src)
   }
 })
