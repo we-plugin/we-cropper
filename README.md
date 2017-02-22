@@ -1,4 +1,6 @@
 # 微信小程序图片裁剪工具we-cropper
+## 演示
+![]()
 ## data参数说明
 
 ```javascript

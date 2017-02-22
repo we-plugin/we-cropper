@@ -1,12 +1,30 @@
+page{
+    -webkit-user-select: none;
+    user-select: none;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
 .croper-wrapper{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height:1200rpx;
-    border-bottom: 1px solid #d7d7d7;
+    justify-content: center;
+    height: 100%;
+    background-color: #e5e5e5;
 }
 
-.croper{
+.cropper{
     background-color: rgba(0,0,0,.8);
+}
+
+button{
+    position:absolute;
+    bottom:40rpx;
+    left:50%;
+    transform:translateX(-50%);
+    width:80%;
+    color:#fff;
+    background-color:#3CC51F;
 }

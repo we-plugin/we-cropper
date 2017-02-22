@@ -1,8 +1,8 @@
 Page({
   data: {
-    id: 'croper',
-    width: 750,
-    height: 750,
+    id: 'cropper',
+    width: 600,
+    height: 600,
     minScale: 1,
     maxScale: 2.5,
     src: ''
@@ -56,13 +56,12 @@ Page({
     if (e.touches.length >= 2) {
       self.touchX = self.rectX + self.scaleWidth / 2
       self.touchY = self.rectY + self.scaleHeight / 2
-      
+
       //计算两指距离
       xMove = touch1.x - touch0.x
       yMove = touch1.y - touch0.y
       oldDistance = Math.sqrt(xMove * xMove + yMove * yMove)
-      
-      // 保存至
+
       self.oldDistance = oldDistance
     }
   },
@@ -124,9 +123,23 @@ Page({
     self.rectX = self.imgLeft || self.rectX
     self.rectY = self.imgTop || self.rectY
   },
+  getCropperImage () {
+    let self = this
+    let { id } = self.data
+
+    wx.canvasToTempFilePath({
+      canvasId: id,
+      success (res) {
+        wx.previewImage({
+          current: '', // 当前显示图片的http链接
+          urls: [res.tempFilePath], // 需要预览的图片http链接列表
+        })
+      }
+    })
+  },
   onLoad (option) {
     let self = this
-    let { src } = self.data
+    let { src } = option
     self.initCanvas(src)
   }
 })
