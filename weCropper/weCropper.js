@@ -139,7 +139,7 @@ Page({
   },
   onLoad (option) {
     let self = this
-    let { src } = option
+    let { src } = self.data
     self.initCanvas(src)
   }
 })
