@@ -1,6 +1,6 @@
 # 微信小程序图片裁剪工具we-cropper
 ## 演示
-![](https://github.com/dlhandsome/we-cropper/blob/master/example.gif?raw=true)
+<img src="https://github.com/dlhandsome/we-cropper/blob/master/example.gif?raw=true" width="25%" height="25%"></img>
 ## data参数说明
 
 
