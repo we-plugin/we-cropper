@@ -80,7 +80,7 @@ git clone https://github.com/dlhandsome/we-cropper.git
 
 | 属性 | 类型 | 默认值 | 说明 |
 | ---- | ---- | ---- | ---- |
-| id | String | '-' | canvas组件标识符 |
+| id | String | - | canvas组件标识符 |
 | width | Number | - | 裁剪图片区域宽度 |
 | height | Number | - | 裁剪图片区域高度 |
 | minScale | Number | - | 最小缩放倍数 |
