@@ -25,7 +25,7 @@ git clone https://github.com/dlhandsome/we-cropper.git
 
 #### weCropper类
 
-使用ES2015中class进行封装的类，weCropper类进行实例化后，会依附在Page上下文的wecropper属性上，便于在page钩子函数中访问。
+使用ES2015中class进行封装，weCropper实例化后，其实例会依附在Page上下文的wecropper属性上，便于在Page钩子函数中访问。
 
 ###### 示例
 
@@ -76,7 +76,7 @@ git clone https://github.com/dlhandsome/we-cropper.git
 
 ```
 
-###### weCropper类的构造器参数
+###### weCropper构造器参数
 
 | 属性 | 类型 | 默认值 | 说明 |
 | ---- | ---- | ---- | ---- |
