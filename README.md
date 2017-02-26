@@ -2,12 +2,12 @@
 ## 演示
 <img src="https://github.com/dlhandsome/we-cropper/blob/master/example.gif?raw=true" width="25%" height="25%"></img>
 ## 使用说明
-**克隆项目到你的目录**
+### 克隆项目到你的目录
 ```bash
 cd my-project
 git clone https://github.com/dlhandsome/we-cropper.git
 ```
-**项目目录结构**
+### 项目目录结构
 ```
 ├── example                演示文件夹
 |   ├── weCropper.js       演示页面js
@@ -21,7 +21,7 @@ git clone https://github.com/dlhandsome/we-cropper.git
 ├── app.wxss               小程序配置项（全局样式配置）
 ├── example.gif            演示gif
 ```
-**API**
+## API
 
 #### weCropper类
 
