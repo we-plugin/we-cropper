@@ -1,6 +1,7 @@
  export default class weCropper {
+	 
 	constructor (params) {
-    let self = this
+		let self = this
 		let { windowWidth, windowHeight} = self.getDevice()
 
 		self.windowWidth = windowWidth
@@ -10,13 +11,12 @@
 		//  获取到当前page上下文
 		const pageContext = pages[pages.length - 1]
 
-    Object.assign(self, params)
+		Object.assign(self, params)
 
 		//  把this依附在Page上下文的wecropper属性上，便于在page钩子函数中访问
 		pageContext.wecropper = self
 
 		self.init()
-
 	}
 
 	getDevice () {
@@ -49,7 +49,6 @@
 				self.ctx.draw()
 			}
 		})
-		return self
 	}
 	//  图片手势初始监测
 	touchStart (e) {
