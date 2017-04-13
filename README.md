@@ -86,3 +86,16 @@ git clone https://github.com/dlhandsome/we-cropper.git
 | minScale | Number | - | 最小缩放倍数 |
 | maxScale | Number | - | 最大缩放倍数 |
 | src | String | - | 需裁剪的图片资源 |
+
+## TODO
+
+- 做到类似于微信原生裁剪效果
+
+## License
+The MIT License(http://opensource.org/licenses/MIT)
+
+请自由地享受和参与开源
+
+## 贡献
+
+如果你有好的意见或建议，欢迎给我提issue或pull request。
