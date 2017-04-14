@@ -147,7 +147,7 @@
 		return wx.canvasToTempFilePath({
 			canvasId: id,
 			success (res) {
-				cb(res.tempFilePath)
+				typeof cb === 'function' && cb(res.tempFilePath)
 			}
 		})
 	}

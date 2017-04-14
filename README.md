@@ -10,6 +10,10 @@ cd my-project
 git clone https://github.com/dlhandsome/we-cropper.git
 ```
 
+#### 微信开发者工具
+
+项目-->开启ES6转ES5
+
 ## ScreenShots
 
 [演示](https://github.com/dlhandsome/we-cropper/blob/master/screenshots)

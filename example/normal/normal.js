@@ -22,10 +22,14 @@ Page({
   },
   getCropperImage () {
     this.wecropper.getCropperImage(src => {
-      wx.previewImage({
-        current: '', // 当前显示图片的http链接
-        urls: [src] // 需要预览的图片http链接列表
-      })
+      if (src) {
+        wx.previewImage({
+          current: '', // 当前显示图片的http链接
+          urls: [src] // 需要预览的图片http链接列表
+        })
+      } else {
+        console.log('获取图片地址失败，请稍后重试')
+      }
     })
   },
   uploadTap () {
