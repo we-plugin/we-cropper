@@ -1,0 +1,37 @@
+.croper-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #e5e5e5;
+}
+.cropper{
+    background-color: rgba(0,0,0,.8);
+}
+
+.getCropperImage{
+    position:absolute;
+    bottom:0;
+    right: 0;
+    width:50%;
+    height: 100rpx;
+    line-height: 100rpx;
+    text-align: center;
+    color:#333;
+    background-color:transparent;
+}
+
+.upload{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:50%;
+    height: 100rpx;
+    line-height: 100rpx;
+    text-align: center;
+    color:#333;
+    background-color:transparent;
+    z-index: 100;
+}

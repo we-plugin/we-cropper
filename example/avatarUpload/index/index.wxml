@@ -1,0 +1,6 @@
+<view class="container flex">
+    <view>
+        <image src="{{src}}" class="avatar" bindtap="upload"></image>
+        <view class="item flex" bindtap="upload">click me</view>
+    </view>
+</view>

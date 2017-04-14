@@ -1,8 +1,8 @@
  export default class weCropper {
-	 
+
 	constructor (params) {
-		let self = this
-		let { windowWidth, windowHeight} = self.getDevice()
+		const self = this
+		const { windowWidth, windowHeight} = self.getDevice()
 
 		self.windowWidth = windowWidth
 		self.windowHeight = windowHeight
@@ -20,14 +20,14 @@
 	}
 
 	getDevice () {
-		let self = this
+		const self = this
 		!self.device && (self.device = wx.getSystemInfoSync())
 		return self.device
 	}
 
 	init () {
-		let self = this
-		let { src } = self
+		const self = this
+		const { src } = self
 		wx.getImageInfo({
 			src,
 			success (res) {
@@ -52,9 +52,9 @@
 	}
 	//  图片手势初始监测
 	touchStart (e) {
-		let self = this
+		const self = this
 		let xMove, yMove, oldDistance
-		let [touch0, touch1] = e.touches
+		const [touch0, touch1] = e.touches
 
 		//计算第一个触摸点的位置，并参照改点进行缩放
 		self.touchX = touch0.x
@@ -80,9 +80,9 @@
 	}
 	//  图片手势动态缩放
 	touchMove (e) {
-		let self = this
-		let { minScale, maxScale } = self
-		let [ touch0, touch1 ] = e.touches
+		const self = this
+		const { minScale, maxScale } = self
+		const [ touch0, touch1 ] = e.touches
 		let xMove, yMove, newDistance
 
 		if (e.timeStamp - self.timeOneFinger < 100) {
@@ -133,24 +133,21 @@
 	}
 
 	touchEnd (e) {
-		let self = this
+		const self = this
 
 		self.oldScale = self.newScale || self.oldScale
 		self.rectX = self.imgLeft || self.rectX
 		self.rectY = self.imgTop || self.rectY
 	}
 
-	getCropperImage () {
-		let self = this
-		let { id } = self
+	getCropperImage (cb) {
+		const self = this
+		const { id } = self
 
-		wx.canvasToTempFilePath({
+		return wx.canvasToTempFilePath({
 			canvasId: id,
 			success (res) {
-				wx.previewImage({
-					current: '', // 当前显示图片的http链接
-					urls: [res.tempFilePath], // 需要预览的图片http链接列表
-				})
+				cb(res.tempFilePath)
 			}
 		})
 	}
