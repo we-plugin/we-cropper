@@ -1,0 +1,23 @@
+<view class="croper-wrapper">
+    <canvas
+            class="cropper"
+            disable-scroll="true"
+            bindtouchstart="touchStart"
+            bindtouchmove="touchMove"
+            bindtouchend="touchEnd"
+            style="width:{{width}}rpx;height:{{height}}rpx;"
+            canvas-id="cropper">
+    </canvas>
+    <view class="classname">
+        <view
+                class="upload"
+                bindtap="uploadTap">
+            上传图片
+        </view>
+        <view
+                class="getCropperImage"
+                bindtap="getCropperImage">
+            生成图片
+        </view>
+    </view>
+</view>

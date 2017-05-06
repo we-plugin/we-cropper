@@ -21,7 +21,7 @@ Page({
     this.wecropper.touchEnd(e)
   },
   getCropperImage () {
-    this.wecropper.getCropperImage(avatar => {
+    this.wecropper.getCropperImage((avatar) => {
       if (avatar) {
         //  获取到裁剪后的图片
         wx.redirectTo({
@@ -43,6 +43,20 @@ Page({
         //  获取裁剪图片资源后，给data添加src属性及其值
         Object.assign(data, { src })
         new weCropper(data)
+					.on('ready', (ctx) => {
+						console.log(`weCropper is ready`)
+						console.log(`current canvas context: ${ctx}`)
+						wx.showToast({
+							title: '上传中',
+							icon: 'loading',
+							duration: 20000
+						})
+					})
+					.on('load', (ctx) => {
+						console.log(`picture loaded`)
+						console.log(`current canvas context: ${ctx}`)
+						wx.hideToast()
+					})
       }
     })
   },

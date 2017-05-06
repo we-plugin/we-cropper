@@ -1,7 +1,9 @@
 <view class="logo">
-    <text>we-cropper</text>
+    <text class="dashboard-title">we-cropper</text>
 </view>
 <view class="lists">
     <navigator class="list-item" url="../normal/normal" hover-class="navigator-hover">常规</navigator>
     <navigator class="list-item" url="../avatarUpload/index/index" hover-class="navigator-hover">头像上传</navigator>
+    <navigator class="list-item" url="../network/network" hover-class="navigator-hover">裁剪网络图</navigator>
+    <navigator class="list-item" url="../watermark/watermark" hover-class="navigator-hover">图片加水印</navigator>
 </view>

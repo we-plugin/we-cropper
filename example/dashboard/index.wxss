@@ -4,6 +4,21 @@
     font-size: 1.2rem;
 }
 
+.dashboard-title{
+    position: relative;
+    color: #999;
+}
+
+.dashboard-title:after{
+    position:absolute;
+    left:5%;
+    bottom:-15px;
+    content:'';
+    width:90%;
+    height:3px;
+    background-color:#ebebeb;
+}
+
 .lists{
     margin: 25rpx 0;
     border-top: 1rpx solid #d7d7d7;

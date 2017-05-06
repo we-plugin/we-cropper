@@ -6,6 +6,7 @@ const data = {
   height: 750,
   minScale: 1,
   maxScale: 2.5,
+  zoom: 8,
   src: ''
 }
 
@@ -21,7 +22,7 @@ Page({
     this.wecropper.touchEnd(e)
   },
   getCropperImage () {
-    this.wecropper.getCropperImage(src => {
+    this.wecropper.getCropperImage((src) => {
       if (src) {
         wx.previewImage({
           current: '', // 当前显示图片的http链接
@@ -44,6 +45,20 @@ Page({
         //  获取裁剪图片资源后，给data添加src属性及其值
         Object.assign(data, { src })
         new weCropper(data)
+          .on('ready', (ctx) => {
+						console.log(`weCropper is ready`)
+						console.log(`current canvas context: ${ctx}`)
+						wx.showToast({
+							title: '上传中',
+							icon: 'loading',
+							duration: 20000
+						})
+          })
+          .on('load', (ctx) => {
+						console.log(`picture loaded`)
+						console.log(`current canvas context: ${ctx}`)
+						wx.hideToast()
+          })
       }
     })
   },
