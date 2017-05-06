@@ -62,6 +62,8 @@ canvas组件标识符
     - `instance`: 返回weCropper实例
 - Example: 参考示例1-1
 
+钩子函数：weCropper实例化后会立即执行
+
 #### load
 
 - Type: `Function`
@@ -70,6 +72,8 @@ canvas组件标识符
     - `instance`: 返回weCropper实例
 - Example: 参考示例1-1
 
+钩子函数：图片加载完毕后会立即执行
+
 #### beforeDraw
 
 - Type: `Function`
@@ -77,6 +81,8 @@ canvas组件标识符
     - `ctx`: 返回当前画布的上下文
     - `instance`: 返回weCropper实例
 - Example: 参考示例1-1
+
+钩子函数：在画布绘制之前执行
 
 示例1-1
 
