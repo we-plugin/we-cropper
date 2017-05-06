@@ -136,10 +136,7 @@ canvas组件标识符
 
 ```javascript
     new weCropper({
-      id: 'cropper',
-      ready: ,
-      load: ,
-      beforeDraw: 
+      id: 'cropper'
     })
     .on('ready', function (ctx) {
       console.log(`weCropper is ready`)
