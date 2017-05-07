@@ -96,13 +96,22 @@ const DEFAULT = {
 			this.__ready__ = value
 		}
 	},
-	onLoad: {
+	onBeforeImageLoad: {
 		default: null,
 		get () {
-			return this.__load__
+			return this.__beforeImageLoad__
 		},
 		set (value) {
-			this.__load__ = value
+			this.__beforeImageLoad__ = value
+		}
+	},
+	onImageLoad: {
+		default: null,
+		get () {
+			return this.__imageLoad__
+		},
+		set (value) {
+			this.__imageLoad__ = value
 		}
 	},
 	onBeforeDraw: {
@@ -135,8 +144,8 @@ export default class weCropper {
 
 		self.attachPage()
 		self._hook()
-		self._init()
 		self._methods()
+		self._init()
 		self._updateTouch ()
 
 		return self
@@ -170,7 +179,7 @@ export default class weCropper {
 	_hook () {
 		const self = this
 
-		const EVENT_TYPE = ['ready', 'load', 'beforeDraw']
+		const EVENT_TYPE = ['ready', 'beforeImageLoad', 'beforeDraw', 'imageLoad']
 
 		self.on = (event, fn) => {
 			if (EVENT_TYPE.indexOf(event) > -1) {
@@ -190,36 +199,11 @@ export default class weCropper {
 		const self = this
 		const { src } = self
 
-		const { windowWidth, windowHeight} = self.getDevice()
-
 		typeof self.onReady === 'function' && self.onReady(self.ctx, self)
 
-		wx.getImageInfo({
-			src,
-			success (res) {
-				let { id, width, height } = self
-				let innerAspectRadio = res.width / res.height
-
-				self.croperTarget = res.path
-				self.rectX = 0
-				self.baseWidth= width * windowWidth / 750
-				self.baseHeight = width * windowWidth / (innerAspectRadio * 750)
-				self.rectY = (height * windowWidth / 750 - self.baseHeight) / 2
-				self.scaleWidth = self.baseWidth
-				self.scaleHeight = self.baseHeight
-				self.oldScale = 1
-
-				//  画布绘制图片
-				self.ctx = wx.createCanvasContext(id)
-				self.ctx.drawImage(self.croperTarget, self.rectX, self.rectY, self.baseWidth, self.baseHeight)
-
-				typeof self.onBeforeDraw === 'function' && self.onBeforeDraw(self.ctx, self)
-
-				self.ctx.draw()
-
-				typeof self.onLoad === 'function' && self.onLoad(self.ctx, self)
-			}
-		})
+		if (src) {
+			self.pushOrign(src)
+		}
 		self.setTouchState(false, false, false)
 
 		return self
@@ -227,6 +211,8 @@ export default class weCropper {
 
 	_updateTouch () {
 		const self = this
+
+		if (!self.src) return
 
 		self.__oneTouchStart = (touch) => {
 			self.touchX0 = touch.x
@@ -361,6 +347,43 @@ export default class weCropper {
 
 	_methods () {
 		const self = this
+		const { windowWidth } = self.getDevice()
+
+		self.pushOrign = (src) => {
+			self.src = src
+
+			typeof self.onBeforeImageLoad === 'function' && self.onBeforeImageLoad(self.ctx, self)
+
+			wx.getImageInfo({
+				src,
+				success (res) {
+					let { id, width, height } = self
+					let innerAspectRadio = res.width / res.height
+
+					self.croperTarget = res.path
+					self.rectX = 0
+					self.baseWidth= width * windowWidth / 750
+					self.baseHeight = width * windowWidth / (innerAspectRadio * 750)
+					self.rectY = (height * windowWidth / 750 - self.baseHeight) / 2
+					self.scaleWidth = self.baseWidth
+					self.scaleHeight = self.baseHeight
+					self.oldScale = 1
+
+					//  画布绘制图片
+					self.ctx = wx.createCanvasContext(id)
+					self.ctx.drawImage(self.croperTarget, self.rectX, self.rectY, self.baseWidth, self.baseHeight)
+
+					typeof self.onBeforeDraw === 'function' && self.onBeforeDraw(self.ctx, self)
+
+					self.ctx.draw()
+
+					typeof self.onImageLoad === 'function' && self.onImageLoad(self.ctx, self)
+				}
+			})
+
+			self._updateTouch()
+			return self
+		}
 
 		self.getCropperImage = (callback) => {
 			const { id } = self

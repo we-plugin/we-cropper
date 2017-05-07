@@ -1,5 +1,7 @@
 # 微信小程序图片裁剪工具we-cropper
 
+一款灵活小巧的canvas图片裁剪器
+
 <img src="https://github.com/dlhandsome/we-cropper/blob/master/screenshots/code.jpg?raw=true" width="100%"></img>
 
 ## 使用说明

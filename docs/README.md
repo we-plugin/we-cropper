@@ -1,31 +1,143 @@
 # 微信小程序图片裁剪工具we-cropper
 
+一款灵活小巧的canvas图片裁剪器
+
 <img src="https://github.com/dlhandsome/we-cropper/blob/master/screenshots/code.jpg?raw=true" width="100%"></img>
 
 ## 使用说明
 
-#### 克隆项目到你的目录
+*** 克隆项目到你的目录 ***
 ```bash
 cd my-project
 git clone https://github.com/dlhandsome/we-cropper.git
 ```
 
-#### 微信开发者工具
+*** 微信开发者工具 ***
 
-项目-->开启ES6转ES5
+!> 工具库使用了S6语法，需要开启ES6转ES5
 
-## Links
+<img src="https://github.com/dlhandsome/we-cropper/blob/master/screenshots/wxTool.jpg?raw=true" width="100%"></img>
 
-[Document](https://dlhandsome.github.io/we-cropper/#/)
+## 示例
 
-[ChangeLog](https://dlhandsome.github.io/we-cropper/#/changelog)
+*** WXML ***
 
+> 首先需要在WXML结构中置入一个canvas作为裁剪图片的容器，并绑定对应的事件句柄。
 
-## License
-The MIT License(http://opensource.org/licenses/MIT)
+!> 需要注意的是，canvas的宽高（width、height）需要和we-cropper构造器参数中的保持一致
 
-请自由地享受和参与开源
+```html
+<view class="croper-wrapper">
+    <canvas
+            class="cropper"
+            disable-scroll="true"
+            bindtouchstart="touchStart"
+            bindtouchmove="touchMove"
+            bindtouchend="touchEnd"
+            style="width:{{width}}rpx;height:{{height}}rpx;"
+            canvas-id="cropper">
+    </canvas>
+    <view class="classname">
+        <view
+                class="upload"
+                bindtap="uploadTap">
+            上传图片
+        </view>
+        <view
+                class="getCropperImage"
+                bindtap="getCropperImage">
+            生成图片
+        </view>
+    </view>
+</view>
 
-## 贡献
+```
+> 引入weCropper插件
+```javascript
+import weCropper from '../../src/weCropper.core.js'
+```
 
-如果你有好的意见或建议，欢迎给我提issue或pull request
+> 将构造器参数注册在data中
+```javascript
+    data: {
+		id: 'cropper',
+		width: 750,
+		height: 750,
+		minScale: 1,
+		maxScale: 2.5,
+		zoom: 8
+	}
+```
+> 推荐在页面onLoad函数中实例化weCropper
+
+```javascript
+    //...
+    onLoad (option) {
+        const { data } = this
+    
+        new weCropper(data)
+            .on('ready', function (ctx) {
+                console.log(`wecropper is ready for work!`)
+            })
+            .on('beforeImageLoad', (ctx) => {
+                console.log(`before picture loaded, i can do something`)
+                console.log(`current canvas context: ${ctx}`)
+                wx.showToast({
+                    title: '上传中',
+                    icon: 'loading',
+                    duration: 20000
+                })
+            })
+            .on('imageLoad', (ctx) => {
+                console.log(`picture loaded`)
+                console.log(`current canvas context: ${ctx}`)
+                wx.hideToast()
+            })
+    }
+   
+```
+
+!> 这里图片地址有两种方式传入
+    - 实例化时通过构造参数传入
+    - 惰性载入
+    
+> 上面示例则是惰性载入的方式，当点击上传图片按钮时,获取图片地址，并通过pushOrign方法载入图片
+
+```javascript
+    //...
+    uploadTap () {
+      const self = this
+      const { data } = self
+    
+      wx.chooseImage({
+        count: 1, // 默认9
+        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+        success (res) {
+          const src = res.tempFilePaths[0]
+           //  获取裁剪图片资源后，给data添加src属性及其值
+          Object.assign(data, { src })
+    
+          self.wecropper.pushOrign(src)
+        }
+      })
+    }
+```
+
+> 缩放调整画布中的图片直到满意的状态，点击生成图片按钮，导出图片
+
+```javascript
+    getCropperImage () {
+      this.wecropper.getCropperImage((src) => {
+        if (src) {
+          wx.previewImage({
+            current: '', // 当前显示图片的http链接
+            urls: [src] // 需要预览的图片http链接列表
+          })
+        } else {
+          console.log('获取图片地址失败，请稍后重试')
+        }
+      })
+     }
+```
+

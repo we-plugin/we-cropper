@@ -119,6 +119,13 @@ canvas组件标识符
 
 ### 方法
 
+#### wecropper.pushOrign(src)
+
+- src:
+    - Type: `String`
+
+载入图片
+
 #### wecropper.getCropperImage(callback)
 
 - callback:
@@ -126,17 +133,21 @@ canvas组件标识符
     - Params:
         - `src`: 裁剪后的图片路径
         
+获取画布图片
+        
 #### wecropper.on(event, callback)
 
 - event:
     - Type: `String`
-    - Range: `ready、load、beforeDraw`
+    - Range: `ready、beforeImageLoad、imageLoad、beforeDraw`
     
 - callback:
     - Type: `Function`
     - Params:
         - `ctx`: 返回当前画布的上下文
     - Example: 参考示例2-1
+    
+事件监听
 
 
 > 示例2-1
