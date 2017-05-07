@@ -53,11 +53,13 @@ git clone https://github.com/dlhandsome/we-cropper.git
 
 ```
 > 引入weCropper插件
+
 ```javascript
 import weCropper from '../../src/weCropper.core.js'
 ```
 
 > 将构造器参数注册在data中
+
 ```javascript
     data: {
 		id: 'cropper',
@@ -68,6 +70,7 @@ import weCropper from '../../src/weCropper.core.js'
 		zoom: 8
 	}
 ```
+
 > 推荐在页面onLoad函数中实例化weCropper
 
 ```javascript
@@ -98,8 +101,8 @@ import weCropper from '../../src/weCropper.core.js'
 ```
 
 !> 这里图片地址有两种方式传入
-    - 实例化时通过构造参数传入
-    - 惰性载入
+ ?> 实例化时通过构造参数传入
+ ?> 惰性载入
     
 > 上面示例则是惰性载入的方式，当点击上传图片按钮时,获取图片地址，并通过pushOrign方法载入图片
 
