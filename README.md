@@ -1,6 +1,6 @@
 # 微信小程序图片裁剪工具we-cropper
 
-<img src="https://github.com/dlhandsome/we-cropper/blob/master/screenshots/code.png?raw=true" width="100%"></img>
+<img src="https://github.com/dlhandsome/we-cropper/blob/master/screenshots/code.jpg?raw=true" width="100%"></img>
 
 ## 使用说明
 
