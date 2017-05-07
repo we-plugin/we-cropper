@@ -65,9 +65,9 @@ Page({
 						console.log(`before canvas draw,i can do something`)
 						console.log(`current canvas context: ${ctx}`)
 						//  那就尝试在图片上加个水印吧
-						ctx.setFontSize(20)
+						ctx.setFontSize(14)
 						ctx.setFillStyle('#ffffff')
-						ctx.fillText('@dlhandsome', 200, 200)
+						ctx.fillText('@we-cropper', 265, 350)
 					})
       }
     })

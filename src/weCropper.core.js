@@ -1,3 +1,5 @@
+const __version__ = '1.1.1'
+
 const DEFAULT = {
 	id: {
 		default: 'cropper',
@@ -85,7 +87,7 @@ const DEFAULT = {
 			this.__src__ = value
 		}
 	},
-	ready: {
+	onReady: {
 		default: null,
 		get () {
 			return this.__ready__
@@ -94,7 +96,7 @@ const DEFAULT = {
 			this.__ready__ = value
 		}
 	},
-	load: {
+	onLoad: {
 		default: null,
 		get () {
 			return this.__load__
@@ -103,7 +105,7 @@ const DEFAULT = {
 			this.__load__ = value
 		}
 	},
-	beforeDraw: {
+	onBeforeDraw: {
 		default: null,
 		get () {
 			return this.__beforeDraw__
@@ -118,12 +120,13 @@ export default class weCropper {
 
 	constructor (params) {
 		const self = this
+		const _default = {}
+
+		self.version = __version__
 
 		self.validator(DEFAULT)
-
 		self.tools()
 
-		let _default = {}
 		Object.keys(DEFAULT).forEach(key => {
 			_default[key] = DEFAULT[key].default
 		})
@@ -141,6 +144,10 @@ export default class weCropper {
 
 	tools () {
 		const self = this
+
+		self.firstLetterUpper = (str) => {
+			return str.charAt(0).toUpperCase() + str.slice(1)
+		}
 
 		self.attachPage = () => {
 			const pages = getCurrentPages()
@@ -170,7 +177,7 @@ export default class weCropper {
 				if (typeof(fn) === 'function') {
 					event === 'ready'
 					? fn(self)
-					: self[event] = fn
+					: self[`on${ self.firstLetterUpper(event) }`] = fn
 				}
 			} else {
 				console.error(`event: ${ event } is invalid`)
@@ -185,7 +192,7 @@ export default class weCropper {
 
 		const { windowWidth, windowHeight} = self.getDevice()
 
-		typeof self.ready === 'function' && self.ready(self.ctx, self)
+		typeof self.onReady === 'function' && self.onReady(self.ctx, self)
 
 		wx.getImageInfo({
 			src,
@@ -206,11 +213,11 @@ export default class weCropper {
 				self.ctx = wx.createCanvasContext(id)
 				self.ctx.drawImage(self.croperTarget, self.rectX, self.rectY, self.baseWidth, self.baseHeight)
 
-				typeof self.beforeDraw === 'function' && self.beforeDraw(self.ctx, self)
+				typeof self.onBeforeDraw === 'function' && self.onBeforeDraw(self.ctx, self)
 
 				self.ctx.draw()
 
-				typeof self.load === 'function' && self.load(self.ctx, self)
+				typeof self.onLoad === 'function' && self.onLoad(self.ctx, self)
 			}
 		})
 		self.setTouchState(false, false, false)
@@ -232,7 +239,7 @@ export default class weCropper {
 			if (self.touchstarted === false) {
 				self.ctx.drawImage(self.croperTarget, self.imgLeft, self.imgTop, self.scaleWidth, self.scaleHeight)
 
-				typeof self.beforeDraw === 'function' && self.beforeDraw(self.ctx, self)
+				typeof self.onBeforeDraw === 'function' && self.onBeforeDraw(self.ctx, self)
 
 				self.ctx.draw()
 				return
@@ -245,7 +252,7 @@ export default class weCropper {
 
 			self.ctx.drawImage(self.croperTarget, self.imgLeft, self.imgTop, self.scaleWidth, self.scaleHeight)
 
-			typeof self.beforeDraw === 'function' && self.beforeDraw(self.ctx, self)
+			typeof self.onBeforeDraw === 'function' && self.onBeforeDraw(self.ctx, self)
 
 			self.ctx.draw()
 		}
@@ -286,7 +293,7 @@ export default class weCropper {
 
 			self.ctx.drawImage(self.croperTarget, self.imgLeft, self.imgTop, self.scaleWidth, self.scaleHeight)
 
-			typeof self.beforeDraw === 'function' && self.beforeDraw(self.ctx, self)
+			typeof self.onBeforeDraw === 'function' && self.onBeforeDraw(self.ctx, self)
 
 			self.ctx.draw()
 		}

@@ -54,7 +54,7 @@ canvas组件标识符
 
 缩放系数
 
-#### ready
+#### onReady
 
 - Type: `Function`
 - Params:
@@ -64,7 +64,7 @@ canvas组件标识符
 
 钩子函数：weCropper实例化后会立即执行
 
-#### load
+#### onLoad
 
 - Type: `Function`
 - Params:
@@ -74,7 +74,7 @@ canvas组件标识符
 
 钩子函数：图片加载完毕后会立即执行
 
-#### beforeDraw
+#### onBeforeDraw
 
 - Type: `Function`
 - Params:
@@ -84,12 +84,12 @@ canvas组件标识符
 
 钩子函数：在画布绘制之前执行
 
-示例1-1
+> 示例1-1
 
 ```javascript
     new weCropper({
       id: 'cropper',
-      ready: function (ctx) {
+      onReady: function (ctx) {
       	console.log(`weCropper is ready`)
       	console.log(`current canvas context: ${ctx}`)
       	wx.showToast({
@@ -98,18 +98,18 @@ canvas组件标识符
             duration: 20000
       	})
       },
-      load: function (ctx) {
+      onLoad: function (ctx) {
       	console.log(`picture loaded`)
         console.log(`current canvas context: ${ctx}`)
         wx.hideToast()
       },
-      beforeDraw: function (ctx) {
+      onBeforeDraw: function (ctx) {
       	console.log(`before canvas draw,i can do something`)
       	console.log(`current canvas context: ${ctx}`)
       	//  那就尝试在图片上加个水印吧
-      	ctx.setFontSize(20)
+        ctx.setFontSize(14)
         ctx.setFillStyle('#ffffff')
-        ctx.fillText('@dlhandsome', 200, 200)
+        ctx.fillText('@we-cropper', 265, 350)
       }
     })
 
@@ -136,9 +136,10 @@ canvas组件标识符
     - Type: `Function`
     - Params:
         - `ctx`: 返回当前画布的上下文
+    - Example: 参考示例2-1
 
 
-示例2-1
+> 示例2-1
 
 ```javascript
     new weCropper({
@@ -162,9 +163,9 @@ canvas组件标识符
       console.log(`before canvas draw,i can do something`)
       console.log(`current canvas context: ${ctx}`)
       //  那就尝试在图片上加个水印吧
-      ctx.setFontSize(20)
+      ctx.setFontSize(14)
       ctx.setFillStyle('#ffffff')
-      ctx.fillText('@dlhandsome', 200, 200)
+      ctx.fillText('@we-cropper', 265, 350)
     })
 
 ```

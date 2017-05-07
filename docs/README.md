@@ -1,30 +1,25 @@
 # 微信小程序图片裁剪工具we-cropper
 
-<img src="https://github.com/dlhandsome/we-cropper/blob/master/screenshots/dashboard.png?raw=true" width="25%" height="25%"></img>
+<img src="https://github.com/dlhandsome/we-cropper/blob/master/screenshots/code.png?raw=true" width="100%"></img>
 
 ## 使用说明
 
-- 克隆项目到你的目录
+#### 克隆项目到你的目录
 ```bash
 cd my-project
 git clone https://github.com/dlhandsome/we-cropper.git
 ```
 
-- 微信开发者工具
+#### 微信开发者工具
 
 项目-->开启ES6转ES5
 
-## ScreenShots
+## Links
 
-[演示](https://github.com/dlhandsome/we-cropper/blob/master/screenshots)
+[Document](https://dlhandsome.github.io/we-cropper/#/)
 
-## API
+[ChangeLog](https://dlhandsome.github.io/we-cropper/#/changelog)
 
-[构造参数及方法](api.md)
-
-## ChangeLog
-
-[修改日志](changelog.md)
 
 ## License
 The MIT License(http://opensource.org/licenses/MIT)
@@ -33,4 +28,4 @@ The MIT License(http://opensource.org/licenses/MIT)
 
 ## 贡献
 
-如果你有好的意见或建议，欢迎给我提issue或pull request。
+如果你有好的意见或建议，欢迎给我提issue或pull request
