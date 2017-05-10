@@ -57,7 +57,7 @@ Page({
 				const { path } = res
 
 				new weCropper(data)
-					.on('ready', function (ctx) {
+					.on('ready', (ctx) => {
 						console.log(`wecropper is ready for work!`)
 					})
 					.on('beforeImageLoad', (ctx) => {

@@ -22,7 +22,7 @@ git clone https://github.com/dlhandsome/we-cropper.git
 
 *** WXML ***
 
-> 首先需要在WXML结构中置入一个canvas作为裁剪图片的容器，并绑定对应的事件句柄。
+> 首先需要在WXML结构中置入一个canvas作为裁剪图片的容器，并绑定相应的事件句柄。
 
 !> 需要注意的是，canvas的宽高（width、height）需要和we-cropper构造器参数中的保持一致
 
@@ -98,6 +98,25 @@ import weCropper from '../../src/weCropper.core.js'
             })
     }
    
+```
+
+> 事件绑定
+
+!> wecropper插件通过touchStart、touchMove、touchEnd方法来接收事件对象。
+
+```javascript
+      //...
+      touchStart (e) {
+	    this.wecropper.touchStart(e)
+      },
+      touchMove (e) {
+	    this.wecropper.touchMove(e)
+      },
+      touchEnd (e) {
+	    this.wecropper.touchEnd(e)
+      }
+      //...
+
 ```
 
 !> 这里图片地址有两种方式传入

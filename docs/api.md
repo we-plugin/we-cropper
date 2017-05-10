@@ -149,6 +149,27 @@ canvas组件标识符
     
 事件监听
 
+#### wecropper.touchStart(e)
+
+- e:
+    - Type: `Object`
+
+接收（手指触摸动作开始）事件对象
+
+#### wecropper.touchMove(e)
+
+- e:
+    - Type: `Object`
+
+接收（手指触摸后移动）事件对象
+
+#### wecropper.touchEnd(e)
+
+- e:
+    - Type: `Object`
+
+接收（手指触摸动作结束）事件对象
+
 
 > 示例2-1
 
