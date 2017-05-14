@@ -179,3 +179,12 @@ this.wecropper.pushOrign(src)
      }
 ```
 
+## 遇到问题
+
++ [Issues](https://github.com/dlhandsome/we-cropper/issues)
+
++ [Pull requests](https://github.com/dlhandsome/we-cropper)
+
++ 联系作者
+
+<img src="assets/wechat.jpg" width="200" height="200">
