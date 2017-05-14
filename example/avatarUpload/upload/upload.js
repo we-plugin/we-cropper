@@ -58,7 +58,7 @@ Page({
 				})
 				.on('beforeImageLoad', (ctx) => {
 					console.log(`before picture loaded, i can do something`)
-					console.log(`current canvas context: ${ctx}`)
+					console.log(`current canvas context:`, ctx)
 					wx.showToast({
 						title: '上传中',
 						icon: 'loading',
@@ -67,7 +67,7 @@ Page({
 				})
 				.on('imageLoad', (ctx) => {
 					console.log(`picture loaded`)
-					console.log(`current canvas context: ${ctx}`)
+					console.log(`current canvas context:`, ctx)
 					wx.hideToast()
 				})
     }
