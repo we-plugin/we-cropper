@@ -6,7 +6,7 @@
 
 ## 使用说明
 
-*** 克隆项目到你的目录 ***
+*** 克隆项目至你的目录 ***
 ```bash
 cd my-project
 git clone https://github.com/dlhandsome/we-cropper.git
@@ -120,9 +120,9 @@ import weCropper from '../../src/weCropper.core.js'
 
 ```
 
-!> 有两种方式传入目标图片地址: 
+!> 有两种方式载入图片: 
     
-+ 实例化时通过构造参数传入 
++ 构造参数载入 
 
 ```javascript
 new weCropper({
@@ -139,7 +139,7 @@ const src = '...'
 this.wecropper.pushOrign(src)
 ```
     
-> 上面示例则是惰性载入的方式，当点击上传图片按钮时,获取图片地址，并通过pushOrign方法载入图片
+> 示例采用惰性载入的方式：点击上传图片按钮后获取图片地址，并通过pushOrign方法载入图片
 
 ```javascript
     //...
