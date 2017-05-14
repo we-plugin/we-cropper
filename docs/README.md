@@ -10,11 +10,12 @@
 ```bash
 cd my-project
 git clone https://github.com/dlhandsome/we-cropper.git
+cd we-cropper
 ```
 
 *** 微信开发者工具 ***
 
-!> 工具库使用了S6语法，需要开启ES6转ES5
+!> 工具库使用了ES6语法，需要开启ES6转ES5
 
 <img src="https://github.com/dlhandsome/we-cropper/blob/master/screenshots/wxTool.jpg?raw=true" width="100%"></img>
 
@@ -79,7 +80,7 @@ import weCropper from '../../src/weCropper.core.js'
         const { data } = this
     
         new weCropper(data)
-            .on('ready', function (ctx) {
+            .on('ready', (ctx) => {
                 console.log(`wecropper is ready for work!`)
             })
             .on('beforeImageLoad', (ctx) => {
@@ -119,9 +120,24 @@ import weCropper from '../../src/weCropper.core.js'
 
 ```
 
-!> 这里图片地址有两种方式传入
- ?> 实例化时通过构造参数传入
- ?> 惰性载入
+!> 有两种方式传入目标图片地址: 
+    
++ 实例化时通过构造参数传入 
+
+```javascript
+new weCropper({
+	// ...
+	src: '...',
+	// ...
+})
+```
++ 惰性载入
+
+```javascript
+const src = '...'
+
+this.wecropper.pushOrign(src)
+```
     
 > 上面示例则是惰性载入的方式，当点击上传图片按钮时,获取图片地址，并通过pushOrign方法载入图片
 

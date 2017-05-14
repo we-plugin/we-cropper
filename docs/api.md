@@ -89,23 +89,23 @@ canvas组件标识符
 ```javascript
     new weCropper({
       id: 'cropper',
-      onReady: function (ctx) {
+      onReady (ctx) {
       	console.log(`weCropper is ready`)
-      	console.log(`current canvas context: ${ctx}`)
+      	console.log(`current canvas context:`, ctx)
       	wx.showToast({
       		title: '上传中',
             icon: 'loading',
             duration: 20000
       	})
       },
-      onLoad: function (ctx) {
-      	console.log(`picture loaded`)
-        console.log(`current canvas context: ${ctx}`)
+      onLoad (ctx) {
+        console.log(`picture loaded`)
+        console.log(`current canvas context:`, ctx)
         wx.hideToast()
       },
-      onBeforeDraw: function (ctx) {
-      	console.log(`before canvas draw,i can do something`)
-      	console.log(`current canvas context: ${ctx}`)
+      onBeforeDraw (ctx) {
+        console.log(`before canvas draw,i can do something`)
+        console.log(`current canvas context:`, ctx)
       	//  那就尝试在图片上加个水印吧
         ctx.setFontSize(14)
         ctx.setFillStyle('#ffffff')
@@ -177,23 +177,23 @@ canvas组件标识符
     new weCropper({
       id: 'cropper'
     })
-    .on('ready', function (ctx) {
+    .on('ready', (ctx) => {
       console.log(`weCropper is ready`)
-      console.log(`current canvas context: ${ctx}`)
+      console.log(`current canvas context:`, ctx)
       wx.showToast({
         title: '上传中',
         icon: 'loading',
         duration: 20000
       })
     })
-    .on('load', function (ctx) {
+    .on('load', (ctx) => {
       console.log(`picture loaded`)
-      console.log(`current canvas context: ${ctx}`)
+      console.log(`current canvas context:`, ctx)
       wx.hideToast()
     })
-    .on('beforeDraw', function (ctx) {
+    .on('beforeDraw', (ctx) => {
       console.log(`before canvas draw,i can do something`)
-      console.log(`current canvas context: ${ctx}`)
+      console.log(`current canvas context:`, ctx)
       //  那就尝试在图片上加个水印吧
       ctx.setFontSize(14)
       ctx.setFillStyle('#ffffff')
