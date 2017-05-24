@@ -143,6 +143,7 @@ export default class weCropper {
 		Object.assign(self, _default, params)
 
 		self.attachPage()
+		self.createCtx()
 		self._hook()
 		self._methods()
 		self._init()
@@ -164,6 +165,15 @@ export default class weCropper {
 			const pageContext = pages[pages.length - 1]
 			//  把this依附在Page上下文的wecropper属性上，便于在page钩子函数中访问
 			pageContext.wecropper = self
+		}
+
+		self.createCtx = () => {
+			const { id } =  self
+			if (id) {
+				self.ctx = wx.createCanvasContext(id)
+			} else {
+				console.error(`constructor: create canvas context failed, 'id' must be valuable`)
+			}
 		}
 
 		self.getDevice = () => {
@@ -277,11 +287,7 @@ export default class weCropper {
 			self.imgLeft =  self.touchX1 - self.scaleWidth / 2
 			self.imgTop = self.touchY1 - self.scaleHeight / 2
 
-			self.ctx.drawImage(self.croperTarget, self.imgLeft, self.imgTop, self.scaleWidth, self.scaleHeight)
-
-			typeof self.onBeforeDraw === 'function' && self.onBeforeDraw(self.ctx, self)
-
-			self.ctx.draw()
+			self.updateCanvas()
 		}
 
 		self.__xtouchEnd = () => {
@@ -349,6 +355,16 @@ export default class weCropper {
 		const self = this
 		const { windowWidth } = self.getDevice()
 
+		self.updateCanvas = () => {
+			if (self.croperTarget) {
+				//  画布绘制图片
+				self.ctx.drawImage(self.croperTarget, self.imgLeft, self.imgTop, self.scaleWidth, self.scaleHeight)
+			}
+			typeof self.onBeforeDraw === 'function' && self.onBeforeDraw(self.ctx, self)
+
+			self.ctx.draw()
+		}
+
 		self.pushOrign = (src) => {
 			self.src = src
 
@@ -357,7 +373,7 @@ export default class weCropper {
 			wx.getImageInfo({
 				src,
 				success (res) {
-					let { id, width, height } = self
+					let { width, height } = self
 					let innerAspectRadio = res.width / res.height
 
 					self.croperTarget = res.path
@@ -365,17 +381,14 @@ export default class weCropper {
 					self.baseWidth= width * windowWidth / 750
 					self.baseHeight = width * windowWidth / (innerAspectRadio * 750)
 					self.rectY = (height * windowWidth / 750 - self.baseHeight) / 2
+
+					self.imgLeft = self.rectX
+					self.imgTop = self.rectY
 					self.scaleWidth = self.baseWidth
 					self.scaleHeight = self.baseHeight
 					self.oldScale = 1
 
-					//  画布绘制图片
-					self.ctx = wx.createCanvasContext(id)
-					self.ctx.drawImage(self.croperTarget, self.rectX, self.rectY, self.baseWidth, self.baseHeight)
-
-					typeof self.onBeforeDraw === 'function' && self.onBeforeDraw(self.ctx, self)
-
-					self.ctx.draw()
+					self.updateCanvas()
 
 					typeof self.onImageLoad === 'function' && self.onImageLoad(self.ctx, self)
 				}

@@ -1,5 +1,8 @@
 ## changelog
 
+### v1.1.2 (2017-5-24)
+- `A` 新增 『API：方法』更新canvas视图`updateCanvas`[ISSUE #3](https://github.com/dlhandsome/we-cropper/issues/3)
+
 ### v1.1.1 (2017-5-7)
 - `A` 新增 『API：方法』载入图片`pushOrign`
 
@@ -15,7 +18,7 @@
 
 - `A` 新增 『示例』裁剪网络图片、给图片加水印
 
-- `F` 修复  网络图片路径、相对路径传入src无法显示图片的bug
+- `F` 修复  网络图片路径、相对路径传入src无法显示图片的bug[ISSUE #2](https://github.com/dlhandsome/we-cropper/issues/2)
 
 ### v1.0.0 (2017-4-14) 
 
