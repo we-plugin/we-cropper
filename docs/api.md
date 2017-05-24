@@ -119,6 +119,10 @@ canvas组件标识符
 
 ### 方法
 
+#### wecropper.updateCanvas()
+
+更新画布视图
+
 #### wecropper.pushOrign(src)
 
 - src:
