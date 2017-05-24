@@ -1,4 +1,4 @@
-const __version__ = '1.1.1'
+const __version__ = '1.1.2'
 
 const DEFAULT = {
 	id: {
