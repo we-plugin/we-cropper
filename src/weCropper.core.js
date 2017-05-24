@@ -363,6 +363,7 @@ export default class weCropper {
 			typeof self.onBeforeDraw === 'function' && self.onBeforeDraw(self.ctx, self)
 
 			self.ctx.draw()
+			return self
 		}
 
 		self.pushOrign = (src) => {
