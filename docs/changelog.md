@@ -3,7 +3,7 @@
 ### v1.1.3 (2017-6-1)
 - `F` 修复 裁剪图片清晰度问题 [ISSUE #4](https://github.com/dlhandsome/we-cropper/issues/4)
 
-- `A` 丰富接口功能 『API：方法』[获取裁剪图片]()
+- `A` 丰富接口功能 『API：方法』[获取裁剪图片](https://dlhandsome.github.io/we-cropper/#/api?id=wecroppergetcropperimageoptcallback)
 
 ### v1.1.2 (2017-5-24)
 - `A` 新增 『API：方法』更新canvas视图`updateCanvas` [ISSUE #3](https://github.com/dlhandsome/we-cropper/issues/3)
