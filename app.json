@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "example/dashboard/index",
+    "example/normal/normal",
+    "example/avatarUpload/index/index",
+    "example/avatarUpload/upload/upload",
+    "example/network/network",
+    "example/watermark/watermark",
+    "example/cutInside/cutInside"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarTitleText": "示例",
+    "navigationBarTextStyle": "#fff"
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000,
+    "uploadFile": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}
