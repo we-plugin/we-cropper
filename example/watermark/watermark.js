@@ -8,7 +8,7 @@ Page({
 		id: 'cropper',
 		width: 750,
 		height: 750,
-		minScale: 1,
+		minScale: 0.1,
 		maxScale: 2.5,
 		zoom: 8
 	},
@@ -24,6 +24,7 @@ Page({
   getCropperImage () {
     this.wecropper.getCropperImage((src) => {
       if (src) {
+      	console.log(src)
         wx.previewImage({
           current: '', // 当前显示图片的http链接
           urls: [src] // 需要预览的图片http链接列表
@@ -78,7 +79,7 @@ Page({
 						console.log(`before canvas draw,i can do something`)
 						console.log(`current canvas context:`, ctx)
 						//  那就尝试在图片上加个水印吧
-						ctx.drawImage(path, 50, 50, 50, 30)
+						// ctx.drawImage(path, 50, 50, 50, 30)
 						ctx.setFontSize(14)
 						ctx.setFillStyle('#ffffff')
 						ctx.fillText(__watermark_font__, 265, 350)
