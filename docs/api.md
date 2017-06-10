@@ -14,14 +14,14 @@ canvas组件标识符
 - Type: `Number`
 - Default: `-`
 
-裁剪图片区域宽度
+容器宽度
 
 #### height
 
 - Type: `Number`
 - Default: `-`
 
-裁剪图片区域高度
+容器高度
 
 #### minScale
 
