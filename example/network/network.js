@@ -1,4 +1,4 @@
-import weCropper from '../../src/weCropper.core.js'
+import weCropper from '../../src/main.js'
 
 const __network_image__ = 'http://image.smartisanos.cn/resource/a9ea11be5ffa8225110782fe3ac46a74.png'
 

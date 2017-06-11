@@ -1,4 +1,4 @@
-import weCropper from '../../../src/weCropper.core.js'
+import weCropper from '../../../src/main.js'
 
 Page({
   data:  {

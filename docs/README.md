@@ -56,10 +56,8 @@ cd we-cropper
 > 引入weCropper插件
 
 ```javascript
-import weCropper from '../../src/weCropper.core.js'
-```
-
-> 将构造器参数注册在data中
+import weCropper from main.js
+```main.js中
 
 ```javascript
     data: {

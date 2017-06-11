@@ -1,7 +1,7 @@
 /**
  * Created by sail on 2017/6/1.
  */
-import weCropper from '../../src/weCropper.core.js'
+import weCropper from '../../src/main.js'
 import cutInside from './weCropper.cutInside'
 
 const __cut_width__ = 175
