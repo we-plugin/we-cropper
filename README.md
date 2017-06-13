@@ -2,7 +2,9 @@
 
 一款灵活小巧的canvas图片裁剪器
 
-<img src="https://github.com/dlhandsome/we-cropper/blob/master/screenshots/code.jpg?raw=true" width="100%"></img>
+<div style="position:relative;width: 100%">
+    <img src="https://github.com/dlhandsome/we-cropper/blob/lab/docs/assets/screenshot.jpg" width="50%" style="position:absolute; left: 50%; transform:translateX(-50%)"></img>
+</div>
 
 ## Feature
 
@@ -15,17 +17,13 @@
     - 添加水印
     - 局部裁剪
 
-## 使用说明
+## Usage
 
 #### 克隆项目到你的目录
 ```bash
 cd my-project
 git clone https://github.com/dlhandsome/we-cropper.git
 ```
-
-#### 微信开发者工具
-
-项目-->开启ES6转ES5
 
 ## Links
 
@@ -39,6 +37,6 @@ The MIT License(http://opensource.org/licenses/MIT)
 
 请自由地享受和参与开源
 
-## 贡献
+## Contribute
 
 如果你有好的意见或建议，欢迎给我提issue或pull request
