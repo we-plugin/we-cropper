@@ -1,1 +1,1 @@
-@import '../normal/normal.wxss';
+@import "../style/common.wxss";
