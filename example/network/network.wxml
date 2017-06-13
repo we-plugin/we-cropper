@@ -1,14 +1,8 @@
-<view class="croper-wrapper">
-    <canvas
-            class="cropper"
-            disable-scroll="true"
-            bindtouchstart="touchStart"
-            bindtouchmove="touchMove"
-            bindtouchend="touchEnd"
-            style="width:{{width}}px;height:{{height}}px;"
-            canvas-id="cropper">
-    </canvas>
-    <view class="classname">
+<import src="../../dist/weCropper.wxml"/>
+
+<view class="cropper-wrapper">
+    <template is="weCropper" data="{{...cropperOpt}}"/>
+    <view class="cropper-buttons">
         <view
                 class="upload"
                 bindtap="uploadTap">

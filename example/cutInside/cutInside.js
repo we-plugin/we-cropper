@@ -4,20 +4,24 @@
 import weCropper from '../../dist/weCropper.js'
 
 const device = wx.getSystemInfoSync()
+const width = device.windowWidth
+const height = device.windowHeight - 50
 
 Page({
 	data: {
-		id: 'cropper',
-    width: device.windowWidth,
-		height: device.windowWidth,
-		scale: 2.5,
-		zoom: 8,
-    cut: {
-      x: 100,
-      y: 100,
-      width: 175,
-      height: 175
-    }
+		cropperOpt: {
+			id: 'cropper',
+			width,
+			height,
+			scale: 2.5,
+			zoom: 8,
+			cut: {
+				x: (width - 300) / 2,
+				y: (height - 300) / 2,
+				width: 300,
+				height: 300
+			}
+		}
 	},
 	touchStart (e) {
 		this.wecropper.touchStart(e)
@@ -29,11 +33,6 @@ Page({
 		this.wecropper.touchEnd(e)
 	},
 	getCropperImage () {
-		const { width, height } = this.data
-		const { windowWidth } = wx.getSystemInfoSync()
-
-		const radio = windowWidth / 750
-
 		this.wecropper.getCropperImage((src) => {
 			if (src) {
 				console.log(src)
@@ -62,9 +61,9 @@ Page({
 		})
 	},
 	onLoad (option) {
-		const { data } = this
+		const { cropperOpt } = this.data
 
-		new weCropper(data)
+		new weCropper(cropperOpt)
 			.on('ready', (ctx) => {
 				console.log(`wecropper is ready for work!`)
 			})

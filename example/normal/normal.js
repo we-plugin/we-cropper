@@ -1,12 +1,15 @@
 import weCropper from '../../dist/weCropper.js'
+const device = wx.getSystemInfoSync()
 
 Page({
   data: {
-		id: 'cropper',
-		width: 750,
-		height: 750,
-		scale: 2.5,
-		zoom: 8,
+  	cropperOpt: {
+			id: 'cropper',
+			width: device.windowWidth,
+			height: device.windowWidth,
+			scale: 2.5,
+			zoom: 8
+		}
 	},
   touchStart (e) {
     this.wecropper.touchStart(e)
@@ -31,7 +34,6 @@ Page({
   },
   uploadTap () {
     const self = this
-    const { data } = self
 
     wx.chooseImage({
       count: 1, // 默认9
@@ -39,17 +41,15 @@ Page({
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success (res) {
         const src = res.tempFilePaths[0]
-        //  获取裁剪图片资源后，给data添加src属性及其值
-        Object.assign(data, { src })
 
         self.wecropper.pushOrign(src)
       }
     })
   },
   onLoad (option) {
-    const { data } = this
+    const { cropperOpt } = this.data
 
-		new weCropper(data)
+		new weCropper(cropperOpt)
 			.on('ready', function (ctx) {
 				console.log(`wecropper is ready for work!`)
 			})
