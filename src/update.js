@@ -44,7 +44,7 @@ export default function update() {
 
 	self.__twoTouchMove = (touch0, touch1) => {
 		let xMove, yMove, newDistance
-		const { minScale, maxScale, zoom } = self
+		const { scale, zoom } = self
 		// 计算二指最新距离
 		xMove = touch1.x - touch0.x
 		yMove = touch1.y - touch0.y

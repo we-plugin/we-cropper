@@ -493,8 +493,7 @@ function update() {
 		var xMove = void 0,
 		    yMove = void 0,
 		    newDistance = void 0;
-		var minScale = self.minScale,
-		    maxScale = self.maxScale,
+		var scale = self.scale,
 		    zoom = self.zoom;
 		// 计算二指最新距离
 
