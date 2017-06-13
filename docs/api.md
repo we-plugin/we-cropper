@@ -7,7 +7,7 @@
 - Type: `String`
 - Default: `-`
 
-canvas组件标识符
+canvas组件标识符（必填）
 
 #### width
 
@@ -23,21 +23,12 @@ canvas组件标识符
 
 容器高度
 
-#### minScale
+#### scale
 
 - Type: `Number`
-- Default: `-`
-
-最小缩放倍数
-
-#### maxScale
-
-- Type: `Number`
-- Default: `-`
+- Default: `2.5`
 
 最大缩放倍数
-
-最小缩放倍数
 
 #### src
 
@@ -53,6 +44,15 @@ canvas组件标识符
 - Range: 1 ~ 10
 
 缩放系数
+
+#### cut
+
+- Type: `Object`
+- Options: 
+    - x: `Number` 裁剪框x轴起点（默认 0）
+    - y: `Number` 裁剪框y轴起点（默认 0）
+    - width: `Number` 裁剪框宽度（默认 画布宽度），单位：px
+    - height: `Number` 裁剪框高度（默认 画布高度），单位：px
 
 #### onReady
 
@@ -135,11 +135,7 @@ canvas组件标识符
 - opt: (可选参数)
     - Type: `Object`
     - Options:
-        - x	`Number` (非必填) 画布x轴起点（默认0）
-        - y	`Number` (非必填) 画布y轴起点（默认0）
-        - width	`Number` (非必填) 画布宽度（默认为canvas宽度-x）
-        - height	`Number` (非必填) 画布高度（默认为canvas高度-y）
-        - quality `Number` (非必填) 输出图片质量（有效范围 0 ～ 10，默认为10）
+        - quality `Number` 输出图片质量（有效范围 0 ～ 10，默认为10）
 
 - callback:
     - Type: `Function`

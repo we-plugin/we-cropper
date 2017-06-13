@@ -1,14 +1,15 @@
-import weCropper from '../../src/weCropper.core.js'
+import weCropper from '../../dist/weCropper.js'
 
 const __network_image__ = 'http://image.smartisanos.cn/resource/a9ea11be5ffa8225110782fe3ac46a74.png'
-
+const device = wx.getSystemInfoSync()
 Page({
   data: {
-		id: 'cropper',
-		width: 750,
-		height: 750,
-		minScale: 1,
-		maxScale: 2.5
+  	cropperOpt: {
+			id: 'cropper',
+			width: device.windowWidth,
+			height: device.windowWidth,
+			scale: 2.5
+		}
 	},
   touchStart (e) {
     this.wecropper.touchStart(e)
@@ -35,9 +36,9 @@ Page({
   	this.wecropper.pushOrign(__network_image__)
 	},
   onLoad (option) {
-		const { data } = this
+		const { cropperOpt } = this.data
 
-		new weCropper(data)
+		new weCropper(cropperOpt)
 			.on('ready', (ctx) => {
 				console.log(`wecropper is ready for work!`)
 			})

@@ -1,5 +1,17 @@
 ## changelog
 
+### v1.1.4 (2017-6-13)
+
+- `F` 修复 图片越界问题 [ISSUE #7](https://github.com/dlhandsome/we-cropper/issues/7) [ISSUE #10](https://github.com/dlhandsome/we-cropper/issues/10)
+
+- `D` 移除 『API：构造器参数』minScale
+
+- `C` 修改 『API：构造器参数』maxScale -> scale [详情]()
+
+- `C` 构造器参数单位全部统一为px
+
+- `A` 新增 『API：构造器参数』cut [详情]()
+
 ### v1.1.3 (2017-6-1)
 - `F` 修复 裁剪图片清晰度问题 [ISSUE #4](https://github.com/dlhandsome/we-cropper/issues/4)
 

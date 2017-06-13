@@ -1,20 +1,27 @@
 /**
  * Created by sail on 2017/6/1.
  */
-import weCropper from '../../src/weCropper.core.js'
-import cutInside from './weCropper.cutInside'
+import weCropper from '../../dist/weCropper.js'
 
-const __cut_width__ = 175
-const __cut_height__ = 175
+const device = wx.getSystemInfoSync()
+const width = device.windowWidth
+const height = device.windowHeight - 50
 
 Page({
 	data: {
-		id: 'cropper',
-		width: 750,
-		height: 750,
-		minScale: 0.1,
-		maxScale: 2.5,
-		zoom: 8
+		cropperOpt: {
+			id: 'cropper',
+			width,
+			height,
+			scale: 2.5,
+			zoom: 8,
+			cut: {
+				x: (width - 300) / 2,
+				y: (height - 300) / 2,
+				width: 300,
+				height: 300
+			}
+		}
 	},
 	touchStart (e) {
 		this.wecropper.touchStart(e)
@@ -26,17 +33,7 @@ Page({
 		this.wecropper.touchEnd(e)
 	},
 	getCropperImage () {
-		const { width, height } = this.data
-		const { windowWidth } = wx.getSystemInfoSync()
-
-		const radio = windowWidth / 750
-
-		this.wecropper.getCropperImage({
-			x: (width * radio - __cut_width__) / 2,
-			y: (height * radio - __cut_height__) / 2,
-			width: __cut_width__,
-			height: __cut_height__
-		}, (src) => {
+		this.wecropper.getCropperImage((src) => {
 			if (src) {
 				console.log(src)
 				wx.previewImage({
@@ -64,9 +61,9 @@ Page({
 		})
 	},
 	onLoad (option) {
-		const { data } = this
+		const { cropperOpt } = this.data
 
-		new weCropper(data)
+		new weCropper(cropperOpt)
 			.on('ready', (ctx) => {
 				console.log(`wecropper is ready for work!`)
 			})
@@ -87,10 +84,6 @@ Page({
 			.on('beforeDraw', (ctx, instance) => {
 				console.log(`before canvas draw,i can do something`)
 				console.log(`current canvas context:`, ctx)
-				cutInside({
-					width: __cut_width__,
-					height: __cut_height__
-				}, ctx, instance)
 			})
 			.updateCanvas()
 	}

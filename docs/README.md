@@ -2,7 +2,7 @@
 
 一款灵活小巧的canvas图片裁剪器
 
-<img src="https://github.com/dlhandsome/we-cropper/blob/master/screenshots/code.jpg?raw=true" width="100%"></img>
+<img src="https://github.com/dlhandsome/we-cropper/blob/lab/docs/assets/screenshot.jpg" width="100%"></img>
 
 ## 使用说明
 
@@ -13,12 +13,6 @@ git clone https://github.com/dlhandsome/we-cropper.git
 cd we-cropper
 ```
 
-*** 微信开发者工具 ***
-
-!> 工具库使用了ES6语法，需要开启ES6转ES5
-
-<img src="https://github.com/dlhandsome/we-cropper/blob/master/screenshots/wxTool.jpg?raw=true" width="100%"></img>
-
 ## 示例
 
 *** WXML ***
@@ -28,17 +22,11 @@ cd we-cropper
 !> 需要注意的是，canvas的宽高（width、height）需要和we-cropper构造器参数中的保持一致
 
 ```html
-<view class="croper-wrapper">
-    <canvas
-            class="cropper"
-            disable-scroll="true"
-            bindtouchstart="touchStart"
-            bindtouchmove="touchMove"
-            bindtouchend="touchEnd"
-            style="width:{{width}}rpx;height:{{height}}rpx;"
-            canvas-id="cropper">
-    </canvas>
-    <view class="classname">
+<import src="../../dist/weCropper.wxml"/>
+
+<view class="cropper-wrapper">
+    <template is="weCropper" data="{{...cropperOpt}}"/>
+    <view class="cropper-buttons">
         <view
                 class="upload"
                 bindtap="uploadTap">
@@ -56,20 +44,32 @@ cd we-cropper
 > 引入weCropper插件
 
 ```javascript
-import weCropper from '../../src/weCropper.core.js'
-```
-
-> 将构造器参数注册在data中
+import weCropper from main.js
+```main.js中
 
 ```javascript
-    data: {
-		id: 'cropper',
-		width: 750,
-		height: 750,
-		minScale: 1,
-		maxScale: 2.5,
-		zoom: 8
-	}
+    const device = wx.getSystemInfoSync() // 获取设备信息
+    const width = device.windowWidth // 示例为一个与屏幕等宽的正方形裁剪框
+    const height = width
+    
+    Page({
+      data: {
+        id: 'cropper',
+        width,  // 画布宽度
+        height, // 画布高度
+        scale: 2.5, // 最大缩放倍数
+        zoom: 8, // 缩放系数
+        cut: {
+          x: (width - 200) / 2, // 裁剪框x轴起点
+          y: (width - 200) / 2, // 裁剪框y轴期起点
+          width: 200, // 裁剪框宽度
+          height: 200 // 裁剪框高度
+        }
+      }
+    })
+    
+	
+	//...
 ```
 
 > 推荐在页面onLoad函数中实例化weCropper
@@ -78,7 +78,8 @@ import weCropper from '../../src/weCropper.core.js'
     //...
     onLoad (option) {
         const { data } = this
-    
+        
+        // 若同一个页面只有一个裁剪容器，在其它Page方法中可通过this.wecropper访问实例
         new weCropper(data)
             .on('ready', (ctx) => {
                 console.log(`wecropper is ready for work!`)
@@ -96,7 +97,12 @@ import weCropper from '../../src/weCropper.core.js'
                 console.log(`picture loaded`)
                 console.log(`current canvas context: ${ctx}`)
                 wx.hideToast()
-            })
+            })   
+        
+        // 若同一个页面由多个裁剪容器，需要主动做如下处理
+          
+        this.A = new weCropper(dataA)
+        this.B = new weCropper(dataB)
     }
    
 ```
