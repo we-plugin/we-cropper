@@ -37,28 +37,16 @@ export default {
 			tmp.height = value
 		}
 	},
-	minScale: {
-		default: 1,
-		get () {
-			return tmp.minScale
-		},
-		set (value) {
-			if (typeof(value) !== 'number') {
-				console.error(`minScale：${value} is invalid`)
-			}
-			tmp.minScale = value
-		}
-	},
-	maxScale: {
+	scale: {
 		default: 2.5,
 		get () {
-			return tmp.maxScale
+			return tmp.scale
 		},
 		set (value) {
 			if (typeof(value) !== 'number') {
-				console.error(`maxScale：${value} is invalid`)
+				console.error(`scale：${value} is invalid`)
 			}
-			tmp.maxScale = value
+			tmp.scale = value
 		}
 	},
 	zoom: {
@@ -85,6 +73,18 @@ export default {
 				console.error(`id：${value} is invalid`)
 			}
 			tmp.src = value
+		}
+	},
+	cut: {
+		default: {},
+		get () {
+			return tmp.cut
+		},
+		set (value) {
+			if (typeof(value) !== 'object') {
+				console.error(`id：${value} is invalid`)
+			}
+			tmp.cut = value
 		}
 	},
 	onReady: {

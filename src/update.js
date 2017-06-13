@@ -20,8 +20,10 @@ export default function update() {
 		xMove = touch.x - self.touchX0
 		yMove = touch.y - self.touchY0
 
-		self.imgLeft = self.rectX + xMove
-		self.imgTop = self.rectY + yMove
+		const imgLeft = self.rectX + xMove
+		const imgTop = self.rectY + yMove
+
+		self.outsideBound(imgLeft, imgTop)
 
 		self.updateCanvas()
 	}
@@ -52,20 +54,22 @@ export default function update() {
 		self.newScale =  self.oldScale + 0.001 * zoom * (newDistance - self.oldDistance)
 
 		//  设定缩放范围
-		self.newScale <= minScale && (self.newScale = minScale)
-		self.newScale >= maxScale && (self.newScale = maxScale)
+		self.newScale <= 1 && (self.newScale = 1)
+		self.newScale >= scale && (self.newScale = scale)
 
 		self.scaleWidth = self.newScale * self.baseWidth
 		self.scaleHeight = self.newScale * self.baseHeight
-		self.imgLeft =  self.touchX1 - self.scaleWidth / 2
-		self.imgTop = self.touchY1 - self.scaleHeight / 2
+		const imgLeft =  self.touchX1 - self.scaleWidth / 2
+		const imgTop = self.touchY1 - self.scaleHeight / 2
+
+		self.outsideBound(imgLeft, imgTop)
 
 		self.updateCanvas()
 	}
 
 	self.__xtouchEnd = () => {
-		self.oldScale = self.newScale || self.oldScale
-		self.rectX = self.imgLeft || self.rectX
-		self.rectY = self.imgTop || self.rectY
+		self.oldScale = self.newScale
+		self.rectX = self.imgLeft
+		self.rectY = self.imgTop
 	}
 }

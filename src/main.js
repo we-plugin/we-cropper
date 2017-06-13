@@ -7,6 +7,7 @@ import observer from './observer'
 import methods from './methods'
 import update from './update'
 import handle from './handle'
+import cutt from './cut'
 
 class weCropper {
 
@@ -25,6 +26,7 @@ class weCropper {
 		self.attachPage()
 		self.createCtx()
 		self.observer()
+		self.cutt()
 		self.methods()
 		self.init()
 		self.update()
@@ -46,6 +48,9 @@ class weCropper {
 		}
 		setTouchState(self, false, false, false)
 
+		self.oldScale = 1
+		self.newScale = 1
+
 		return self
 	}
 }
@@ -55,6 +60,7 @@ Object.assign(weCropper.prototype, handle)
 weCropper.prototype.prepare = prepare
 weCropper.prototype.observer = observer
 weCropper.prototype.methods = methods
+weCropper.prototype.cutt = cutt
 weCropper.prototype.update = update
 
 export default weCropper

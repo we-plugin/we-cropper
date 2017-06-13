@@ -1,12 +1,13 @@
 /**
  * Created by sail on 2017/6/11.
  */
-import { getDevice } from './utils'
-
 export default function methods() {
 	const self = this
-	const { windowWidth } = getDevice()
-	const deviceRadio = windowWidth / 750
+
+	const { deviceRadio } = self
+	const boundWidth = self.width // 裁剪框默认宽度，即整个画布宽度
+	const boundHeight = self.height // 裁剪框默认高度，即整个画布高度
+	let { x = 0, y = 0, width = boundWidth, height = boundHeight } = self.cut
 
 	self.updateCanvas = () => {
 		if (self.croperTarget) {
@@ -15,6 +16,7 @@ export default function methods() {
 		}
 		typeof self.onBeforeDraw === 'function' && self.onBeforeDraw(self.ctx, self)
 
+		self.setBoundStyle() //	设置边界样式
 		self.ctx.draw()
 		return self
 	}
@@ -27,20 +29,28 @@ export default function methods() {
 		wx.getImageInfo({
 			src,
 			success (res) {
-				let { width, height } = self
 				let innerAspectRadio = res.width / res.height
 
 				self.croperTarget = res.path
-				self.rectX = 0
-				self.baseWidth = width * deviceRadio
-				self.baseHeight = width * deviceRadio / innerAspectRadio
-				self.rectY = (height * deviceRadio - self.baseHeight) / 2
+
+				console.log(x, y)
+				if (innerAspectRadio < width / height) {
+					self.rectX = x
+					self.baseWidth = width
+					self.baseHeight = width / innerAspectRadio
+					self.rectY = y - Math.abs((height - self.baseHeight) / 2)
+				} else {
+					self.rectY = y
+					self.baseWidth = height * innerAspectRadio
+					self.baseHeight = height
+					self.rectX = x - Math.abs((width - self.baseWidth) / 2)
+				}
+
 
 				self.imgLeft = self.rectX
 				self.imgTop = self.rectY
 				self.scaleWidth = self.baseWidth
 				self.scaleHeight = self.baseHeight
-				self.oldScale = 1
 
 				self.updateCanvas()
 
@@ -58,7 +68,7 @@ export default function methods() {
 
 		switch (ARG_TYPE) {
 			case '[object Object]':
-				let { x = 0, y = 0, width = self.width * deviceRadio, height = self.height * deviceRadio, quality = 10 } = args[0]
+				let { quality = 10 } = args[0]
 
 				if (typeof(quality) !== 'number') {
 					console.error(`quality：${quality} is invalid`)
@@ -80,8 +90,12 @@ export default function methods() {
 			case '[object Function]':
 				wx.canvasToTempFilePath({
 					canvasId: id,
-					destWidth: self.width,
-					destHeight: self.height,
+					x,
+					y,
+					width,
+					height,
+					destWidth: width / deviceRadio,
+					destHeight: height / deviceRadio,
 					success (res) {
 						typeof args[args.length - 1] === 'function' && args[args.length - 1](res.tempFilePath)
 					}

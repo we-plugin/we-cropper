@@ -1,8 +1,11 @@
 /**
  * Created by sail on 2017/6/11.
  */
+import { getDevice } from './utils'
+
 export default function prepare() {
 	const self = this
+	const { windowWidth } = getDevice()
 
 	self.attachPage = () => {
 		const pages = getCurrentPages()
@@ -20,4 +23,6 @@ export default function prepare() {
 			console.error(`constructor: create canvas context failed, 'id' must be valuable`)
 		}
 	}
+
+	self.deviceRadio = windowWidth / 750
 }
