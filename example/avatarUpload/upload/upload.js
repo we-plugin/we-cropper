@@ -1,4 +1,4 @@
-import weCropper from '../../dist/weCropper.js'
+import weCropper from '../../../dist/weCropper.js'
 
 const device = wx.getSystemInfoSync()
 Page({
