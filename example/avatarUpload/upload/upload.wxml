@@ -5,7 +5,7 @@
             bindtouchstart="touchStart"
             bindtouchmove="touchMove"
             bindtouchend="touchEnd"
-            style="width:{{width}}rpx;height:{{height}}rpx;"
+            style="width:{{width}}px;height:{{height}}px;"
             canvas-id="cropper">
     </canvas>
     <view class="classname">

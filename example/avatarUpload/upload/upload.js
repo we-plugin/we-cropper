@@ -1,12 +1,12 @@
-import weCropper from '../../../src/main.js'
+import weCropper from '../../dist/weCropper.js'
 
+const device = wx.getSystemInfoSync()
 Page({
   data:  {
 		id: 'cropper',
-		width: 750,
-		height: 750,
-		minScale: 1,
-		maxScale: 2.5,
+		width: device.windowWidth,
+		height: device.windowWidth,
+		scale: 2.5,
 		zoom: 8
 	},
   touchStart (e) {

@@ -1,20 +1,23 @@
 /**
  * Created by sail on 2017/6/1.
  */
-import weCropper from '../../src/main.js'
-import cutInside from './weCropper.cutInside'
+import weCropper from '../../dist/weCropper.js'
 
-const __cut_width__ = 175
-const __cut_height__ = 175
+const device = wx.getSystemInfoSync()
 
 Page({
 	data: {
 		id: 'cropper',
-		width: 750,
-		height: 750,
-		minScale: 0.1,
-		maxScale: 2.5,
-		zoom: 8
+    width: device.windowWidth,
+		height: device.windowWidth,
+		scale: 2.5,
+		zoom: 8,
+    cut: {
+      x: 100,
+      y: 100,
+      width: 175,
+      height: 175
+    }
 	},
 	touchStart (e) {
 		this.wecropper.touchStart(e)
@@ -31,12 +34,7 @@ Page({
 
 		const radio = windowWidth / 750
 
-		this.wecropper.getCropperImage({
-			x: (width * radio - __cut_width__) / 2,
-			y: (height * radio - __cut_height__) / 2,
-			width: __cut_width__,
-			height: __cut_height__
-		}, (src) => {
+		this.wecropper.getCropperImage((src) => {
 			if (src) {
 				console.log(src)
 				wx.previewImage({
@@ -87,10 +85,6 @@ Page({
 			.on('beforeDraw', (ctx, instance) => {
 				console.log(`before canvas draw,i can do something`)
 				console.log(`current canvas context:`, ctx)
-				cutInside({
-					width: __cut_width__,
-					height: __cut_height__
-				}, ctx, instance)
 			})
 			.updateCanvas()
 	}

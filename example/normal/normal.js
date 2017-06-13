@@ -1,14 +1,12 @@
-import weCropper from '../../src/main.js'
+import weCropper from '../../dist/weCropper.js'
 
 Page({
   data: {
 		id: 'cropper',
 		width: 750,
 		height: 750,
-		minScale: 1,
-		maxScale: 2.5,
+		scale: 2.5,
 		zoom: 8,
-		src: ''
 	},
   touchStart (e) {
     this.wecropper.touchStart(e)
