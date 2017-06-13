@@ -622,9 +622,18 @@ function cut() {
 		    _ref$lineWidth = _ref.lineWidth,
 		    lineWidth = _ref$lineWidth === undefined ? 1 : _ref$lineWidth;
 
+		// 绘制半透明层
+		self.ctx.beginPath();
+		self.ctx.setFillStyle(mask);
+		self.ctx.fillRect(0, 0, x, boundHeight);
+		self.ctx.fillRect(x, 0, width, y);
+		self.ctx.fillRect(x, y + height, width, boundHeight - y - height);
+		self.ctx.fillRect(x + width, 0, boundWidth - x - width, boundHeight);
+		self.ctx.fill
+
 		// 设置边界左上角样式
 		// 为使边界样式处于边界外边缘，此时x、y均要减少lineWidth
-		self.ctx.beginPath();
+		();self.ctx.beginPath();
 		self.ctx.setStrokeStyle(color);
 		self.ctx.setLineWidth(lineWidth);
 		self.ctx.moveTo(x - lineWidth, y + 10 - lineWidth);
@@ -660,16 +669,7 @@ function cut() {
 		self.ctx.moveTo(x + width + lineWidth, y + height - 10 + lineWidth);
 		self.ctx.lineTo(x + width + lineWidth, y + height + lineWidth);
 		self.ctx.lineTo(x + width - 10 + lineWidth, y + height + lineWidth);
-		self.ctx.stroke
-
-		// 绘制半透明层
-		();self.ctx.beginPath();
-		self.ctx.setFillStyle(mask);
-		self.ctx.fillRect(0, 0, x, boundHeight);
-		self.ctx.fillRect(x, 0, width, y);
-		self.ctx.fillRect(x, y + height, width, boundHeight - y - height);
-		self.ctx.fillRect(x + width, 0, boundWidth - x - width, boundHeight);
-		self.ctx.fill();
+		self.ctx.stroke();
 	};
 }
 
