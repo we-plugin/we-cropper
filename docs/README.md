@@ -2,7 +2,7 @@
 
 一款灵活小巧的canvas图片裁剪器
 
-<img src="https://github.com/dlhandsome/we-cropper/blob/lab/docs/assets/screenshot.jpg" width="100%"></img>
+<img src="https://github.com/dlhandsome/we-cropper/blob/lab/docs/assets/screenshot.jpg?raw=true" width="50%"></img>
 
 ## 使用说明
 
@@ -54,17 +54,19 @@ import weCropper from main.js
     
     Page({
       data: {
-        id: 'cropper',
-        width,  // 画布宽度
-        height, // 画布高度
-        scale: 2.5, // 最大缩放倍数
-        zoom: 8, // 缩放系数
-        cut: {
-          x: (width - 200) / 2, // 裁剪框x轴起点
-          y: (width - 200) / 2, // 裁剪框y轴期起点
-          width: 200, // 裁剪框宽度
-          height: 200 // 裁剪框高度
-        }
+      	cropperOpt: {
+            id: 'cropper',
+            width,  // 画布宽度
+            height, // 画布高度
+            scale: 2.5, // 最大缩放倍数
+            zoom: 8, // 缩放系数
+            cut: {
+              x: (width - 200) / 2, // 裁剪框x轴起点
+              y: (width - 200) / 2, // 裁剪框y轴期起点
+              width: 200, // 裁剪框宽度
+              height: 200 // 裁剪框高度
+            }
+      	}
       }
     })
     
@@ -77,10 +79,10 @@ import weCropper from main.js
 ```javascript
     //...
     onLoad (option) {
-        const { data } = this
+        const { cropperOpt } = this.data
         
         // 若同一个页面只有一个裁剪容器，在其它Page方法中可通过this.wecropper访问实例
-        new weCropper(data)
+        new weCropper(cropperOpt)
             .on('ready', (ctx) => {
                 console.log(`wecropper is ready for work!`)
             })
@@ -101,8 +103,8 @@ import weCropper from main.js
         
         // 若同一个页面由多个裁剪容器，需要主动做如下处理
           
-        this.A = new weCropper(dataA)
-        this.B = new weCropper(dataB)
+        this.A = new weCropper(cropperOptA)
+        this.B = new weCropper(cropperOptB)
     }
    
 ```
