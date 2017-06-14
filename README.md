@@ -3,7 +3,7 @@
 一款灵活小巧的canvas图片裁剪器
 
 <div style="position:relative;width: 100%">
-    <img src="https://github.com/dlhandsome/we-cropper/blob/lab/docs/assets/screenshot.jpg" width="50%" style="position:absolute; left: 50%; transform:translateX(-50%)"></img>
+    <img src="https://github.com/dlhandsome/we-cropper/blob/lab/docs/assets/screenshot.jpg" width="50%" style="position:absolute; left: 50%; transform:translateX(-50%)" />
 </div>
 
 ## Feature
@@ -22,7 +22,25 @@
 #### 克隆项目到你的目录
 ```bash
 cd my-project
+
 git clone https://github.com/dlhandsome/we-cropper.git
+```
+####  使用编译后的文件dist/weCropper.js
+```bash
+var weCropper = require('dist/weCropper')
+
+// ES6(需在开发工具勾选ES6转ES5)
+import weCropper from 'dist/weCropper'
+```
+
+#### 对插件进行开发调试
+```bash
+npm install
+```
+在src下进行文件修改
+
+```bash
+npm run build
 ```
 
 ## Links
@@ -31,8 +49,10 @@ git clone https://github.com/dlhandsome/we-cropper.git
 
 [ChangeLog](https://dlhandsome.github.io/we-cropper/#/changelog)
 
+[Example](https://github.com/dlhandsome/we-cropper/tree/master/example)
 
 ## License
+
 The MIT License(http://opensource.org/licenses/MIT)
 
 请自由地享受和参与开源
