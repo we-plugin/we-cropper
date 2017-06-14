@@ -14,14 +14,14 @@ canvas组件标识符（必填）
 - Type: `Number`
 - Default: `-`
 
-容器宽度
+容器宽度，单位：px
 
 #### height
 
 - Type: `Number`
 - Default: `-`
 
-容器高度
+容器高度，单位：px
 
 #### scale
 
