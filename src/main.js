@@ -1,4 +1,4 @@
-const __version__ = '1.1.3'
+const __version__ = '1.1.4'
 
 import { validator, setTouchState } from './utils'
 import DEFAULT from './default'

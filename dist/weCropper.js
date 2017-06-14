@@ -673,7 +673,7 @@ function cut() {
 	};
 }
 
-var __version__ = '1.1.3';
+var __version__ = '1.1.4';
 
 var weCropper = function () {
 	function weCropper(params) {
