@@ -26,7 +26,7 @@ cd my-project
 git clone https://github.com/dlhandsome/we-cropper.git
 ```
 ####  使用编译后的文件dist/weCropper.js
-```bash
+```javascript
 var weCropper = require('dist/weCropper')
 
 // ES6(需在开发工具勾选ES6转ES5)
@@ -57,6 +57,6 @@ The MIT License(http://opensource.org/licenses/MIT)
 
 请自由地享受和参与开源
 
-## Contribute
+## Contributing
 
 如果你有好的意见或建议，欢迎给我提issue或pull request
