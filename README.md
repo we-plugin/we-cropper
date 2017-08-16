@@ -3,7 +3,7 @@
 一款灵活小巧的canvas图片裁剪器
 
 <div style="position:relative;width: 100%">
-    <img src="https://github.com/dlhandsome/we-cropper/blob/lab/docs/assets/screenshot.jpg" width="50%" style="position:absolute; left: 50%; transform:translateX(-50%)" />
+    <img src="https://github.com/we-plugin/we-cropper/blob/master/docs/assets/screenshot.jpg" width="50%" style="position:absolute; left: 50%; transform:translateX(-50%)" />
 </div>
 
 ## Feature
@@ -51,12 +51,8 @@ npm run build
 
 [Example](https://github.com/dlhandsome/we-cropper/tree/master/example)
 
-## License
-
-The MIT License(http://opensource.org/licenses/MIT)
-
-请自由地享受和参与开源
+[The MIT License](http://opensource.org/licenses/MIT)
 
 ## Contributing
 
-如果你有好的意见或建议，欢迎给我提issue或pull request
+如果你有好的意见或建议，欢迎提issue或pull request

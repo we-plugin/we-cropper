@@ -2,7 +2,7 @@
 
 一款灵活小巧的canvas图片裁剪器
 
-<img src="https://github.com/dlhandsome/we-cropper/blob/lab/docs/assets/screenshot.jpg?raw=true" width="50%"></img>
+<img src="https://github.com/we-plugin/we-cropper/blob/master/docs/assets/screenshot.jpg" width="50%"></img>
 
 ## 使用说明
 
@@ -191,6 +191,6 @@ this.wecropper.pushOrign(src)
 
 + [Pull requests](https://github.com/dlhandsome/we-cropper)
 
-+ 联系作者
++ we-cropper交流群
 
 <img src="assets/wechat.jpg" width="200" height="200">
