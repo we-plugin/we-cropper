@@ -23,7 +23,7 @@
 ```bash
 cd my-project
 
-git clone https://github.com/dlhandsome/we-cropper.git
+git clone https://github.com/we-plugin/we-cropper.git
 ```
 ####  使用编译后的文件dist/weCropper.js
 ```javascript
