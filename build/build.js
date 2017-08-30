@@ -3,10 +3,14 @@
  */
 const rollup = require('rollup')
 const babel = require('rollup-plugin-babel')
+const json = require('rollup-plugin-json')
 
 rollup.rollup({
 	entry: 'src/main.js',
-	plugins: [babel()]
+	plugins: [
+		json(),
+		babel()
+	]
 })
 .then(bundle => bundle.write({
 	format: 'umd',

@@ -4,6 +4,8 @@
 	(global.weCropper = factory());
 }(this, (function () { 'use strict';
 
+var version = "1.1.4";
+
 /**
  * Created by sail on 2017/6/11.
  */
@@ -278,9 +280,9 @@ function prepare() {
 	    windowWidth = _getDevice.windowWidth;
 
 	self.attachPage = function () {
-		var pages = getCurrentPages
+		var pages = getCurrentPages();
 		//  获取到当前page上下文
-		();var pageContext = pages[pages.length - 1];
+		var pageContext = pages[pages.length - 1];
 		//  把this依附在Page上下文的wecropper属性上，便于在page钩子函数中访问
 		pageContext.wecropper = self;
 	};
@@ -346,8 +348,8 @@ function methods() {
 		}
 		typeof self.onBeforeDraw === 'function' && self.onBeforeDraw(self.ctx, self);
 
-		self.setBoundStyle //	设置边界样式
-		();self.ctx.draw();
+		self.setBoundStyle(); //	设置边界样式
+		self.ctx.draw();
 		return self;
 	};
 
@@ -499,10 +501,10 @@ function update() {
 
 		xMove = touch1.x - touch0.x;
 		yMove = touch1.y - touch0.y;
-		newDistance = Math.sqrt(xMove * xMove + yMove * yMove
+		newDistance = Math.sqrt(xMove * xMove + yMove * yMove);
 
 		//  使用0.005的缩放倍数具有良好的缩放体验
-		);self.newScale = self.oldScale + 0.001 * zoom * (newDistance - self.oldDistance);
+		self.newScale = self.oldScale + 0.001 * zoom * (newDistance - self.oldDistance);
 
 		//  设定缩放范围
 		self.newScale <= 1 && (self.newScale = 1);
@@ -538,13 +540,13 @@ var handle = {
 		    touch0 = _e$touches[0],
 		    touch1 = _e$touches[1];
 
-		setTouchState(self, true, null, null
+		setTouchState(self, true, null, null);
 
 		//计算第一个触摸点的位置，并参照改点进行缩放
-		);self.__oneTouchStart(touch0
+		self.__oneTouchStart(touch0);
 
 		// 两指手势触发
-		);if (e.touches.length >= 2) {
+		if (e.touches.length >= 2) {
 			self.__twoTouchStart(touch0, touch1);
 		}
 	},
@@ -558,10 +560,10 @@ var handle = {
 		    touch0 = _e$touches2[0],
 		    touch1 = _e$touches2[1];
 
-		setTouchState(self, null, true
+		setTouchState(self, null, true);
 
 		// 单指手势时触发
-		);if (e.touches.length === 1) {
+		if (e.touches.length === 1) {
 			self.__oneTouchMove(touch0);
 		}
 		// 两指手势触发
@@ -629,41 +631,41 @@ function cut() {
 		self.ctx.fillRect(x, 0, width, y);
 		self.ctx.fillRect(x, y + height, width, boundHeight - y - height);
 		self.ctx.fillRect(x + width, 0, boundWidth - x - width, boundHeight);
-		self.ctx.fill
+		self.ctx.fill();
 
 		// 设置边界左上角样式
 		// 为使边界样式处于边界外边缘，此时x、y均要减少lineWidth
-		();self.ctx.beginPath();
+		self.ctx.beginPath();
 		self.ctx.setStrokeStyle(color);
 		self.ctx.setLineWidth(lineWidth);
 		self.ctx.moveTo(x - lineWidth, y + 10 - lineWidth);
 		self.ctx.lineTo(x - lineWidth, y - lineWidth);
 		self.ctx.lineTo(x + 10 - lineWidth, y - lineWidth);
-		self.ctx.stroke
+		self.ctx.stroke();
 
 		// 设置边界左下角样式
 		// 为使边界样式处于边界外边缘，此时x要减少lineWidth、y要增加lineWidth
-		();self.ctx.beginPath();
+		self.ctx.beginPath();
 		self.ctx.setStrokeStyle(color);
 		self.ctx.setLineWidth(lineWidth);
 		self.ctx.moveTo(x - lineWidth, y + height - 10 + lineWidth);
 		self.ctx.lineTo(x - lineWidth, y + height + lineWidth);
 		self.ctx.lineTo(x + 10 - lineWidth, y + height + lineWidth);
-		self.ctx.stroke
+		self.ctx.stroke();
 
 		// 设置边界右上角样式
 		// 为使边界样式处于边界外边缘，此时x要增加lineWidth、y要减少lineWidth
-		();self.ctx.beginPath();
+		self.ctx.beginPath();
 		self.ctx.setStrokeStyle(color);
 		self.ctx.setLineWidth(lineWidth);
 		self.ctx.moveTo(x + width - 10 + lineWidth, y - lineWidth);
 		self.ctx.lineTo(x + width + lineWidth, y - lineWidth);
 		self.ctx.lineTo(x + width + lineWidth, y + 10 - lineWidth);
-		self.ctx.stroke
+		self.ctx.stroke();
 
 		// 设置边界右下角样式
 		// 为使边界样式处于边界外边缘，此时x、y均要增加lineWidth
-		();self.ctx.beginPath();
+		self.ctx.beginPath();
 		self.ctx.setStrokeStyle(color);
 		self.ctx.setLineWidth(lineWidth);
 		self.ctx.moveTo(x + width + lineWidth, y + height - 10 + lineWidth);
@@ -672,8 +674,6 @@ function cut() {
 		self.ctx.stroke();
 	};
 }
-
-var __version__ = '1.1.4';
 
 var weCropper = function () {
 	function weCropper(params) {
@@ -708,7 +708,7 @@ var weCropper = function () {
 			var src = self.src;
 
 
-			self.version = __version__;
+			self.version = version;
 
 			typeof self.onReady === 'function' && self.onReady(self.ctx, self);
 

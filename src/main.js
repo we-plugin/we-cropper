@@ -1,5 +1,4 @@
-const __version__ = '1.1.4'
-
+import { version } from '../package.json'
 import { validator, setTouchState } from './utils'
 import DEFAULT from './default'
 import prepare from './prepare'
@@ -39,7 +38,7 @@ class weCropper {
 		const self = this
 		const { src } = self
 
-		self.version = __version__
+		self.version = version
 
 		typeof self.onReady === 'function' && self.onReady(self.ctx, self)
 
