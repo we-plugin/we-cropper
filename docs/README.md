@@ -2,14 +2,14 @@
 
 一款灵活小巧的canvas图片裁剪器
 
-<img src="https://github.com/we-plugin/we-cropper/blob/master/docs/assets/screenshot.jpg" width="50%"></img>
+<img src="https://github.com/we-plugin/we-cropper/blob/master/docs/assets/screenshot.jpg?raw=true" width="50%"></img>
 
 ## 使用说明
 
 *** 克隆项目至你的目录 ***
 ```bash
 cd my-project
-git clone https://github.com/dlhandsome/we-cropper.git
+git clone https://github.com/we-plugin/we-cropper.git
 cd we-cropper
 ```
 
@@ -151,7 +151,6 @@ this.wecropper.pushOrign(src)
     //...
     uploadTap () {
       const self = this
-      const { data } = self
     
       wx.chooseImage({
         count: 1, // 默认9
@@ -159,8 +158,6 @@ this.wecropper.pushOrign(src)
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
         success (res) {
           const src = res.tempFilePaths[0]
-           //  获取裁剪图片资源后，给data添加src属性及其值
-          Object.assign(data, { src })
     
           self.wecropper.pushOrign(src)
         }
@@ -187,10 +184,10 @@ this.wecropper.pushOrign(src)
 
 ## 遇到问题
 
-+ [Issues](https://github.com/dlhandsome/we-cropper/issues)
++ [Issues](https://github.com/we-plugin/we-cropper/issues)
 
-+ [Pull requests](https://github.com/dlhandsome/we-cropper)
++ [Pull requests](https://github.com/we-plugin/we-cropper)
 
 + we-cropper交流群
 
-<img src="assets/wechat.jpg" width="200" height="200">
+<img src="assets/wechat.jpg" width="200" height="314">

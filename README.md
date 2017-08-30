@@ -45,11 +45,11 @@ npm run build
 
 ## Links
 
-[Document](https://dlhandsome.github.io/we-cropper/#/)
+[Document](https://we-plugin.github.io/we-cropper/#/)
 
-[ChangeLog](https://dlhandsome.github.io/we-cropper/#/changelog)
+[ChangeLog](https://we-plugin.github.io/we-cropper/#/changelog)
 
-[Example](https://github.com/dlhandsome/we-cropper/tree/master/example)
+[Example](https://github.com/we-plugin/we-cropper/tree/master/example)
 
 [The MIT License](http://opensource.org/licenses/MIT)
 
