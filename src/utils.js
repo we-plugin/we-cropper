@@ -26,3 +26,7 @@ export function	getDevice() {
 	}
 	return device
 }
+
+export function isFunction (obj) {
+	return typeof obj === 'function'
+}

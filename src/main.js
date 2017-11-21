@@ -1,4 +1,3 @@
-import { version } from '../package.json'
 import { validator, setTouchState } from './utils'
 import DEFAULT from './default'
 import prepare from './prepare'
@@ -7,6 +6,8 @@ import methods from './methods'
 import update from './update'
 import handle from './handle'
 import cutt from './cut'
+
+const version = __VERSION__
 
 class weCropper {
 

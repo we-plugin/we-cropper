@@ -1,6 +1,8 @@
 /**
  * Created by sail on 2017/6/11.
  */
+import { isFunction } from './utils'
+
 export default function methods() {
 	const self = this
 
@@ -14,7 +16,7 @@ export default function methods() {
 			//  画布绘制图片
 			self.ctx.drawImage(self.croperTarget, self.imgLeft, self.imgTop, self.scaleWidth, self.scaleHeight)
 		}
-		typeof self.onBeforeDraw === 'function' && self.onBeforeDraw(self.ctx, self)
+    isFunction(self.onBeforeDraw) && self.onBeforeDraw(self.ctx, self)
 
 		self.setBoundStyle() //	设置边界样式
 		self.ctx.draw()
@@ -23,8 +25,8 @@ export default function methods() {
 
 	self.pushOrign = (src) => {
 		self.src = src
-
-		typeof self.onBeforeImageLoad === 'function' && self.onBeforeImageLoad(self.ctx, self)
+    
+    isFunction(self.onBeforeImageLoad) && self.onBeforeImageLoad(self.ctx, self)
 
 		wx.getImageInfo({
 			src,
@@ -53,8 +55,8 @@ export default function methods() {
 				self.scaleHeight = self.baseHeight
 
 				self.updateCanvas()
-
-				typeof self.onImageLoad === 'function' && self.onImageLoad(self.ctx, self)
+        
+        isFunction(self.onImageLoad) && self.onImageLoad(self.ctx, self)
 			}
 		})
 
@@ -65,6 +67,7 @@ export default function methods() {
 	self.getCropperImage = (...args) => {
 		const { id } = self
 		const ARG_TYPE = toString.call(args[0])
+		const fn = args[args.length - 1]
 
 		switch (ARG_TYPE) {
 			case '[object Object]':
@@ -84,7 +87,10 @@ export default function methods() {
 					destWidth: width * quality / (deviceRadio * 10),
 					destHeight: height * quality / (deviceRadio * 10),
 					success (res) {
-						typeof args[args.length - 1] === 'function' && args[args.length - 1](res.tempFilePath)
+            isFunction(fn) && fn.call(self, res.tempFilePath)
+					},
+					fail (res) {
+            isFunction(fn) && fn.call(self, null)
 					}
 				}); break
 			case '[object Function]':
@@ -97,7 +103,10 @@ export default function methods() {
 					destWidth: width / deviceRadio,
 					destHeight: height / deviceRadio,
 					success (res) {
-						typeof args[args.length - 1] === 'function' && args[args.length - 1](res.tempFilePath)
+            isFunction(fn) && fn.call(self, res.tempFilePath)
+					},
+					fail (res) {
+            isFunction(fn) && fn.call(self, null)
 					}
 				}); break
 		}
