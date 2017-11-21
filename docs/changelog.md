@@ -1,5 +1,9 @@
 ## changelog
 
+### v1.1.5 (2017-11-22)
+
+- `F` 修复 获取裁剪图图片异常时，getCropperImage方法内匿名函数不执行
+
 ### v1.1.4 (2017-6-13)
 
 - `F` 修复 图片越界问题 [ISSUE #7](https://github.com/dlhandsome/we-cropper/issues/7) [ISSUE #10](https://github.com/dlhandsome/we-cropper/issues/10)
