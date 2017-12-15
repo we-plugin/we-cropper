@@ -10,49 +10,47 @@ import cutt from './cut'
 const version = __VERSION__
 
 class weCropper {
+  constructor (params) {
+    const self = this
+    const _default = {}
 
-	constructor (params) {
-		const self = this
-		const _default = {}
+    validator(self, DEFAULT)
 
-		validator(self, DEFAULT)
+    Object.keys(DEFAULT).forEach(key => {
+      _default[key] = DEFAULT[key].default
+    })
+    Object.assign(self, _default, params)
 
-		Object.keys(DEFAULT).forEach(key => {
-			_default[key] = DEFAULT[key].default
-		})
-		Object.assign(self, _default, params)
+    self.prepare()
+    self.attachPage()
+    self.createCtx()
+    self.observer()
+    self.cutt()
+    self.methods()
+    self.init()
+    self.update()
 
-		self.prepare()
-		self.attachPage()
-		self.createCtx()
-		self.observer()
-		self.cutt()
-		self.methods()
-		self.init()
-		self.update()
+    return self
+  }
 
-		return self
-	}
+  init () {
+    const self = this
+    const { src } = self
 
+    self.version = version
 
-	init () {
-		const self = this
-		const { src } = self
+    typeof self.onReady === 'function' && self.onReady(self.ctx, self)
 
-		self.version = version
+    if (src) {
+      self.pushOrign(src)
+    }
+    setTouchState(self, false, false, false)
 
-		typeof self.onReady === 'function' && self.onReady(self.ctx, self)
+    self.oldScale = 1
+    self.newScale = 1
 
-		if (src) {
-			self.pushOrign(src)
-		}
-		setTouchState(self, false, false, false)
-
-		self.oldScale = 1
-		self.newScale = 1
-
-		return self
-	}
+    return self
+  }
 }
 
 Object.assign(weCropper.prototype, handle)

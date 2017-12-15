@@ -14,13 +14,13 @@ const resolve = _path => path.resolve(__dirname, '../', _path)
 const configs = {
   umdDev: {
     input: resolve('src/main.js'),
-    file: resolve('dist/weCropper.js'),
+    file: resolve('dist/we-cropper.js'),
     format: 'umd',
     env: 'development'
   },
   umdProd: {
     input: resolve('src/main.js'),
-    file: resolve('dist/weCropper.min.js'),
+    file: resolve('dist/we-cropper.min.js'),
     format: 'umd',
     env: 'production'
   }
@@ -41,7 +41,7 @@ function genConfig (opts) {
       banner,
       file: opts.file,
       format: opts.format,
-      name: 'weCropper'
+      name: 'WeCropper'
     }
   }
   
