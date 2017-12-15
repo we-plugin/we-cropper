@@ -22,10 +22,10 @@ cd we-cropper
 !> 需要注意的是，canvas的宽高（width、height）需要和we-cropper构造器参数中的保持一致
 
 ```html
-<import src="../../dist/weCropper.wxml"/>
+<import src="../we-cropper/we-cropper.wxml"/>
 
 <view class="cropper-wrapper">
-    <template is="weCropper" data="{{...cropperOpt}}"/>
+    <template is="we-cropper" data="{{...cropperOpt}}"/>
     <view class="cropper-buttons">
         <view
                 class="upload"
@@ -44,7 +44,7 @@ cd we-cropper
 > 引入weCropper插件
 
 ```javascript
-    import weCropper from 'dist/weCropper'
+    import WeCropper from '../we-cropper/we-cropper.js'
     
     const device = wx.getSystemInfoSync() // 获取设备信息
     const width = device.windowWidth // 示例为一个与屏幕等宽的正方形裁剪框
@@ -80,7 +80,7 @@ cd we-cropper
         const { cropperOpt } = this.data
         
         // 若同一个页面只有一个裁剪容器，在其它Page方法中可通过this.wecropper访问实例
-        new weCropper(cropperOpt)
+        new WeCropper(cropperOpt)
             .on('ready', (ctx) => {
                 console.log(`wecropper is ready for work!`)
             })
