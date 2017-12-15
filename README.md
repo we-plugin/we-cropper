@@ -1,7 +1,7 @@
 # 微信小程序图片裁剪工具we-cropper
 
-[![travis-ci](https://travis-ci.org/dlhandsome/we-cropper.svg?branch=master)](https://www.travis-ci.org/dlhandsome/we-cropper)
-[![Coverage Status](https://coveralls.io/repos/github/dlhandsome/we-cropper/badge.svg?branch=master)](https://coveralls.io/github/dlhandsome/we-cropper?branch=master)
+[![travis-ci](https://travis-ci.org/we-plugin/we-cropper.svg?branch=master)](https://www.travis-ci.org/we-plugin/we-cropper)
+[![Coverage Status](https://coveralls.io/repos/github/we-plugin/we-cropper/badge.svg?branch=master)](https://coveralls.io/github/we-plugin/we-cropper?branch=master)
 
 一款灵活小巧的canvas图片裁剪器
 
