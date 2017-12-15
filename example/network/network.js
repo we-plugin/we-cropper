@@ -1,16 +1,16 @@
-import weCropper from '../../dist/weCropper.js'
+import WeCropper from '../we-cropper/we-cropper.js'
 
-const __network_image__ = 'http://image.smartisanos.cn/resource/a9ea11be5ffa8225110782fe3ac46a74.png'
+const NETWORK_IMG_URL = 'http://image.smartisanos.cn/resource/a9ea11be5ffa8225110782fe3ac46a74.png'
 const device = wx.getSystemInfoSync()
 Page({
   data: {
-  	cropperOpt: {
-			id: 'cropper',
-			width: device.windowWidth,
-			height: device.windowWidth,
-			scale: 2.5
-		}
-	},
+    cropperOpt: {
+      id: 'cropper',
+      width: device.windowWidth,
+      height: device.windowWidth,
+      scale: 2.5
+    }
+  },
   touchStart (e) {
     this.wecropper.touchStart(e)
   },
@@ -32,29 +32,29 @@ Page({
       }
     })
   },
-	uploadTap () {
-  	this.wecropper.pushOrign(__network_image__)
-	},
+  uploadTap () {
+    this.wecropper.pushOrign(NETWORK_IMG_URL)
+  },
   onLoad (option) {
-		const { cropperOpt } = this.data
+    const { cropperOpt } = this.data
 
-		new weCropper(cropperOpt)
-			.on('ready', (ctx) => {
-				console.log(`wecropper is ready for work!`)
-			})
-			.on('beforeImageLoad', (ctx) => {
-				console.log(`weCropper is ready`)
-				console.log(`current canvas context:`, ctx)
-				wx.showToast({
-					title: '上传中',
-					icon: 'loading',
-					duration: 20000
-				})
-			})
-			.on('imageLoad', (ctx) => {
-				console.log(`picture loaded`)
-				console.log(`current canvas context:`, ctx)
-				wx.hideToast()
-			})
+    new WeCropper(cropperOpt)
+      .on('ready', (ctx) => {
+        console.log(`wecropper is ready for work!`)
+      })
+      .on('beforeImageLoad', (ctx) => {
+        console.log(`weCropper is ready`)
+        console.log(`current canvas context:`, ctx)
+        wx.showToast({
+          title: '上传中',
+          icon: 'loading',
+          duration: 20000
+        })
+      })
+      .on('imageLoad', (ctx) => {
+        console.log(`picture loaded`)
+        console.log(`current canvas context:`, ctx)
+        wx.hideToast()
+      })
   }
 })

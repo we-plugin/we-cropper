@@ -1,7 +1,7 @@
-<import src="../../../dist/weCropper.wxml"/>
+<import src="../../we-cropper/we-cropper.wxml"/>
 
 <view class="cropper-wrapper">
-    <template is="weCropper" data="{{...cropperOpt}}"/>
+    <template is="we-cropper" data="{{...cropperOpt}}"/>
     <view class="cropper-buttons">
         <view
                 class="upload"

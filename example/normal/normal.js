@@ -1,16 +1,16 @@
-import weCropper from '../../dist/weCropper.js'
+import WeCropper from '../we-cropper/we-cropper.js'
 const device = wx.getSystemInfoSync()
 
 Page({
   data: {
-  	cropperOpt: {
-			id: 'cropper',
-			width: device.windowWidth,
-			height: device.windowWidth,
-			scale: 2.5,
-			zoom: 8
-		}
-	},
+    cropperOpt: {
+      id: 'cropper',
+      width: device.windowWidth,
+      height: device.windowWidth,
+      scale: 2.5,
+      zoom: 8
+    }
+  },
   touchStart (e) {
     this.wecropper.touchStart(e)
   },
@@ -49,23 +49,23 @@ Page({
   onLoad (option) {
     const { cropperOpt } = this.data
 
-		new weCropper(cropperOpt)
-			.on('ready', function (ctx) {
-				console.log(`wecropper is ready for work!`)
-			})
-			.on('beforeImageLoad', (ctx) => {
-				console.log(`before picture loaded, i can do something`)
-				console.log(`current canvas context:`, ctx)
-				wx.showToast({
-					title: '上传中',
-					icon: 'loading',
-					duration: 20000
-				})
-			})
-			.on('imageLoad', (ctx) => {
-				console.log(`picture loaded`)
-				console.log(`current canvas context:`, ctx)
-				wx.hideToast()
-			})
+    new WeCropper(cropperOpt)
+      .on('ready', function (ctx) {
+        console.log(`wecropper is ready for work!`)
+      })
+      .on('beforeImageLoad', (ctx) => {
+        console.log(`before picture loaded, i can do something`)
+        console.log(`current canvas context:`, ctx)
+        wx.showToast({
+          title: '上传中',
+          icon: 'loading',
+          duration: 20000
+        })
+      })
+      .on('imageLoad', (ctx) => {
+        console.log(`picture loaded`)
+        console.log(`current canvas context:`, ctx)
+        wx.hideToast()
+      })
   }
 })

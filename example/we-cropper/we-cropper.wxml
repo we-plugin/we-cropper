@@ -1,4 +1,4 @@
-<template name="weCropper">
+<template name="we-cropper">
     <canvas
             class="cropper"
             disable-scroll="true"

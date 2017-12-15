@@ -1,12 +1,12 @@
 {
   "pages": [
-    "example/dashboard/index",
-    "example/normal/normal",
-    "example/avatarUpload/index/index",
-    "example/avatarUpload/upload/upload",
-    "example/network/network",
-    "example/watermark/watermark",
-    "example/cutInside/cutInside"
+    "dashboard/index",
+    "normal/normal",
+    "avatarUpload/index/index",
+    "avatarUpload/upload/upload",
+    "network/network",
+    "watermark/watermark",
+    "cutInside/cutInside"
   ],
   "window": {
     "backgroundTextStyle": "dark",
