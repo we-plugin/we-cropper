@@ -27,10 +27,10 @@ git clone https://github.com/we-plugin/we-cropper.git
 ```
 ####  使用编译后的文件dist/weCropper.js
 ```javascript
-var weCropper = require('dist/weCropper')
+var WeCropper = require('dist/we-cropper')
 
 // ES6(需在开发工具勾选ES6转ES5)
-import weCropper from 'dist/weCropper'
+import WeCropper from 'dist/we-cropper'
 ```
 
 #### 对插件进行开发调试
