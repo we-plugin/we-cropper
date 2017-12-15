@@ -1,1 +1,1 @@
-{ "presets": ["es2015-rollup"] }
+{ "presets": ["es2015-rollup", "es2015"] }
