@@ -1,0 +1,9 @@
+extends: standard
+
+globals:
+  describe: false
+  it: false
+
+rules:
+  no-tabs: 0
+  no-useless-call: 0
