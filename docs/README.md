@@ -192,6 +192,6 @@ this.wecropper.pushOrign(src)
 
 <img src="assets/wechat.jpg" width="200" height="314">
 
-+ 鼓励作者
+## 鼓励作者
 
 <img src="assets/appreciate.jpg" width="200" height="200">
