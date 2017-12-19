@@ -2,7 +2,7 @@
 
 [![travis-ci](https://travis-ci.org/we-plugin/we-cropper.svg?branch=master)](https://www.travis-ci.org/we-plugin/we-cropper)
 
-一款灵活小巧的canvas图片裁剪器
+一款灵活小巧的canvas图片裁剪器 [在线体验](https://github.com/we-plugin/we-cropper/blob/master/docs/assets/online.jpg)
 
 <div style="position:relative;width: 100%">
     <img src="https://github.com/we-plugin/we-cropper/blob/master/docs/assets/screenshot.jpg" width="50%" style="position:absolute; left: 50%; transform:translateX(-50%)" />
