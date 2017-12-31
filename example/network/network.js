@@ -1,6 +1,6 @@
 import WeCropper from '../we-cropper/we-cropper.js'
 
-const NETWORK_IMG_URL = 'http://image.smartisanos.cn/resource/a9ea11be5ffa8225110782fe3ac46a74.png'
+const NETWORK_IMG_URL = 'https://static.smartisanos.cn/os/assets/images/onestep-logo@2x.e035bc6a7fbf6f6a5986c4349a6c9a7e.png'
 const device = wx.getSystemInfoSync()
 Page({
   data: {
