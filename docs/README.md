@@ -190,8 +190,8 @@ this.wecropper.pushOrign(src)
 
 + we-cropper交流群
 
-<img src="assets/wechat.jpg" width="200" height="314">
+<img src="assets/wechat.jpg" width="250" height="393">
 
 ## 鼓励作者
 
-<img src="assets/appreciate.jpg" width="200" height="200">
+<img src="assets/appreciate.jpg" width="250" height="250">
