@@ -1,4 +1,4 @@
-import { getDevice } from './utils'
+import { getDevice } from './utils/index'
 
 export default function prepare () {
   const self = this

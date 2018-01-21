@@ -1,6 +1,6 @@
 /**
- * we-cropper v1.1.5
- * (c) 2017 dlhandsome
+ * we-cropper v1.2.0
+ * (c) 2018 dlhandsome
  * @license MIT
  */
 (function (global, factory) {
@@ -11,6 +11,10 @@
 
 var device = void 0;
 var TOUCH_STATE = ['touchstarted', 'touchmoved', 'touchended'];
+
+function isFunction (obj) {
+  return typeof obj === 'function'
+}
 
 function firstLetterUpper (str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -36,10 +40,6 @@ function	getDevice () {
     device = wx.getSystemInfoSync();
   }
   return device
-}
-
-function isFunction (obj) {
-  return typeof obj === 'function'
 }
 
 var tmp = {};
@@ -213,9 +213,394 @@ function observer () {
   };
 }
 
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+
+
+
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var base64 = createCommonjsModule(function (module, exports) {
+/*! http://mths.be/base64 v0.1.0 by @mathias | MIT license */
+(function(root) {
+
+	// Detect free variables `exports`.
+	var freeExports = 'object' == 'object' && exports;
+
+	// Detect free variable `module`.
+	var freeModule = 'object' == 'object' && module &&
+		module.exports == freeExports && module;
+
+	// Detect free variable `global`, from Node.js or Browserified code, and use
+	// it as `root`.
+	var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal;
+	if (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal) {
+		root = freeGlobal;
+	}
+
+	/*--------------------------------------------------------------------------*/
+
+	var InvalidCharacterError = function(message) {
+		this.message = message;
+	};
+	InvalidCharacterError.prototype = new Error;
+	InvalidCharacterError.prototype.name = 'InvalidCharacterError';
+
+	var error = function(message) {
+		// Note: the error messages used throughout this file match those used by
+		// the native `atob`/`btoa` implementation in Chromium.
+		throw new InvalidCharacterError(message);
+	};
+
+	var TABLE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+	// http://whatwg.org/html/common-microsyntaxes.html#space-character
+	var REGEX_SPACE_CHARACTERS = /[\t\n\f\r ]/g;
+
+	// `decode` is designed to be fully compatible with `atob` as described in the
+	// HTML Standard. http://whatwg.org/html/webappapis.html#dom-windowbase64-atob
+	// The optimized base64-decoding algorithm used is based on @atk’s excellent
+	// implementation. https://gist.github.com/atk/1020396
+	var decode = function(input) {
+		input = String(input)
+			.replace(REGEX_SPACE_CHARACTERS, '');
+		var length = input.length;
+		if (length % 4 == 0) {
+			input = input.replace(/==?$/, '');
+			length = input.length;
+		}
+		if (
+			length % 4 == 1 ||
+			// http://whatwg.org/C#alphanumeric-ascii-characters
+			/[^+a-zA-Z0-9/]/.test(input)
+		) {
+			error(
+				'Invalid character: the string to be decoded is not correctly encoded.'
+			);
+		}
+		var bitCounter = 0;
+		var bitStorage;
+		var buffer;
+		var output = '';
+		var position = -1;
+		while (++position < length) {
+			buffer = TABLE.indexOf(input.charAt(position));
+			bitStorage = bitCounter % 4 ? bitStorage * 64 + buffer : buffer;
+			// Unless this is the first of a group of 4 characters…
+			if (bitCounter++ % 4) {
+				// …convert the first 8 bits to a single ASCII character.
+				output += String.fromCharCode(
+					0xFF & bitStorage >> (-2 * bitCounter & 6)
+				);
+			}
+		}
+		return output;
+	};
+
+	// `encode` is designed to be fully compatible with `btoa` as described in the
+	// HTML Standard: http://whatwg.org/html/webappapis.html#dom-windowbase64-btoa
+	var encode = function(input) {
+		input = String(input);
+		if (/[^\0-\xFF]/.test(input)) {
+			// Note: no need to special-case astral symbols here, as surrogates are
+			// matched, and the input is supposed to only contain ASCII anyway.
+			error(
+				'The string to be encoded contains characters outside of the ' +
+				'Latin1 range.'
+			);
+		}
+		var padding = input.length % 3;
+		var output = '';
+		var position = -1;
+		var a;
+		var b;
+		var c;
+		var buffer;
+		// Make sure any padding is handled outside of the loop.
+		var length = input.length - padding;
+
+		while (++position < length) {
+			// Read three bytes, i.e. 24 bits.
+			a = input.charCodeAt(position) << 16;
+			b = input.charCodeAt(++position) << 8;
+			c = input.charCodeAt(++position);
+			buffer = a + b + c;
+			// Turn the 24 bits into four chunks of 6 bits each, and append the
+			// matching character for each of them to the output.
+			output += (
+				TABLE.charAt(buffer >> 18 & 0x3F) +
+				TABLE.charAt(buffer >> 12 & 0x3F) +
+				TABLE.charAt(buffer >> 6 & 0x3F) +
+				TABLE.charAt(buffer & 0x3F)
+			);
+		}
+
+		if (padding == 2) {
+			a = input.charCodeAt(position) << 8;
+			b = input.charCodeAt(++position);
+			buffer = a + b;
+			output += (
+				TABLE.charAt(buffer >> 10) +
+				TABLE.charAt((buffer >> 4) & 0x3F) +
+				TABLE.charAt((buffer << 2) & 0x3F) +
+				'='
+			);
+		} else if (padding == 1) {
+			buffer = input.charCodeAt(position);
+			output += (
+				TABLE.charAt(buffer >> 2) +
+				TABLE.charAt((buffer << 4) & 0x3F) +
+				'=='
+			);
+		}
+
+		return output;
+	};
+
+	var base64 = {
+		'encode': encode,
+		'decode': decode,
+		'version': '0.1.0'
+	};
+
+	// Some AMD build optimizers, like r.js, check for specific condition patterns
+	// like the following:
+	if (
+		typeof undefined == 'function' &&
+		typeof undefined.amd == 'object' &&
+		undefined.amd
+	) {
+		undefined(function() {
+			return base64;
+		});
+	}	else if (freeExports && !freeExports.nodeType) {
+		if (freeModule) { // in Node.js or RingoJS v0.8.0+
+			freeModule.exports = base64;
+		} else { // in Narwhal or RingoJS v0.7.0-
+			for (var key in base64) {
+				base64.hasOwnProperty(key) && (freeExports[key] = base64[key]);
+			}
+		}
+	} else { // in Rhino or a web browser
+		root.base64 = base64;
+	}
+
+}(commonjsGlobal));
+});
+
+function makeURI (strData, type) {
+  return 'data:' + type + ';base64,' + strData
+}
+
+function fixType (type) {
+  type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+  var r = type.match(/png|jpeg|bmp|gif/)[0];
+  return 'image/' + r
+}
+
+function encodeData (data) {
+  var str = '';
+  if (typeof data === 'string') {
+    str = data;
+  } else {
+    for (var i = 0; i < data.length; i++) {
+      str += String.fromCharCode(data[i]);
+    }
+  }
+  return base64.encode(str)
+}
+
+/**
+ * 获取图像区域隐含的像素数据
+ * @param canvasId canvas标识
+ * @param x 将要被提取的图像数据矩形区域的左上角 x 坐标
+ * @param y 将要被提取的图像数据矩形区域的左上角 y 坐标
+ * @param width 将要被提取的图像数据矩形区域的宽度
+ * @param height 将要被提取的图像数据矩形区域的高度
+ * @param done 完成回调
+ */
+function getImageData (canvasId, x, y, width, height, done) {
+  wx.canvasGetImageData({
+    canvasId: canvasId,
+    x: x,
+    y: y,
+    width: width,
+    height: height,
+    success: function success (res) {
+      done(res);
+    },
+    fail: function fail (res) {
+      done(null);
+      console.error('canvasGetImageData error: ' + res);
+    }
+  });
+}
+
+/**
+ * 生成bmp格式图片
+ * 按照规则生成图片响应头和响应体
+ * @param oData 用来描述 canvas 区域隐含的像素数据 { data, width, height } = oData
+ * @returns {*} base64字符串
+ */
+function genBitmapImage (oData) {
+  //
+  // BITMAPFILEHEADER: http://msdn.microsoft.com/en-us/library/windows/desktop/dd183374(v=vs.85).aspx
+  // BITMAPINFOHEADER: http://msdn.microsoft.com/en-us/library/dd183376.aspx
+  //
+  var biWidth = oData.width;
+  var biHeight	= oData.height;
+  var biSizeImage = biWidth * biHeight * 3;
+  var bfSize = biSizeImage + 54; // total header size = 54 bytes
+
+  //
+  //  typedef struct tagBITMAPFILEHEADER {
+  //  	WORD bfType;
+  //  	DWORD bfSize;
+  //  	WORD bfReserved1;
+  //  	WORD bfReserved2;
+  //  	DWORD bfOffBits;
+  //  } BITMAPFILEHEADER;
+  //
+  var BITMAPFILEHEADER = [
+    // WORD bfType -- The file type signature; must be "BM"
+    0x42, 0x4D,
+    // DWORD bfSize -- The size, in bytes, of the bitmap file
+    bfSize & 0xff, bfSize >> 8 & 0xff, bfSize >> 16 & 0xff, bfSize >> 24 & 0xff,
+    // WORD bfReserved1 -- Reserved; must be zero
+    0, 0,
+    // WORD bfReserved2 -- Reserved; must be zero
+    0, 0,
+    // DWORD bfOffBits -- The offset, in bytes, from the beginning of the BITMAPFILEHEADER structure to the bitmap bits.
+    54, 0, 0, 0
+  ];
+
+  //
+  //  typedef struct tagBITMAPINFOHEADER {
+  //  	DWORD biSize;
+  //  	LONG  biWidth;
+  //  	LONG  biHeight;
+  //  	WORD  biPlanes;
+  //  	WORD  biBitCount;
+  //  	DWORD biCompression;
+  //  	DWORD biSizeImage;
+  //  	LONG  biXPelsPerMeter;
+  //  	LONG  biYPelsPerMeter;
+  //  	DWORD biClrUsed;
+  //  	DWORD biClrImportant;
+  //  } BITMAPINFOHEADER, *PBITMAPINFOHEADER;
+  //
+  var BITMAPINFOHEADER = [
+    // DWORD biSize -- The number of bytes required by the structure
+    40, 0, 0, 0,
+    // LONG biWidth -- The width of the bitmap, in pixels
+    biWidth & 0xff, biWidth >> 8 & 0xff, biWidth >> 16 & 0xff, biWidth >> 24 & 0xff,
+    // LONG biHeight -- The height of the bitmap, in pixels
+    biHeight & 0xff, biHeight >> 8 & 0xff, biHeight >> 16 & 0xff, biHeight >> 24 & 0xff,
+    // WORD biPlanes -- The number of planes for the target device. This value must be set to 1
+    1, 0,
+    // WORD biBitCount -- The number of bits-per-pixel, 24 bits-per-pixel -- the bitmap
+    // has a maximum of 2^24 colors (16777216, Truecolor)
+    24, 0,
+    // DWORD biCompression -- The type of compression, BI_RGB (code 0) -- uncompressed
+    0, 0, 0, 0,
+    // DWORD biSizeImage -- The size, in bytes, of the image. This may be set to zero for BI_RGB bitmaps
+    biSizeImage & 0xff, biSizeImage >> 8 & 0xff, biSizeImage >> 16 & 0xff, biSizeImage >> 24 & 0xff,
+    // LONG biXPelsPerMeter, unused
+    0, 0, 0, 0,
+    // LONG biYPelsPerMeter, unused
+    0, 0, 0, 0,
+    // DWORD biClrUsed, the number of color indexes of palette, unused
+    0, 0, 0, 0,
+    // DWORD biClrImportant, unused
+    0, 0, 0, 0
+  ];
+
+  var iPadding = (4 - ((biWidth * 3) % 4)) % 4;
+
+  var aImgData = oData.data;
+
+  var strPixelData = '';
+  var biWidth4 = biWidth << 2;
+  var y = biHeight;
+  var fromCharCode = String.fromCharCode;
+
+  do {
+    var iOffsetY = biWidth4 * (y - 1);
+    var strPixelRow = '';
+    for (var x = 0; x < biWidth; x++) {
+      var iOffsetX = x << 2;
+      strPixelRow += fromCharCode(aImgData[iOffsetY + iOffsetX + 2]) +
+        fromCharCode(aImgData[iOffsetY + iOffsetX + 1]) +
+        fromCharCode(aImgData[iOffsetY + iOffsetX]);
+    }
+
+    for (var c = 0; c < iPadding; c++) {
+      strPixelRow += String.fromCharCode(0);
+    }
+
+    strPixelData += strPixelRow;
+  } while (--y)
+
+  var strEncoded = encodeData(BITMAPFILEHEADER.concat(BITMAPINFOHEADER)) + encodeData(strPixelData);
+
+  return strEncoded
+}
+
+/**
+ * 转换为图片base64
+ * @param canvasId canvas标识
+ * @param x 将要被提取的图像数据矩形区域的左上角 x 坐标
+ * @param y 将要被提取的图像数据矩形区域的左上角 y 坐标
+ * @param width 将要被提取的图像数据矩形区域的宽度
+ * @param height 将要被提取的图像数据矩形区域的高度
+ * @param type 转换图片类型
+ * @param done 完成回调
+ */
+function convertToImage (canvasId, x, y, width, height, type, done) {
+  if ( done === void 0 ) done = function () {};
+
+  if (type === undefined) { type = 'png'; }
+  type = fixType(type);
+  if (/bmp/.test(type)) {
+    getImageData(canvasId, x, y, width, height, function (data) {
+      var strData = genBitmapImage(data);
+      isFunction(done) && done(makeURI(strData, 'image/' + type));
+    });
+  } else {
+    console.error('暂不支持生成\'' + type + '\'类型的base64图片');
+  }
+}
+
+var CanvasToBase64 = {
+  convertToImage: convertToImage,
+  // convertToPNG: function (width, height, done) {
+  //   return convertToImage(width, height, 'png', done)
+  // },
+  // convertToJPEG: function (width, height, done) {
+  //   return convertToImage(width, height, 'jpeg', done)
+  // },
+  // convertToGIF: function (width, height, done) {
+  //   return convertToImage(width, height, 'gif', done)
+  // },
+  convertToBMP: function (ref, done) {
+    if ( ref === void 0 ) ref = {};
+    var canvasId = ref.canvasId;
+    var x = ref.x;
+    var y = ref.y;
+    var width = ref.width;
+    var height = ref.height;
+    if ( done === void 0 ) done = function () {};
+
+    return convertToImage(canvasId, x, y, width, height, 'bmp', done)
+  }
+};
+
 function methods () {
   var self = this;
 
+  var id = self.id;
   var deviceRadio = self.deviceRadio;
   var boundWidth = self.width; // 裁剪框默认宽度，即整个画布宽度
   var boundHeight = self.height; // 裁剪框默认高度，即整个画布高度
@@ -248,8 +633,7 @@ function methods () {
         var innerAspectRadio = res.width / res.height;
 
         self.croperTarget = res.path;
-
-        console.log(x, y);
+        
         if (innerAspectRadio < width / height) {
           self.rectX = x;
           self.baseWidth = width;
@@ -277,11 +661,22 @@ function methods () {
     return self
   };
 
+  self.getCropperBase64 = function (done) {
+    if ( done === void 0 ) done = function () {};
+
+    CanvasToBase64.convertToBMP({
+      canvasId: id,
+      x: x,
+      y: y,
+      width: width,
+      height: height
+    }, done);
+  };
+
   self.getCropperImage = function () {
     var args = [], len = arguments.length;
     while ( len-- ) args[ len ] = arguments[ len ];
 
-    var id = self.id;
     var ARG_TYPE = toString.call(args[0]);
     var fn = args[args.length - 1];
 
@@ -332,14 +727,33 @@ function methods () {
   };
 }
 
+/**
+ * 获取最新缩放值
+ * @param oldScale 上一次触摸结束后的缩放值
+ * @param oldDistance 上一次触摸结束后的双指距离
+ * @param zoom 缩放系数
+ * @param touch0 第一指touch对象
+ * @param touch1 第二指touch对象
+ * @returns {*}
+ */
+var getNewScale = function (oldScale, oldDistance, zoom, touch0, touch1) {
+  var xMove, yMove, newDistance;
+  // 计算二指最新距离
+  xMove = Math.round(touch1.x - touch0.x);
+  yMove = Math.round(touch1.y - touch0.y);
+  newDistance = Math.round(Math.sqrt(xMove * xMove + yMove * yMove));
+
+  return oldScale + 0.001 * zoom * (newDistance - oldDistance)
+};
+
 function update () {
   var self = this;
 
   if (!self.src) { return }
 
   self.__oneTouchStart = function (touch) {
-    self.touchX0 = touch.x;
-    self.touchY0 = touch.y;
+    self.touchX0 = Math.round(touch.x);
+    self.touchY0 = Math.round(touch.y);
   };
 
   self.__oneTouchMove = function (touch) {
@@ -348,11 +762,11 @@ function update () {
     if (self.touchended) {
       return self.updateCanvas()
     }
-    xMove = touch.x - self.touchX0;
-    yMove = touch.y - self.touchY0;
+    xMove = Math.round(touch.x - self.touchX0);
+    yMove = Math.round(touch.y - self.touchY0);
 
-    var imgLeft = self.rectX + xMove;
-    var imgTop = self.rectY + yMove;
+    var imgLeft = Math.round(self.rectX + xMove);
+    var imgTop = Math.round(self.rectY + yMove);
 
     self.outsideBound(imgLeft, imgTop);
 
@@ -362,37 +776,33 @@ function update () {
   self.__twoTouchStart = function (touch0, touch1) {
     var xMove, yMove, oldDistance;
 
-    self.touchX1 = self.rectX + self.scaleWidth / 2;
-    self.touchY1 = self.rectY + self.scaleHeight / 2;
+    self.touchX1 = Math.round(self.rectX + self.scaleWidth / 2);
+    self.touchY1 = Math.round(self.rectY + self.scaleHeight / 2);
 
     // 计算两指距离
-    xMove = touch1.x - touch0.x;
-    yMove = touch1.y - touch0.y;
-    oldDistance = Math.sqrt(xMove * xMove + yMove * yMove);
+    xMove = Math.round(touch1.x - touch0.x);
+    yMove = Math.round(touch1.y - touch0.y);
+    oldDistance = Math.round(Math.sqrt(xMove * xMove + yMove * yMove));
 
     self.oldDistance = oldDistance;
   };
 
   self.__twoTouchMove = function (touch0, touch1) {
-    var xMove, yMove, newDistance;
+    var oldScale = self.oldScale;
+    var oldDistance = self.oldDistance;
     var scale = self.scale;
     var zoom = self.zoom;
-    // 计算二指最新距离
-    xMove = touch1.x - touch0.x;
-    yMove = touch1.y - touch0.y;
-    newDistance = Math.sqrt(xMove * xMove + yMove * yMove);
 
-    //  使用0.005的缩放倍数具有良好的缩放体验
-    self.newScale = self.oldScale + 0.001 * zoom * (newDistance - self.oldDistance);
+    self.newScale = getNewScale(oldScale, oldDistance, zoom, touch0, touch1);
 
     //  设定缩放范围
     self.newScale <= 1 && (self.newScale = 1);
     self.newScale >= scale && (self.newScale = scale);
 
-    self.scaleWidth = self.newScale * self.baseWidth;
-    self.scaleHeight = self.newScale * self.baseHeight;
-    var imgLeft = self.touchX1 - self.scaleWidth / 2;
-    var imgTop = self.touchY1 - self.scaleHeight / 2;
+    self.scaleWidth = Math.round(self.newScale * self.baseWidth);
+    self.scaleHeight = Math.round(self.newScale * self.baseHeight);
+    var imgLeft = Math.round(self.touchX1 - self.scaleWidth / 2);
+    var imgTop = Math.round(self.touchY1 - self.scaleHeight / 2);
 
     self.outsideBound(imgLeft, imgTop);
 
@@ -492,6 +902,29 @@ function cut () {
     var mask = ref.mask; if ( mask === void 0 ) mask = 'rgba(0, 0, 0, 0.3)';
     var lineWidth = ref.lineWidth; if ( lineWidth === void 0 ) lineWidth = 1;
 
+    var boundOption = [
+      {
+        start: { x: x - lineWidth, y: y + 10 - lineWidth },
+        step1: { x: x - lineWidth, y: y - lineWidth },
+        step2: { x: x + 10 - lineWidth, y: y - lineWidth }
+      },
+      {
+        start: { x: x - lineWidth, y: y + height - 10 + lineWidth },
+        step1: { x: x - lineWidth, y: y + height + lineWidth },
+        step2: { x: x + 10 - lineWidth, y: y + height + lineWidth }
+      },
+      {
+        start: { x: x + width - 10 + lineWidth, y: y - lineWidth },
+        step1: { x: x + width + lineWidth, y: y - lineWidth },
+        step2: { x: x + width + lineWidth, y: y + 10 - lineWidth }
+      },
+      {
+        start: { x: x + width + lineWidth, y: y + height - 10 + lineWidth },
+        step1: { x: x + width + lineWidth, y: y + height + lineWidth },
+        step2: { x: x + width - 10 + lineWidth, y: y + height + lineWidth }
+      }
+    ];
+
     // 绘制半透明层
     self.ctx.beginPath();
     self.ctx.setFillStyle(mask);
@@ -501,49 +934,19 @@ function cut () {
     self.ctx.fillRect(x + width, 0, boundWidth - x - width, boundHeight);
     self.ctx.fill();
 
-    // 设置边界左上角样式
-    // 为使边界样式处于边界外边缘，此时x、y均要减少lineWidth
-    self.ctx.beginPath();
-    self.ctx.setStrokeStyle(color);
-    self.ctx.setLineWidth(lineWidth);
-    self.ctx.moveTo(x - lineWidth, y + 10 - lineWidth);
-    self.ctx.lineTo(x - lineWidth, y - lineWidth);
-    self.ctx.lineTo(x + 10 - lineWidth, y - lineWidth);
-    self.ctx.stroke();
-
-    // 设置边界左下角样式
-    // 为使边界样式处于边界外边缘，此时x要减少lineWidth、y要增加lineWidth
-    self.ctx.beginPath();
-    self.ctx.setStrokeStyle(color);
-    self.ctx.setLineWidth(lineWidth);
-    self.ctx.moveTo(x - lineWidth, y + height - 10 + lineWidth);
-    self.ctx.lineTo(x - lineWidth, y + height + lineWidth);
-    self.ctx.lineTo(x + 10 - lineWidth, y + height + lineWidth);
-    self.ctx.stroke();
-
-    // 设置边界右上角样式
-    // 为使边界样式处于边界外边缘，此时x要增加lineWidth、y要减少lineWidth
-    self.ctx.beginPath();
-    self.ctx.setStrokeStyle(color);
-    self.ctx.setLineWidth(lineWidth);
-    self.ctx.moveTo(x + width - 10 + lineWidth, y - lineWidth);
-    self.ctx.lineTo(x + width + lineWidth, y - lineWidth);
-    self.ctx.lineTo(x + width + lineWidth, y + 10 - lineWidth);
-    self.ctx.stroke();
-
-    // 设置边界右下角样式
-    // 为使边界样式处于边界外边缘，此时x、y均要增加lineWidth
-    self.ctx.beginPath();
-    self.ctx.setStrokeStyle(color);
-    self.ctx.setLineWidth(lineWidth);
-    self.ctx.moveTo(x + width + lineWidth, y + height - 10 + lineWidth);
-    self.ctx.lineTo(x + width + lineWidth, y + height + lineWidth);
-    self.ctx.lineTo(x + width - 10 + lineWidth, y + height + lineWidth);
-    self.ctx.stroke();
+    boundOption.forEach(function (op) {
+      self.ctx.beginPath();
+      self.ctx.setStrokeStyle(color);
+      self.ctx.setLineWidth(lineWidth);
+      self.ctx.moveTo(op.start.x, op.start.y);
+      self.ctx.lineTo(op.step1.x, op.step1.y);
+      self.ctx.lineTo(op.step2.x, op.step2.y);
+      self.ctx.stroke();
+    });
   };
 }
 
-var version = "1.1.5";
+var version = "1.2.0";
 
 var weCropper = function weCropper (params) {
   var self = this;

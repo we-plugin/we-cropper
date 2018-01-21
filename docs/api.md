@@ -143,6 +143,17 @@ canvas组件标识符（必填）
         - `src`: 裁剪后的图片路径
         
 获取画布图片
+
+#### wecropper.getCropperBase64(callback)
+
+!> 基础库 1.9.0 开始支持，低版本需做兼容处理 
+
+- callback:
+    - Type: `Function`
+    - Params:
+        - `base64`: 裁剪后的图片（base64编码）
+        
+获取裁剪图片（base64编码）
         
 #### wecropper.on(event, callback)
 

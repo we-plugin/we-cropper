@@ -1,9 +1,10 @@
-import { isFunction } from './utils'
+import { isFunction } from './utils/index'
+import CanvasToBase64 from './utils/canvas2base64'
 
 export default function methods () {
   const self = this
 
-  const { deviceRadio } = self
+  const { id, deviceRadio } = self
   const boundWidth = self.width // 裁剪框默认宽度，即整个画布宽度
   const boundHeight = self.height // 裁剪框默认高度，即整个画布高度
   let { x = 0, y = 0, width = boundWidth, height = boundHeight } = self.cut
@@ -31,8 +32,7 @@ export default function methods () {
         let innerAspectRadio = res.width / res.height
 
         self.croperTarget = res.path
-
-        console.log(x, y)
+        
         if (innerAspectRadio < width / height) {
           self.rectX = x
           self.baseWidth = width
@@ -60,8 +60,17 @@ export default function methods () {
     return self
   }
 
+  self.getCropperBase64 = (done = () => {}) => {
+    CanvasToBase64.convertToBMP({
+      canvasId: id,
+      x,
+      y,
+      width,
+      height
+    }, done)
+  }
+
   self.getCropperImage = (...args) => {
-    const { id } = self
     const ARG_TYPE = toString.call(args[0])
     const fn = args[args.length - 1]
 

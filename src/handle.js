@@ -1,4 +1,4 @@
-import { setTouchState } from './utils'
+import { setTouchState } from './utils/index'
 
 export default {
   //  图片手势初始监测

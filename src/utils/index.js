@@ -1,6 +1,10 @@
 let	device = void 0
 const TOUCH_STATE = ['touchstarted', 'touchmoved', 'touchended']
 
+export function isFunction (obj) {
+  return typeof obj === 'function'
+}
+
 export function firstLetterUpper (str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
@@ -22,8 +26,4 @@ export function	getDevice () {
     device = wx.getSystemInfoSync()
   }
   return device
-}
-
-export function isFunction (obj) {
-  return typeof obj === 'function'
 }

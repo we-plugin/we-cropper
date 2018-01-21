@@ -29,6 +29,29 @@ export default function cut () {
 	 * @param color	边界颜色
 	 */
   self.setBoundStyle = ({ color = '#04b00f', mask = 'rgba(0, 0, 0, 0.3)', lineWidth = 1 } = {}) => {
+    const boundOption = [
+      {
+        start: { x: x - lineWidth, y: y + 10 - lineWidth },
+        step1: { x: x - lineWidth, y: y - lineWidth },
+        step2: { x: x + 10 - lineWidth, y: y - lineWidth }
+      },
+      {
+        start: { x: x - lineWidth, y: y + height - 10 + lineWidth },
+        step1: { x: x - lineWidth, y: y + height + lineWidth },
+        step2: { x: x + 10 - lineWidth, y: y + height + lineWidth }
+      },
+      {
+        start: { x: x + width - 10 + lineWidth, y: y - lineWidth },
+        step1: { x: x + width + lineWidth, y: y - lineWidth },
+        step2: { x: x + width + lineWidth, y: y + 10 - lineWidth }
+      },
+      {
+        start: { x: x + width + lineWidth, y: y + height - 10 + lineWidth },
+        step1: { x: x + width + lineWidth, y: y + height + lineWidth },
+        step2: { x: x + width - 10 + lineWidth, y: y + height + lineWidth }
+      }
+    ]
+
     // 绘制半透明层
     self.ctx.beginPath()
     self.ctx.setFillStyle(mask)
@@ -38,44 +61,14 @@ export default function cut () {
     self.ctx.fillRect(x + width, 0, boundWidth - x - width, boundHeight)
     self.ctx.fill()
 
-    // 设置边界左上角样式
-    // 为使边界样式处于边界外边缘，此时x、y均要减少lineWidth
-    self.ctx.beginPath()
-    self.ctx.setStrokeStyle(color)
-    self.ctx.setLineWidth(lineWidth)
-    self.ctx.moveTo(x - lineWidth, y + 10 - lineWidth)
-    self.ctx.lineTo(x - lineWidth, y - lineWidth)
-    self.ctx.lineTo(x + 10 - lineWidth, y - lineWidth)
-    self.ctx.stroke()
-
-    // 设置边界左下角样式
-    // 为使边界样式处于边界外边缘，此时x要减少lineWidth、y要增加lineWidth
-    self.ctx.beginPath()
-    self.ctx.setStrokeStyle(color)
-    self.ctx.setLineWidth(lineWidth)
-    self.ctx.moveTo(x - lineWidth, y + height - 10 + lineWidth)
-    self.ctx.lineTo(x - lineWidth, y + height + lineWidth)
-    self.ctx.lineTo(x + 10 - lineWidth, y + height + lineWidth)
-    self.ctx.stroke()
-
-    // 设置边界右上角样式
-    // 为使边界样式处于边界外边缘，此时x要增加lineWidth、y要减少lineWidth
-    self.ctx.beginPath()
-    self.ctx.setStrokeStyle(color)
-    self.ctx.setLineWidth(lineWidth)
-    self.ctx.moveTo(x + width - 10 + lineWidth, y - lineWidth)
-    self.ctx.lineTo(x + width + lineWidth, y - lineWidth)
-    self.ctx.lineTo(x + width + lineWidth, y + 10 - lineWidth)
-    self.ctx.stroke()
-
-    // 设置边界右下角样式
-    // 为使边界样式处于边界外边缘，此时x、y均要增加lineWidth
-    self.ctx.beginPath()
-    self.ctx.setStrokeStyle(color)
-    self.ctx.setLineWidth(lineWidth)
-    self.ctx.moveTo(x + width + lineWidth, y + height - 10 + lineWidth)
-    self.ctx.lineTo(x + width + lineWidth, y + height + lineWidth)
-    self.ctx.lineTo(x + width - 10 + lineWidth, y + height + lineWidth)
-    self.ctx.stroke()
+    boundOption.forEach(op => {
+      self.ctx.beginPath()
+      self.ctx.setStrokeStyle(color)
+      self.ctx.setLineWidth(lineWidth)
+      self.ctx.moveTo(op.start.x, op.start.y)
+      self.ctx.lineTo(op.step1.x, op.step1.y)
+      self.ctx.lineTo(op.step2.x, op.step2.y)
+      self.ctx.stroke()
+    })
   }
 }

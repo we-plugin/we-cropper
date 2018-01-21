@@ -1,8 +1,10 @@
 ## changelog
 
-### v1.2 (敬请期待...)
+### v1.2 (2018-01-22)
 
-- 自定义Clip方法
+- ~~自定义Clip方法~~
+
+- 新增 『API：方法』[获取裁剪图片（base64编码）](https://dlhandsome.github.io/we-cropper/#/api?id=wecroppergetcropperbase64callback)
 
 ### v1.1.5 (2017-11-22)
 

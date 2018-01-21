@@ -1,4 +1,4 @@
-import { firstLetterUpper } from './utils'
+import { firstLetterUpper } from './utils/index'
 
 export default function observer () {
   const self = this

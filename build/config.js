@@ -1,6 +1,9 @@
 const path = require('path')
 const buble = require('rollup-plugin-buble')
 const replace = require('rollup-plugin-replace')
+const npmResolve = require('rollup-plugin-node-resolve')
+const common = require('rollup-plugin-commonjs')
+const copy = require('rollup-plugin-copy')
 const version = process.env.VERSION || require('../package.json').version
 const banner =
   `/**
@@ -31,10 +34,16 @@ function genConfig (opts) {
     input: {
       input: opts.input,
       plugins: [
+        npmResolve(),
+        common(),
         replace({
           __VERSION__: JSON.stringify(version)
         }),
-        buble()
+        buble(),
+        copy({
+          'dist/': 'example/we-cropper/',
+          verbose: true
+        })
       ]
     },
     output: {
