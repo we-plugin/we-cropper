@@ -32,7 +32,7 @@ export default function methods () {
         let innerAspectRadio = res.width / res.height
 
         self.croperTarget = res.path
-        
+
         if (innerAspectRadio < width / height) {
           self.rectX = x
           self.baseWidth = width
