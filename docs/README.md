@@ -41,7 +41,7 @@ cd we-cropper
 </view>
 
 ```
-> 引入weCropper插件
+> 引入WeCropper插件
 
 ```javascript
     import WeCropper from '../we-cropper/we-cropper.js'
@@ -72,7 +72,7 @@ cd we-cropper
 	//...
 ```
 
-> 推荐在页面onLoad函数中实例化weCropper
+> 推荐在页面onLoad函数中实例化WeCropper
 
 ```javascript
     //...
@@ -109,7 +109,7 @@ cd we-cropper
 
 > 事件绑定
 
-!> wecropper插件通过touchStart、touchMove、touchEnd方法来接收事件对象。
+!> 插件通过touchStart、touchMove、touchEnd方法来接收事件对象。
 
 ```javascript
       //...
