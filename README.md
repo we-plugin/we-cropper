@@ -1,11 +1,12 @@
 # 微信小程序图片裁剪工具we-cropper
 
 [![travis-ci](https://travis-ci.org/we-plugin/we-cropper.svg?branch=master)](https://www.travis-ci.org/we-plugin/we-cropper)
+[![npm-version](https://img.shields.io/npm/v/we-cropper.svg)](https://www.npmjs.com/package/we-cropper)
 
 一款灵活小巧的canvas图片裁剪器 [在线体验](https://github.com/we-plugin/we-cropper/blob/master/docs/assets/online.jpg)
 
-<div style="position:relative;width: 100%">
-    <img src="https://github.com/we-plugin/we-cropper/blob/master/docs/assets/screenshot.jpg" width="50%" style="position:absolute; left: 50%; transform:translateX(-50%)" />
+<div align="center">
+  <a><img src="https://github.com/we-plugin/we-cropper/blob/master/docs/assets/screenshot.jpg" width="350"/></a>
 </div>
 
 ## Feature
@@ -27,7 +28,7 @@ cd my-project
 
 git clone https://github.com/we-plugin/we-cropper.git
 ```
-####  使用编译后的文件dist/weCropper.js
+####  使用编译后的文件dist/we-cropper.js
 ```javascript
 var WeCropper = require('dist/we-cropper')
 
