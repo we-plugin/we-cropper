@@ -3,10 +3,10 @@
 [![travis-ci](https://travis-ci.org/we-plugin/we-cropper.svg?branch=master)](https://www.travis-ci.org/we-plugin/we-cropper)
 [![npm-version](https://img.shields.io/npm/v/we-cropper.svg)](https://www.npmjs.com/package/we-cropper)
 
-一款灵活小巧的canvas图片裁剪器 [在线体验](https://github.com/we-plugin/we-cropper/blob/master/docs/assets/online.jpg)
+一款灵活小巧的canvas图片裁剪器 [在线体验](https://unpkg.com/we-cropper@1.2.0/docs/assets/online.jpg)
 
 <div align="center">
-  <a><img src="https://github.com/we-plugin/we-cropper/blob/master/docs/assets/screenshot.jpg" width="350"/></a>
+  <a><img src="https://unpkg.com/we-cropper@1.2.0/docs/assets/screenshot.jpg" width="350"/></a>
 </div>
 
 ## Feature
