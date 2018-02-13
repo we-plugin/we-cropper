@@ -45,3 +45,6 @@ npm install
 npm run dev
 ```
 欢迎任意形式的贡献
+
+<h2 align="center">Thanks</h2>
+@夏左左
