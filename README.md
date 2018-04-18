@@ -34,7 +34,7 @@ npm install we-cropper --save
 
 - [在WePY框架中实现“自定义组件”](https://github.com/we-plugin/we-cropper/wiki/%E5%9C%A8WePY%E4%B8%AD%E5%AE%9E%E7%8E%B0%E2%80%9C%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A3%81%E5%89%AA%E7%BB%84%E4%BB%B6%E2%80%9D)
 
-- [在mpvue中实现“自定义裁剪组件”](https://github.com/we-plugin/we-cropper/wiki/%E5%9C%A8mpvue%E4%B8%AD%E5%AE%9E%E7%8E%B0%E2%80%9C%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A3%81%E5%89%AA%E7%BB%84%E4%BB%B6%E2%80%9D)
+- [在mpvue中实现“自定义裁剪组件”](https://github.com/we-plugin/we-cropper/tree/master/packages/mpvue-cropper)
 
 <h2 align="center">Contributing</h2>
 
