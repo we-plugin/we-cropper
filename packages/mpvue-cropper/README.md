@@ -17,7 +17,8 @@ npm install mpvue-cropper --save
       :option="cropperOpt"
       @ready="cropperReady"
       @beforeDraw="cropperBeforeDraw"
-      @beforeImageLoad="cropperLoad"
+      @beforeImageLoad="cropperBeforeImageLoad"
+      @beforeLoad="cropperLoad"
       ></mpvue-cropper>
     <div class="cropper-buttons">
       <div
@@ -74,6 +75,9 @@ export default {
   methods: {
     cropperReady (...args) {
       console.log('cropper ready!')
+    },
+    cropperBeforeImageLoad (...args) {
+      console.log('before image load')
     },
     cropperLoad (...args) {
       console.log('image loaded')
