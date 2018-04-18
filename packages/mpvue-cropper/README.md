@@ -52,7 +52,7 @@ const getComponentByTag = (parent, tag) => {
 export default {
   data () {
     return {
-      wecropper: null,
+      cropper: null,
       cropperOpt: {
         width,
         height,
@@ -94,12 +94,12 @@ export default {
           const src = res.tempFilePaths[0]
           //  获取裁剪图片资源后，给data添加src属性及其值
 
-          this.wecropper.pushOrigin(src)
+          this.cropper.pushOrigin(src)
         }
       })
     },
     getCropperImage () {
-      this.wecropper.getCropperImage()
+      this.cropper.getCropperImage()
         .then((src) => {
           wx.previewImage({
             current: '', // 当前显示图片的http链接
@@ -113,7 +113,7 @@ export default {
   },
 
   mounted () {
-    this.wecropper = getComponentByTag(this, 'we-cropper')
+    this.cropper = getComponentByTag(this, 'mpvue-cropper')
   }
 }
 </script>
