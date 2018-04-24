@@ -195,7 +195,7 @@ this.wecropper.pushOrign(src)
 
 + we-cropper交流群
 
-<img src="assets/wechat.jpg" width="250" height="393">
+<img src="https://github.com/dlhandsome/me/blob/master/we-cropper.qrcode.png?raw=true" width="250" height="393">
 
 ## 鼓励作者
 
