@@ -193,10 +193,10 @@ this.wecropper.pushOrign(src)
 
 + [Pull requests](https://github.com/we-plugin/we-cropper)
 
-+ we-cropper交流群
++ we-cropper交流群(已超过100人，添加作者微信邀请入群)
 
-<img src="https://github.com/dlhandsome/me/blob/master/we-cropper.qrcode.png?raw=true" width="250" height="393">
+<img src="https://github.com/dlhandsome/me/blob/master/we-cropper.qrcode.png?raw=true" width="350">
 
 ## 鼓励作者
 
-<img src="https://unpkg.com/we-cropper@1.2.0/docs/assets/appreciate.jpg" width="250" height="250">
+<img src="https://unpkg.com/we-cropper@1.2.0/docs/assets/appreciate.jpg" width="350" height="350">
