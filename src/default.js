@@ -94,9 +94,9 @@ export default {
     },
     set (value) {
       if (typeof (value) !== 'boolean') {
-        console.error(("inRealTime:" + value + " is invalid"));
+        console.error(('inRealTime:' + value + ' is invalid'))
       }
-      tmp.inRealTime = value;
+      tmp.inRealTime = value
     }
   },
   onReady: {

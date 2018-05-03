@@ -138,7 +138,7 @@ var DEFAULT = {
     },
     set: function set (value) {
       if (typeof (value) !== 'boolean') {
-        console.error(("inRealTime:" + value + " is invalid"));
+        console.error(('inRealTime:' + value + ' is invalid'));
       }
       tmp.inRealTime = value;
     }
@@ -636,7 +636,7 @@ function methods () {
   };
 
   self.updateImage = function (isInit) {
-    if ( isInit === void 0 ) isInit=false;
+    if ( isInit === void 0 ) isInit = false;
 
     if (self.croperTarget && isInit) {
       self.pageContext.setData({

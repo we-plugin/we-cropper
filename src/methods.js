@@ -21,7 +21,7 @@ export default function methods () {
     return self
   }
 
-  self.updateImage = (isInit=false) => {
+  self.updateImage = (isInit = false) => {
     if (self.croperTarget && isInit) {
       self.pageContext.setData({
         'cropperOpt.cropperImageSrc': self.croperTarget
@@ -41,7 +41,7 @@ export default function methods () {
     })
 
     return self
-  };
+  }
 
   self.pushOrign = (src) => {
     self.src = src
