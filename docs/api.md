@@ -54,6 +54,13 @@ canvas组件标识符（必填）
     - width: `Number` 裁剪框宽度（默认 画布宽度），单位：px
     - height: `Number` 裁剪框高度（默认 画布高度），单位：px
 
+#### inRealTime
+
+- Type: `Boolean`
+- Default: `true`
+
+是否实时在 canvas 上绘制渲染裁切后的图片
+
 #### onReady
 
 - Type: `Function`
