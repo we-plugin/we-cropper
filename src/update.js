@@ -14,6 +14,9 @@ export default function update () {
     let xMove, yMove
     // 计算单指移动的距离
     if (self.touchended) {
+      if (!self.inRealTime) {
+        self.updateImage()
+      }
       return self.updateCanvas()
     }
     xMove = Math.round(touch.x - self.touchX0)
@@ -24,7 +27,11 @@ export default function update () {
 
     self.outsideBound(imgLeft, imgTop)
 
-    self.updateCanvas()
+    if (!self.inRealTime) {
+      self.updateImage()
+    } else {
+      self.updateCanvas();
+    }
   }
 
   self.__twoTouchStart = (touch0, touch1) => {
@@ -57,7 +64,11 @@ export default function update () {
 
     self.outsideBound(imgLeft, imgTop)
 
-    self.updateCanvas()
+    if (!self.inRealTime) {
+      self.updateImage()
+    } else {
+      self.updateCanvas();
+    }
   }
 
   self.__xtouchEnd = () => {

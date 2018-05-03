@@ -87,6 +87,18 @@ export default {
       tmp.cut = value
     }
   },
+  inRealTime: {
+    default: true,
+    get: function get() {
+      return tmp.inRealTime
+    },
+    set: function set(value) {
+      if (typeof (value) !== 'boolean') {
+        console.error(("inRealTime:" + value + " is invalid"));
+      }
+      tmp.inRealTime = value;
+    }
+  },
   onReady: {
     default: null,
     get () {
