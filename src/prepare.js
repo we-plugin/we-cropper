@@ -10,6 +10,7 @@ export default function prepare () {
     const pageContext = pages[pages.length - 1]
     //  把this依附在Page上下文的wecropper属性上，便于在page钩子函数中访问
     pageContext.wecropper = self
+    self.pageContext = pageContext
   }
 
   self.createCtx = () => {
