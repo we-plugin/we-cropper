@@ -133,10 +133,10 @@ var DEFAULT = {
   },
   inRealTime: {
     default: true,
-    get: function get() {
+    get: function get () {
       return tmp.inRealTime
     },
-    set: function set(value) {
+    set: function set (value) {
       if (typeof (value) !== 'boolean') {
         console.error(("inRealTime:" + value + " is invalid"));
       }
@@ -192,6 +192,7 @@ function prepare () {
     var pageContext = pages[pages.length - 1];
     //  把this依附在Page上下文的wecropper属性上，便于在page钩子函数中访问
     pageContext.wecropper = self;
+    self.pageContext = pageContext;
   };
 
   self.createCtx = function () {
@@ -638,16 +639,15 @@ function methods () {
     if ( isInit === void 0 ) isInit=false;
 
     if (self.croperTarget && isInit) {
-
       self.pageContext.setData({
         'cropperOpt.cropperImageSrc': self.croperTarget
       });
     }
 
     if (!self.imgLeft || !self.imgTop) {
-      return;
+      return
     }
-    
+
     self.pageContext.setData({
       'cropperOpt.imageLeft': self.imgLeft,
       'cropperOpt.imageTop': self.imgTop,
@@ -719,7 +719,7 @@ function methods () {
     while ( len-- ) args[ len ] = arguments[ len ];
 
     self.updateCanvas();
-    
+
     var ARG_TYPE = toString.call(args[0]);
     var fn = args[args.length - 1];
 
