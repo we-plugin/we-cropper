@@ -89,10 +89,10 @@ export default {
   },
   inRealTime: {
     default: true,
-    get: function get() {
+    get () {
       return tmp.inRealTime
     },
-    set: function set(value) {
+    set (value) {
       if (typeof (value) !== 'boolean') {
         console.error(("inRealTime:" + value + " is invalid"));
       }

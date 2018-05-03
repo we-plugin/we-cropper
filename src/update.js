@@ -30,7 +30,7 @@ export default function update () {
     if (!self.inRealTime) {
       self.updateImage()
     } else {
-      self.updateCanvas();
+      self.updateCanvas()
     }
   }
 
@@ -67,7 +67,7 @@ export default function update () {
     if (!self.inRealTime) {
       self.updateImage()
     } else {
-      self.updateCanvas();
+      self.updateCanvas()
     }
   }
 
