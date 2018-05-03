@@ -1,3 +1,4 @@
+<template name="we-cropper">
 <view style='position:absolute;top:0px;width:{{width}}px;height:{{height}}px;background-color: rgba(0, 0, 0, 0.8);'>
     <image wx:if="{{!inRealTime}}" src="{{cropperImageSrc}}" style="top:{{imageTop}}px;left:{{imageLeft}}px; width:{{imageWidth}}px;height:{{imageHeight}}px;position:absolute;"></image>  
        <canvas
@@ -10,3 +11,4 @@
             canvas-id="{{id}}">
     </canvas>   
 </view>
+</template>
