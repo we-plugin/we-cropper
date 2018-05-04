@@ -804,9 +804,10 @@ function update () {
     // 计算单指移动的距离
     if (self.touchended) {
       if (!self.inRealTime) {
-        self.updateImage();
+        return self.updateImage()
+      } else {
+        return self.updateCanvas()
       }
-      return self.updateCanvas()
     }
     xMove = Math.round(touch.x - self.touchX0);
     yMove = Math.round(touch.y - self.touchY0);
