@@ -24,7 +24,7 @@
     },
     computed: {
       _canvasId () {
-        return this.option.canvasId
+        return this.option.id
       },
       _width () {
         return this.option.width
@@ -66,7 +66,7 @@
     },
     mounted () {
       _wecropper = new WeCropper(Object.assign(this.option, {
-        id: CANVAS_ID
+        id: this._canvasId
       }))
         .on('ready', (...args) => {
           this.$emit('ready', ...args)
