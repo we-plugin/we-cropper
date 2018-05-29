@@ -14,6 +14,7 @@ npm install mpvue-cropper --save
 <template>
   <div>
     <mpvue-cropper 
+      ref="cropper"
       :option="cropperOpt"
       @ready="cropperReady"
       @beforeDraw="cropperBeforeDraw"
@@ -41,13 +42,6 @@ import MpvueCropper from 'mpvue-cropper'
 const device = wx.getSystemInfoSync()
 const width = device.windowWidth
 const height = device.windowHeight - 50
-const getComponentByTag = (parent, tag) => {
-  for (let c of parent.$children) {
-    if (c.$options._componentTag === tag) {
-      return c
-    }
-  }
-}
 
 export default {
   data () {
@@ -114,7 +108,7 @@ export default {
   },
 
   mounted () {
-    this.cropper = getComponentByTag(this, 'mpvue-cropper')
+    this.cropper = this.$refs.cropper
   }
 }
 </script>
