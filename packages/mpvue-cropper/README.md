@@ -54,6 +54,7 @@ export default {
     return {
       cropper: null,
       cropperOpt: {
+        id: 'cropper',
         width,
         height,
         scale: 2.5,

@@ -10,7 +10,8 @@
     "build": "node build/build.js",
     "lint": "./node_modules/.bin/eslint src test example",
     "test:unit": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register",
-    "test": "npm run lint && npm run test:unit"
+    "test": "npm run lint && npm run test:unit",
+    "publish": "npm run test && ./node_modules/.bin/lerna publish"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
+    "lerna": "^2.11.0",
     "mocha": "^4.0.1",
     "rollup": "^0.50.0",
     "rollup-plugin-buble": "^0.16.0",

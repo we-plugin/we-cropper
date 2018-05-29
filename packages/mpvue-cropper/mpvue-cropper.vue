@@ -1,6 +1,7 @@
 <template>
   <canvas
-      canvas-id="__mpvue_cropper__"
+      v-if="_canvasId"
+      :canvasId="_canvasId"
       @touchstart="touchstart"
       @touchmove="touchmove"
       @touchend="touchend"
@@ -12,7 +13,7 @@
 <script>
   import WeCropper from 'we-cropper'
 
-  const CANVAS_ID = '__mpvue_cropper__'
+  let _wecropper
 
   export default {
     name: 'mpvue-cropper',
@@ -21,12 +22,10 @@
         type: Object
       }
     },
-    data () {
-      return {
-        _we_cropper: null
-      }
-    },
     computed: {
+      _canvasId () {
+        return this.option.canvasId
+      },
       _width () {
         return this.option.width
       },
@@ -36,37 +35,37 @@
     },
     methods: {
       touchstart ($event) {
-        this._we_cropper.touchStart($event.mp)
+        _wecropper.touchStart($event.mp)
       },
       touchmove ($event) {
-        this._we_cropper.touchMove($event.mp)
+        _wecropper.touchMove($event.mp)
       },
       touchend ($event) {
-        this._we_cropper.touchEnd($event.mp)
+        _wecropper.touchEnd($event.mp)
       },
       pushOrigin (src) {
-        this._we_cropper.pushOrign(src)
+        _wecropper.pushOrign(src)
       },
       updateCanvas () {
-        this._we_cropper.updateCanvas()
+        _wecropper.updateCanvas()
       },
       getCropperBase64 () {
         return new Promise((resolve, reject) => {
-          this._we_cropper.getCropperImage(src => {
+          _wecropper.getCropperImage(src => {
             src ? resolve(src) : reject()
           })
         })
       },
       getCropperImage () {
         return new Promise((resolve, reject) => {
-          this._we_cropper.getCropperImage(src => {
+          _wecropper.getCropperImage(src => {
             src ? resolve(src) : reject()
           })
         })
       }
     },
     mounted () {
-      this._we_cropper = new WeCropper(Object.assign(this.option, {
+      _wecropper = new WeCropper(Object.assign(this.option, {
         id: CANVAS_ID
       }))
         .on('ready', (...args) => {
