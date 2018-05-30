@@ -69,5 +69,7 @@ DELETE THE INFORMATION ABOVE(INCLUDE THE SEPARATION LINE) BEFORE YOU OPEN AN ISS
 ## Relevant Code / Logs
 
   ```
-  // TODO(you): code or logs ohere to reproduce the problem
+    // TODO(you): code or logs here to reproduce the problem
+    // 可以使用小程序代码片段功能，方便其它人帮助你定位代码问题
+    // 详情可参考这里：https://developers.weixin.qq.com/miniprogram/dev/devtools/minicode.html
   ```
