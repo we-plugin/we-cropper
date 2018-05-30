@@ -62,12 +62,11 @@
             src ? resolve(src) : reject()
           })
         })
-      }
-    },
-    mounted () {
-      _wecropper = new WeCropper(Object.assign(this.option, {
-        id: this._canvasId
-      }))
+      },
+      init () {
+        _wecropper = new WeCropper(Object.assign(this.option, {
+          id: this._canvasId
+        }))
         .on('ready', (...args) => {
           this.$emit('ready', ...args)
         })
@@ -81,6 +80,13 @@
           this.$emit('beforeDraw', ...args)
         })
         .updateCanvas()
+      }
+    },
+    onLoad () {
+      if (!this.option) {
+        return console.warn('[mpvue-cropper] 请传入option参数\n参数配置见文档：https://we-plugin.github.io/we-cropper/#/api')
+      }
+      this.init()
     }
   }
 </script>
