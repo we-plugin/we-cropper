@@ -39,6 +39,8 @@ npm install mpvue-cropper --save
 <script>
 import MpvueCropper from 'mpvue-cropper'
 
+let wecropper
+
 const device = wx.getSystemInfoSync()
 const width = device.windowWidth
 const height = device.windowHeight - 50
@@ -46,7 +48,6 @@ const height = device.windowHeight - 50
 export default {
   data () {
     return {
-      cropper: null,
       cropperOpt: {
         id: 'cropper',
         width,
@@ -89,12 +90,12 @@ export default {
           const src = res.tempFilePaths[0]
           //  获取裁剪图片资源后，给data添加src属性及其值
 
-          this.cropper.pushOrigin(src)
+          wecropper.pushOrigin(src)
         }
       })
     },
     getCropperImage () {
-      this.cropper.getCropperImage()
+      wecropper.getCropperImage()
         .then((src) => {
           wx.previewImage({
             current: '', // 当前显示图片的http链接
@@ -108,7 +109,7 @@ export default {
   },
 
   mounted () {
-    this.cropper = this.$refs.cropper
+    wecropper = this.$refs.cropper
   }
 }
 </script>
