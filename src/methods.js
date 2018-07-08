@@ -21,6 +21,28 @@ export default function methods () {
     return self
   }
 
+  self.updateImage = (isInit = false) => {
+    if (self.croperTarget && isInit) {
+      self.pageContext.setData({
+        'cropperOpt.cropperImageSrc': self.croperTarget
+      })
+    }
+
+    if (!self.imgLeft || !self.imgTop) {
+      return
+    }
+
+    self.pageContext.setData({
+      'cropperOpt.imageLeft': self.imgLeft,
+      'cropperOpt.imageTop': self.imgTop,
+      'cropperOpt.imageWidth': self.scaleWidth,
+      'cropperOpt.imageHeight': self.scaleHeight
+
+    })
+
+    return self
+  }
+
   self.pushOrign = (src) => {
     self.src = src
 
@@ -50,7 +72,11 @@ export default function methods () {
         self.scaleWidth = self.baseWidth
         self.scaleHeight = self.baseHeight
 
-        self.updateCanvas()
+        if (!self.inRealTime) {
+          self.updateImage(true)
+        } else {
+          self.updateCanvas()
+        }
 
         isFunction(self.onImageLoad) && self.onImageLoad(self.ctx, self)
       }
@@ -71,6 +97,8 @@ export default function methods () {
   }
 
   self.getCropperImage = (...args) => {
+    self.updateCanvas()
+
     const ARG_TYPE = toString.call(args[0])
     const fn = args[args.length - 1]
 

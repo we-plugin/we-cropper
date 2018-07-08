@@ -131,6 +131,18 @@ var DEFAULT = {
       tmp.cut = value;
     }
   },
+  inRealTime: {
+    default: true,
+    get: function get () {
+      return tmp.inRealTime
+    },
+    set: function set (value) {
+      if (typeof (value) !== 'boolean') {
+        console.error(('inRealTime:' + value + ' is invalid'));
+      }
+      tmp.inRealTime = value;
+    }
+  },
   onReady: {
     default: null,
     get: function get () {
@@ -180,6 +192,7 @@ function prepare () {
     var pageContext = pages[pages.length - 1];
     //  把this依附在Page上下文的wecropper属性上，便于在page钩子函数中访问
     pageContext.wecropper = self;
+    self.pageContext = pageContext;
   };
 
   self.createCtx = function () {
@@ -622,6 +635,30 @@ function methods () {
     return self
   };
 
+  self.updateImage = function (isInit) {
+    if ( isInit === void 0 ) isInit = false;
+
+    if (self.croperTarget && isInit) {
+      self.pageContext.setData({
+        'cropperOpt.cropperImageSrc': self.croperTarget
+      });
+    }
+
+    if (!self.imgLeft || !self.imgTop) {
+      return
+    }
+
+    self.pageContext.setData({
+      'cropperOpt.imageLeft': self.imgLeft,
+      'cropperOpt.imageTop': self.imgTop,
+      'cropperOpt.imageWidth': self.scaleWidth,
+      'cropperOpt.imageHeight': self.scaleHeight
+
+    });
+
+    return self
+  };
+
   self.pushOrign = function (src) {
     self.src = src;
 
@@ -633,7 +670,7 @@ function methods () {
         var innerAspectRadio = res.width / res.height;
 
         self.croperTarget = res.path;
-        
+
         if (innerAspectRadio < width / height) {
           self.rectX = x;
           self.baseWidth = width;
@@ -651,7 +688,11 @@ function methods () {
         self.scaleWidth = self.baseWidth;
         self.scaleHeight = self.baseHeight;
 
-        self.updateCanvas();
+        if (!self.inRealTime) {
+          self.updateImage(true);
+        } else {
+          self.updateCanvas();
+        }
 
         isFunction(self.onImageLoad) && self.onImageLoad(self.ctx, self);
       }
@@ -676,6 +717,8 @@ function methods () {
   self.getCropperImage = function () {
     var args = [], len = arguments.length;
     while ( len-- ) args[ len ] = arguments[ len ];
+
+    self.updateCanvas();
 
     var ARG_TYPE = toString.call(args[0]);
     var fn = args[args.length - 1];
@@ -760,7 +803,11 @@ function update () {
     var xMove, yMove;
     // 计算单指移动的距离
     if (self.touchended) {
-      return self.updateCanvas()
+      if (!self.inRealTime) {
+        return self.updateImage()
+      } else {
+        return self.updateCanvas()
+      }
     }
     xMove = Math.round(touch.x - self.touchX0);
     yMove = Math.round(touch.y - self.touchY0);
@@ -770,7 +817,11 @@ function update () {
 
     self.outsideBound(imgLeft, imgTop);
 
-    self.updateCanvas();
+    if (!self.inRealTime) {
+      self.updateImage();
+    } else {
+      self.updateCanvas();
+    }
   };
 
   self.__twoTouchStart = function (touch0, touch1) {
@@ -806,7 +857,11 @@ function update () {
 
     self.outsideBound(imgLeft, imgTop);
 
-    self.updateCanvas();
+    if (!self.inRealTime) {
+      self.updateImage();
+    } else {
+      self.updateCanvas();
+    }
   };
 
   self.__xtouchEnd = function () {
