@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "node build/build.js",
+    "dev": "rollup -w -c build/config.js",
     "lint": "./node_modules/.bin/eslint src test example",
     "test:unit": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register",
     "test": "npm run lint && npm run test:unit",

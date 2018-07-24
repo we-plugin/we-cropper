@@ -633,7 +633,7 @@ function methods () {
         var innerAspectRadio = res.width / res.height;
 
         self.croperTarget = res.path;
-        
+
         if (innerAspectRadio < width / height) {
           self.rectX = x;
           self.baseWidth = width;
