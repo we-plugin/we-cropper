@@ -12,7 +12,7 @@ if (!fs.existsSync('dist')) {
   fs.mkdirSync('dist')
 }
 
-build(Object.keys(configs).map(key => configs[key]))
+build(configs)
 
 function build (builds) {
   let built = 0
@@ -29,13 +29,15 @@ function build (builds) {
   next()
 }
 
-function buildEntry ({ input, output }) {
-  const isProd = /min\.js$/.test(output.file)
-  return rollup.rollup(input)
+function buildEntry (config) {
+  const output = config.output
+  const { file, banner } = output
+  const isProd = /min\.js$/.test(file)
+  return rollup.rollup(config)
     .then(bundle => bundle.generate(output))
     .then(({ code }) => {
       if (isProd) {
-        var minified = (output.banner ? output.banner + '\n' : '') + uglify.minify(code, {
+        var minified = (banner ? banner + '\n' : '') + uglify.minify(code, {
           output: {
             /* eslint-disable camelcase */
             ascii_only: true
@@ -81,20 +83,3 @@ function logError (e) {
 function blue (str) {
   return '\x1b[1m\x1b[34m' + str + '\x1b[39m\x1b[22m'
 }
-
-// rollup.rollup({
-// 	entry: 'src/main.js',
-// 	plugins: [
-// 		json(),
-// 		babel()
-// 	]
-// })
-// .then(bundle => bundle.generate({
-// 	format: 'umd',
-// 	moduleName: 'weCropper',
-// 	dest: 'dist/weCropper.js'
-// }))
-// .then(({ code }) => {
-// 	console.log(code)
-// })
-// .catch(err => console.error(err))

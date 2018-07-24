@@ -29,23 +29,22 @@ const configs = {
   }
 }
 
-function genConfig (opts) {
+function genConfig (name) {
+  const opts = configs[name]
   const config = {
-    input: {
-      input: opts.input,
-      plugins: [
-        npmResolve(),
-        common(),
-        replace({
-          __VERSION__: JSON.stringify(version)
-        }),
-        buble(),
-        copy({
-          'dist/': 'example/we-cropper/',
-          verbose: true
-        })
-      ]
-    },
+    input: opts.input,
+    plugins: [
+      npmResolve(),
+      common(),
+      replace({
+        __VERSION__: JSON.stringify(version)
+      }),
+      buble(),
+      copy({
+        'dist/': 'example/we-cropper/',
+        verbose: true
+      })
+    ],
     output: {
       banner,
       file: opts.file,
@@ -65,4 +64,8 @@ function mapValues (obj, fn) {
   return res
 }
 
-module.exports = mapValues(configs, genConfig)
+if (process.env.TARGET) {
+  module.exports = genConfig(process.env.TARGET)
+} else {
+  module.exports = Object.keys(configs).map(genConfig)
+}
