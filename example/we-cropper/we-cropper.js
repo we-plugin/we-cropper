@@ -948,7 +948,7 @@ function cut () {
 
 var version = "1.2.0";
 
-var weCropper = function weCropper (params) {
+var WeCropper = function WeCropper (params) {
   var self = this;
   var _default = {};
 
@@ -971,7 +971,7 @@ var weCropper = function weCropper (params) {
   return self
 };
 
-weCropper.prototype.init = function init () {
+WeCropper.prototype.init = function init () {
   var self = this;
   var src = self.src;
 
@@ -990,14 +990,14 @@ weCropper.prototype.init = function init () {
   return self
 };
 
-Object.assign(weCropper.prototype, handle);
+Object.assign(WeCropper.prototype, handle);
 
-weCropper.prototype.prepare = prepare;
-weCropper.prototype.observer = observer;
-weCropper.prototype.methods = methods;
-weCropper.prototype.cutt = cut;
-weCropper.prototype.update = update;
+WeCropper.prototype.prepare = prepare;
+WeCropper.prototype.observer = observer;
+WeCropper.prototype.methods = methods;
+WeCropper.prototype.cutt = cut;
+WeCropper.prototype.update = update;
 
-return weCropper;
+return WeCropper;
 
 })));
