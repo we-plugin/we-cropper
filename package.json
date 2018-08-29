@@ -13,7 +13,7 @@
     "lint": "./node_modules/.bin/eslint src test example",
     "test": "npm run lint && npm run test:types && npm run test:unit",
     "test:unit": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register",
-    "test:types": "tsc -p ./types/test/tsconfig.json",
+    "test:types": "npx tsc -p ./types/test/tsconfig.json",
     "publish": "npm run test && ./node_modules/.bin/lerna publish"
   },
   "repository": {
@@ -45,6 +45,7 @@
     "rollup-plugin-json": "^2.3.0",
     "rollup-plugin-node-resolve": "^3.0.2",
     "rollup-plugin-replace": "^2.0.0",
+    "typescript": "^3.0.1",
     "uglify-js": "^3.1.10"
   },
   "dependencies": {
