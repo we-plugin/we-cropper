@@ -3,12 +3,13 @@
   "version": "1.2.0",
   "description": "weapp,cropper,canvas",
   "main": "dist/we-cropper.js",
+  "types": "types/we-cropper.d.ts",
   "directories": {
     "example": "example"
   },
   "scripts": {
-    "build": "node build/build.js",
-    "dev": "rollup -w -c build/config.js",
+    "build": "node scripts/build/build.js",
+    "dev": "rollup -w -c scripts/build/config.js",
     "lint": "./node_modules/.bin/eslint src test example",
     "test:unit": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register",
     "test": "npm run lint && npm run test:unit",
