@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "es2015"
+    ],
+    "module": "commonjs",
+    "strict": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "we-cropper": ["../we-cropper.d.ts"]
+    }
+  },
+  "files": [
+    "../options.d.ts",
+    "../we-cropper.d.ts",
+    "../wx.d.ts",
+    "./options-test.ts",
+    "./methods-test.ts"
+  ],
+  "compileOnSave": false
+}

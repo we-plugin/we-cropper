@@ -9,7 +9,9 @@ import {
 
 export as namespace WeCropper;
 
-export = WeCropper;
+export { WeCropper }
+
+export default WeCropper
 
 /**
  * we-cropper类
@@ -18,7 +20,7 @@ declare class WeCropper {
   /**
    * 构造方法
    */
-  constructor (option: Options.WeCropperOption);
+  constructor (option: Options.ConstructorOption);
   /**
    * 更新画布视图
    */
