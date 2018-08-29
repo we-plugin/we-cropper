@@ -9,7 +9,7 @@ import cutt from './cut'
 
 const version = __VERSION__
 
-class weCropper {
+class WeCropper {
   constructor (params) {
     const self = this
     const _default = {}
@@ -53,12 +53,12 @@ class weCropper {
   }
 }
 
-Object.assign(weCropper.prototype, handle)
+Object.assign(WeCropper.prototype, handle)
 
-weCropper.prototype.prepare = prepare
-weCropper.prototype.observer = observer
-weCropper.prototype.methods = methods
-weCropper.prototype.cutt = cutt
-weCropper.prototype.update = update
+WeCropper.prototype.prepare = prepare
+WeCropper.prototype.observer = observer
+WeCropper.prototype.methods = methods
+WeCropper.prototype.cutt = cutt
+WeCropper.prototype.update = update
 
-export default weCropper
+export default WeCropper

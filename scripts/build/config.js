@@ -4,7 +4,7 @@ const replace = require('rollup-plugin-replace')
 const npmResolve = require('rollup-plugin-node-resolve')
 const common = require('rollup-plugin-commonjs')
 const copy = require('rollup-plugin-copy')
-const version = process.env.VERSION || require('../package.json').version
+const version = process.env.VERSION || require('../../package.json').version
 const banner =
   `/**
  * we-cropper v${version}
@@ -12,7 +12,7 @@ const banner =
  * @license MIT
  */`
 
-const resolve = _path => path.resolve(__dirname, '../', _path)
+const resolve = _path => path.resolve(__dirname, '../../', _path)
 
 const configs = {
   umdDev: {
