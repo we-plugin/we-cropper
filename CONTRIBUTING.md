@@ -31,7 +31,7 @@
 在自己的 github 中，找到 fork 下来的项目，git clone 到本地。
 
 ```bash
-$ git clone git@github.com:<yourname>/wepy.git
+$ git clone git@github.com:<yourname>/we-cropper.git
 ```
 
 #### 添加 we-cropper 仓库
