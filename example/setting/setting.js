@@ -14,7 +14,7 @@ Page({
     this.setData({ themeConfig: config.theme })
 
     const { color } = this.data.themeConfig.items.find(item => item.name === name)
-    
+
     config.setThemeColor(color)
-  } 
+  }
 })

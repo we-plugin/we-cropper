@@ -1,4 +1,4 @@
-export default class GlobalConfig{
+export default class GlobalConfig {
   constructor () {
     this.theme = {
       active: 'green',

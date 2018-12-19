@@ -6,6 +6,7 @@ globals:
   getCurrentPages: false
   Page: false
   App: false
+  getApp: false
 
 rules:
   no-tabs: 0

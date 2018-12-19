@@ -10,7 +10,7 @@
   "scripts": {
     "build": "node scripts/build/build.js",
     "dev": "rollup -w -c scripts/build/config.js",
-    "lint": "./node_modules/.bin/eslint src test example",
+    "lint": "./node_modules/.bin/eslint --fix src test example",
     "test": "npm run lint && npm run test:types && npm run test:unit",
     "test:unit": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register",
     "test:types": "npx tsc -p ./types/test/tsconfig.json",
