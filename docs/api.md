@@ -54,6 +54,14 @@ canvas组件标识符（必填）
     - width: `Number` 裁剪框宽度（默认 画布宽度），单位：px
     - height: `Number` 裁剪框高度（默认 画布高度），单位：px
 
+#### boundStyle
+
+- Type: `Object`
+- Options: 
+    - color: `String` 裁剪框颜色（默认 ```#04b00f```）
+    - lineWidth: `Number` 裁剪框线条宽度（默认 1）
+    - mask: `String` 遮罩层颜色（默认 ```rgba(0, 0, 0, 0.3)```）
+
 #### onReady
 
 - Type: `Function`
