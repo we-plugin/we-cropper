@@ -1,6 +1,6 @@
 {
   "name": "we-cropper",
-  "version": "1.2.0",
+  "version": "1.2.5",
   "description": "weapp,cropper,canvas",
   "main": "dist/we-cropper.js",
   "types": "types/we-cropper.d.ts",
