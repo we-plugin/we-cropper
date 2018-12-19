@@ -70,7 +70,7 @@ export default {
     },
     set (value) {
       if (typeof (value) !== 'string') {
-        console.error(`id：${value} is invalid`)
+        console.error(`src：${value} is invalid`)
       }
       tmp.src = value
     }
@@ -82,9 +82,21 @@ export default {
     },
     set (value) {
       if (typeof (value) !== 'object') {
-        console.error(`id：${value} is invalid`)
+        console.error(`cut：${value} is invalid`)
       }
       tmp.cut = value
+    }
+  },
+  boundStyle: {
+    default: {},
+    get () {
+      return tmp.boundStyle
+    },
+    set (value) {
+      if (typeof (value) !== 'object') {
+        console.error(`boundStyle：${value} is invalid`)
+      }
+      tmp.boundStyle = value
     }
   },
   onReady: {

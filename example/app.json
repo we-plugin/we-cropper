@@ -6,7 +6,8 @@
     "avatarUpload/upload/upload",
     "network/network",
     "watermark/watermark",
-    "cutInside/cutInside"
+    "cutInside/cutInside",
+    "setting/setting"
   ],
   "window": {
     "backgroundTextStyle": "dark",

@@ -114,7 +114,7 @@ var DEFAULT = {
     },
     set: function set (value) {
       if (typeof (value) !== 'string') {
-        console.error(("id：" + value + " is invalid"));
+        console.error(("src：" + value + " is invalid"));
       }
       tmp.src = value;
     }
@@ -126,9 +126,21 @@ var DEFAULT = {
     },
     set: function set (value) {
       if (typeof (value) !== 'object') {
-        console.error(("id：" + value + " is invalid"));
+        console.error(("cut：" + value + " is invalid"));
       }
       tmp.cut = value;
+    }
+  },
+  boundStyle: {
+    default: {},
+    get: function get () {
+      return tmp.boundStyle
+    },
+    set: function set (value) {
+      if (typeof (value) !== 'object') {
+        console.error(("boundStyle：" + value + " is invalid"));
+      }
+      tmp.boundStyle = value;
     }
   },
   onReady: {
@@ -617,7 +629,7 @@ function methods () {
     }
     isFunction(self.onBeforeDraw) && self.onBeforeDraw(self.ctx, self);
 
-    self.setBoundStyle(); //	设置边界样式
+    self.setBoundStyle(self.boundStyle); //	设置边界样式
     self.ctx.draw();
     return self
   };

@@ -1,0 +1,13 @@
+<view class="title">主题配置</view>
+
+<scroll-view scroll-x="true" class="theme">
+  <view class="container">
+    <block wx:for="{{themeConfig.items}}">
+      <view 
+        class="theme-block {{themeConfig.active === item.name ? 'active' : ''}}"
+        style="background: {{item.color}};"
+        data-name="{{item.name}}"
+        bindtap="themeClickHandler">{{item.name}}</view>
+    </block>
+  </view>
+</scroll-view>
