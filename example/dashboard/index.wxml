@@ -6,3 +6,7 @@
         <navigator class="list-item" url="{{item.url}}" hover-class="navigator-hover">{{item.name}}</navigator>
     </block>
 </view>
+
+<view class="lists setting">
+    <navigator class="list-item" url="../setting/setting" hover-class="navigator-hover">设置</navigator>
+</view>

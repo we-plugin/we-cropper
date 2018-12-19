@@ -16,7 +16,7 @@ export default function methods () {
     }
     isFunction(self.onBeforeDraw) && self.onBeforeDraw(self.ctx, self)
 
-    self.setBoundStyle() //	设置边界样式
+    self.setBoundStyle(self.boundStyle) //	设置边界样式
     self.ctx.draw()
     return self
   }

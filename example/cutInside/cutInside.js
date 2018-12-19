@@ -3,6 +3,9 @@
  */
 import WeCropper from '../we-cropper/we-cropper.js'
 
+const app = getApp()
+const config = app.globalData.config
+
 const device = wx.getSystemInfoSync()
 const width = device.windowWidth
 const height = device.windowHeight - 50
@@ -20,6 +23,11 @@ Page({
         y: (height - 300) / 2,
         width: 300,
         height: 300
+      },
+      boundStyle: {
+        color: config.getThemeColor(),
+        mask: 'rgba(0,0,0,0.8)',
+        lineWidth: 1
       }
     }
   },
@@ -62,6 +70,10 @@ Page({
   },
   onLoad (option) {
     const { cropperOpt } = this.data
+
+    cropperOpt.boundStyle.color = config.getThemeColor()
+
+    this.setData({ cropperOpt })
 
     new WeCropper(cropperOpt)
       .on('ready', (ctx) => {

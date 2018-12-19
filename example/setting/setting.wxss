@@ -1,0 +1,26 @@
+.title{
+    margin: 25rpx 0;
+    margin-left: 25rpx;
+}
+
+.container{
+    padding: 0 25rpx;
+    white-space: nowrap;
+}
+
+.theme-block{
+    display: inline-block;
+    width: 250rpx;
+    height: 150rpx;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 8rpx;
+    margin-left: 24rpx;
+    line-height: 150rpx;
+}
+
+.theme-block.active{
+    width: 246rpx;
+    height: 146rpx;
+    border: 2rpx solid black
+}
