@@ -1,5 +1,5 @@
 /**
- * we-cropper v1.2.0
+ * we-cropper v1.2.5
  * (c) 2018 dlhandsome
  * @license MIT
  */
@@ -958,7 +958,7 @@ function cut () {
   };
 }
 
-var version = "1.2.0";
+var version = "1.2.5";
 
 var WeCropper = function WeCropper (params) {
   var self = this;
