@@ -6,7 +6,7 @@
 一款灵活小巧的canvas图片裁剪器 [在线体验](https://unpkg.com/we-cropper@1.2.0/docs/assets/online.jpg)
 
 <div align="center">
-  <a><img src="https://unpkg.com/we-cropper@1.2.0/docs/assets/screenshot.jpg" width="350"/></a>
+  <a><img src="https://user-images.githubusercontent.com/16918885/50694060-d6a60a00-1073-11e9-9fd7-bba4ce72df19.png" width="350"/></a>
 </div>
 
 ## 使用说明
@@ -58,7 +58,9 @@ cd we-cropper
     Page({
       data: {
       	cropperOpt: {
-            id: 'cropper',
+            id: 'cropper', // 用于手势操作的canvas组件标识符
+            targetId: 'targetCropper', // 用于用于生成截图的canvas组件标识符
+            pixelRatio: device.pixelRatio, // 传入设备像素比
             width,  // 画布宽度
             height, // 画布高度
             scale: 2.5, // 最大缩放倍数
@@ -84,14 +86,11 @@ cd we-cropper
     onLoad (option) {
         const { cropperOpt } = this.data
         
-        // 若同一个页面只有一个裁剪容器，在其它Page方法中可通过this.wecropper访问实例
-        new WeCropper(cropperOpt)
+        this.cropper = this.new WeCropper(cropperOpt)
             .on('ready', (ctx) => {
                 console.log(`wecropper is ready for work!`)
             })
             .on('beforeImageLoad', (ctx) => {
-                console.log(`before picture loaded, i can do something`)
-                console.log(`current canvas context: ${ctx}`)
                 wx.showToast({
                     title: '上传中',
                     icon: 'loading',
@@ -99,15 +98,9 @@ cd we-cropper
                 })
             })
             .on('imageLoad', (ctx) => {
-                console.log(`picture loaded`)
-                console.log(`current canvas context: ${ctx}`)
                 wx.hideToast()
-            })   
-        
-        // 若同一个页面由多个裁剪容器，需要主动做如下处理
-          
-        this.A = new weCropper(cropperOptA)
-        this.B = new weCropper(cropperOptB)
+            })
+            .updateCanvas()
     }
    
 ```
@@ -119,21 +112,23 @@ cd we-cropper
 ```javascript
       //...
       touchStart (e) {
-	    this.wecropper.touchStart(e)
+	    this.cropper.touchStart(e)
       },
       touchMove (e) {
-	    this.wecropper.touchMove(e)
+	    this.cropper.touchMove(e)
       },
       touchEnd (e) {
-	    this.wecropper.touchEnd(e)
+	    this.cropper.touchEnd(e)
       }
       //...
 
 ```
 
-!> 有两种方式载入图片: 
+有两种方式载入图片: 
     
-+ 构造参数载入 
++ 实例化时载入
+
+!> 当检测到构造参数```src```有值时，会尝试通过 ```wx.getImageInfo```获取图片信息，```src```可以是图片的路径，可以是相对路径、临时文件路径、存储文件路径、网络图片路径，详情见 小程序文档·[wx.getImageInfo](https://developers.weixin.qq.com/miniprogram/dev/api/wx.getImageInfo.html)
 
 ```javascript
 new weCropper({
@@ -142,15 +137,21 @@ new weCropper({
 	// ...
 })
 ```
-+ 惰性载入
++ 先实例化后载入
+
+当检测到通过 ```pushOrign``` 方法传入的值不为空时，会尝试通过 ```wx.getImageInfo```获取图片信息，```src```可以是图片的路径，可以是相对路径、临时文件路径、存储文件路径、网络图片路径，详情见 小程序文档·[wx.getImageInfo](https://developers.weixin.qq.com/miniprogram/dev/api/wx.getImageInfo.html)
+
+1. 实例化 we-cropper，并将实例挂载在 page 上
 
 ```javascript
-const src = '...'
-
-this.wecropper.pushOrign(src)
+onLoad () {
+  this.cropper = new weCropper({
+    // ...
+  })
+}
 ```
     
-> 示例采用惰性载入的方式：点击上传图片按钮后获取图片地址，并通过pushOrign方法载入图片
+2. 点击上传图片按钮后获取图片地址，并通过pushOrign方法载入图片
 
 ```javascript
     //...
@@ -164,7 +165,7 @@ this.wecropper.pushOrign(src)
         success (res) {
           const src = res.tempFilePaths[0]
     
-          self.wecropper.pushOrign(src)
+          self.cropper.pushOrign(src)
         }
       })
     }
