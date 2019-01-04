@@ -1,4 +1,12 @@
+import {
+  getDevice
+} from './utils/helper'
+
 let tmp = {}
+
+const {
+  pixelRatio
+} = getDevice()
 
 export default {
   id: {
@@ -37,6 +45,18 @@ export default {
       tmp.height = value
     }
   },
+  pixelRatio: {
+    default: pixelRatio,
+    get () {
+      return tmp.pixelRatio
+    },
+    set (value) {
+      if (typeof (value) !== 'number') {
+        console.error(`pixelRatio：${value} is invalid`)
+      }
+      tmp.pixelRatio = value
+    }
+  },
   scale: {
     default: 2.5,
     get () {
@@ -64,7 +84,7 @@ export default {
     }
   },
   src: {
-    default: 'cropper',
+    default: '',
     get () {
       return tmp.src
     },

@@ -1,10 +1,14 @@
-import { setTouchState } from './utils/index'
+import {
+  setTouchState
+} from './utils/helper'
 
 export default {
   //  图片手势初始监测
   touchStart (e) {
     const self = this
     const [touch0, touch1] = e.touches
+
+    if (!self.src) return
 
     setTouchState(self, true, null, null)
 
@@ -22,6 +26,8 @@ export default {
     const self = this
     const [touch0, touch1] = e.touches
 
+    if (!self.src) return
+
     setTouchState(self, null, true)
 
     // 单指手势时触发
@@ -36,6 +42,8 @@ export default {
 
   touchEnd (e) {
     const self = this
+
+    if (!self.src) return
 
     setTouchState(self, false, false, true)
     self.__xtouchEnd()

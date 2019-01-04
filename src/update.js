@@ -1,4 +1,6 @@
-import { getNewScale } from './core/scale'
+import {
+  getNewScale
+} from './core/scale'
 
 export default function update () {
   const self = this
