@@ -7,7 +7,21 @@
 - Type: `String`
 - Default: `-`
 
-canvas组件标识符（必填）
+用于手势操作的canvas组件标识符（必填）
+
+#### targetId
+
+- Type: `String`
+- Default: ```-```
+
+用于生成截图的canvas组件标识符（必填）
+
+#### pixelRatio
+
+- Type: `Number`
+- Default: ```wx.getSystemInfoSync().pixelRatio```
+
+设备像素比 （必填）
 
 #### width
 
@@ -92,7 +106,7 @@ canvas组件标识符（必填）
 
 钩子函数：在画布绘制之前执行
 
-> 示例1-1
+> 示例 1-1
 
 ```javascript
     new weCropper({
@@ -149,8 +163,39 @@ canvas组件标识符（必填）
     - Type: `Function`
     - Params:
         - `src`: 裁剪后的图片路径
+
+- return：
+    - Type: `Promise`
         
 获取画布图片
+
+> 示例 2-1
+
+```javascript
+// 通过 then 链式调用
+this.wecropper.getCropperImage()
+  .then((src) => {
+    wx.previewImage({
+      current: '', // 当前显示图片的http链接
+      urls: [src] // 需要预览的图片http链接列表
+    })
+  })
+  .catch(() => {
+    console.log('获取图片地址失败，请稍后重试')
+  })
+
+// 亦可通过回调函数
+this.wecropper.getCropperImage(tempFilePath => {
+  if (tempFilePath) {
+    wx.previewImage({
+      current: '', // 当前显示图片的http链接
+      urls: [src] // 需要预览的图片http链接列表
+    })
+  } else {
+    console.log('获取图片地址失败，请稍后重试')
+  }
+})
+```
 
 #### wecropper.getCropperBase64(callback)
 
@@ -199,7 +244,7 @@ canvas组件标识符（必填）
 接收（手指触摸动作结束）事件对象
 
 
-> 示例2-1
+> 示例 3-1
 
 ```javascript
     new weCropper({

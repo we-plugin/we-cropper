@@ -1,5 +1,11 @@
 ## changelog
 
+### v1.3.0 (2019-01-04)
+
+- `A` 新增 『API：构造器参数』`targetId`、`pixelRatio`
+- `A` 允许 `getImageCropper` 通过 `then` 链式调用
+- `F` 修复 获取裁剪图片模糊问题
+
 ### v1.2.5 (2018-12-19)
 
 - `A` 新增 『API：裁剪框样式参数』boundStyle
@@ -27,7 +33,7 @@
 - `A` 新增 『API：构造器参数』cut [详情]()
 
 ### v1.1.3 (2017-6-1)
-- `F` 修复 裁剪图片清晰度问题 [ISSUE #4](https://github.com/we-plugin/we-cropper/issues/4)
+- ~~`F` 修复 裁剪图片清晰度问题 [ISSUE #4](https://github.com/we-plugin/we-cropper/issues/4)~~
 
 - `A` 丰富接口功能 『API：方法』[获取裁剪图片](https://we-plugin.github.io/we-cropper/#/api?id=wecroppergetcropperimageoptcallback)
 
