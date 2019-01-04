@@ -1,4 +1,7 @@
-import { validator, setTouchState } from './utils/index'
+import {
+  validator,
+  setTouchState
+} from './utils/helper'
 import DEFAULT from './default'
 import prepare from './prepare'
 import observer from './observer'

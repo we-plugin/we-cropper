@@ -1,5 +1,5 @@
 import base64 from 'base-64'
-import { isFunction } from './index'
+import { isFunc } from './tools'
 
 function makeURI (strData, type) {
   return 'data:' + type + ';base64,' + strData
@@ -175,7 +175,7 @@ function convertToImage (canvasId, x, y, width, height, type, done = () => {}) {
   if (/bmp/.test(type)) {
     getImageData(canvasId, x, y, width, height, (data) => {
       const strData = genBitmapImage(data)
-      isFunction(done) && done(makeURI(strData, 'image/' + type))
+      isFunc(done) && done(makeURI(strData, 'image/' + type))
     })
   } else {
     console.error('暂不支持生成\'' + type + '\'类型的base64图片')
