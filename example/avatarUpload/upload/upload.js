@@ -8,6 +8,8 @@ Page({
   data: {
     cropperOpt: {
       id: 'cropper',
+      targetId: 'targetCropper',
+      pixelRatio: device.pixelRatio,
       width,
       height,
       scale: 2.5,

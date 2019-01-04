@@ -1,5 +1,6 @@
 <view class="logo">
-    <text class="dashboard-title">we-cropper</text>
+<image src="https://user-images.githubusercontent.com/16918885/36141718-c95db0b6-10e0-11e8-8936-72b7b03d04bb.png" style="width: 150rpx; height: 150rpx;"></image>
+    <view class="dashboard-title">we-cropper</view>
 </view>
 <view class="lists">
     <block wx:for="{{lists}}" wx:key="" wx:item="item">
