@@ -1,6 +1,6 @@
 /**
  * we-cropper v1.2.5
- * (c) 2018 dlhandsome
+ * (c) 2019 dlhandsome
  * @license MIT
  */
 (function (global, factory) {
@@ -11,10 +11,6 @@
 
 var device = void 0;
 var TOUCH_STATE = ['touchstarted', 'touchmoved', 'touchended'];
-
-function isFunction (obj) {
-  return typeof obj === 'function'
-}
 
 function firstLetterUpper (str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -43,6 +39,9 @@ function	getDevice () {
 }
 
 var tmp = {};
+
+var ref = getDevice();
+var pixelRatio = ref.pixelRatio;
 
 var DEFAULT = {
   id: {
@@ -81,6 +80,18 @@ var DEFAULT = {
       tmp.height = value;
     }
   },
+  pixelRatio: {
+    default: pixelRatio,
+    get: function get () {
+      return tmp.pixelRatio
+    },
+    set: function set (value) {
+      if (typeof (value) !== 'number') {
+        console.error(("pixelRatio：" + value + " is invalid"));
+      }
+      tmp.pixelRatio = value;
+    }
+  },
   scale: {
     default: 2.5,
     get: function get () {
@@ -108,7 +119,7 @@ var DEFAULT = {
     }
   },
   src: {
-    default: 'cropper',
+    default: '',
     get: function get () {
       return tmp.src
     },
@@ -181,48 +192,46 @@ var DEFAULT = {
   }
 };
 
+var ref$1 = getDevice();
+var windowWidth = ref$1.windowWidth;
+
 function prepare () {
   var self = this;
-  var ref = getDevice();
-  var windowWidth = ref.windowWidth;
 
+  // v1.4.0 版本中将不再自动绑定we-cropper实例
   self.attachPage = function () {
     var pages = getCurrentPages();
-    //  获取到当前page上下文
+    // 获取到当前page上下文
     var pageContext = pages[pages.length - 1];
-    //  把this依附在Page上下文的wecropper属性上，便于在page钩子函数中访问
-    pageContext.wecropper = self;
+    // 把this依附在Page上下文的wecropper属性上，便于在page钩子函数中访问
+    Object.defineProperty(pageContext, 'wecropper', {
+      get: function get () {
+        console.warn(
+          'Instance will not be automatically bound to the page after v1.4.0\n\n' +
+          'Please use a custom instance name instead\n\n' +
+          'Example: \n' +
+          'this.mycropper = new WeCropper(options)\n\n' +
+          '// ...\n' +
+          'this.mycropper.getCropperImage()'
+        );
+        return self
+      }
+    });
   };
 
   self.createCtx = function () {
     var id = self.id;
+    var targetId = self.targetId;
+
     if (id) {
       self.ctx = wx.createCanvasContext(id);
+      self.targetCtx = wx.createCanvasContext(targetId);
     } else {
       console.error("constructor: create canvas context failed, 'id' must be valuable");
     }
   };
 
   self.deviceRadio = windowWidth / 750;
-}
-
-function observer () {
-  var self = this;
-
-  var EVENT_TYPE = ['ready', 'beforeImageLoad', 'beforeDraw', 'imageLoad'];
-
-  self.on = function (event, fn) {
-    if (EVENT_TYPE.indexOf(event) > -1) {
-      if (typeof (fn) === 'function') {
-        event === 'ready'
-          ? fn(self)
-          : self[("on" + (firstLetterUpper(event)))] = fn;
-      }
-    } else {
-      console.error(("event: " + event + " is invalid"));
-    }
-    return self
-  };
 }
 
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
@@ -234,6 +243,124 @@ var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
+
+var tools = createCommonjsModule(function (module, exports) {
+/**
+ * String type check
+ */
+exports.isStr = function (v) { return typeof v === 'string'; };
+/**
+ * Number type check
+ */
+exports.isNum = function (v) { return typeof v === 'number'; };
+/**
+ * Array type check
+ */
+exports.isArr = Array.isArray;
+/**
+ * undefined type check
+ */
+exports.isUndef = function (v) { return v === undefined; };
+
+exports.isTrue = function (v) { return v === true; };
+
+exports.isFalse = function (v) { return v === false; };
+/**
+ * Function type check
+ */
+exports.isFunc = function (v) { return typeof v === 'function'; };
+/**
+ * Quick object check - this is primarily used to tell
+ * Objects from primitive values when we know the value
+ * is a JSON-compliant type.
+ */
+exports.isObj = exports.isObject = function (obj) {
+  return obj !== null && typeof obj === 'object'
+};
+
+/**
+ * Strict object type check. Only returns true
+ * for plain JavaScript objects.
+ */
+var _toString = Object.prototype.toString;
+exports.isPlainObject = function (obj) {
+  return _toString.call(obj) === '[object Object]';
+};
+
+/**
+ * Check whether the object has the property.
+ */
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+exports.hasOwn = function (obj, key) {
+  return hasOwnProperty.call(obj, key)
+};
+
+/**
+ * Perform no operation.
+ * Stubbing args to make Flow happy without leaving useless transpiled code
+ * with ...rest (https://flow.org/blog/2017/05/07/Strict-Function-Call-Arity/)
+ */
+exports.noop = function (a, b, c) {};
+
+/**
+ * Check if val is a valid array index.
+ */
+exports.isValidArrayIndex = function (val) {
+  var n = parseFloat(String(val));
+  return n >= 0 && Math.floor(n) === n && isFinite(val)
+};
+});
+
+var tools_7 = tools.isFunc;
+var tools_10 = tools.isPlainObject;
+
+var EVENT_TYPE = ['ready', 'beforeImageLoad', 'beforeDraw', 'imageLoad'];
+
+function observer () {
+  var self = this;
+
+  self.on = function (event, fn) {
+    if (EVENT_TYPE.indexOf(event) > -1) {
+      if (tools_7(fn)) {
+        event === 'ready'
+          ? fn(self)
+          : self[("on" + (firstLetterUpper(event)))] = fn;
+      }
+    } else {
+      console.error(("event: " + event + " is invalid"));
+    }
+    return self
+  };
+}
+
+function wxPromise (fn) {
+  return function(obj) {
+    if ( obj === void 0 ) obj = {};
+
+    return new Promise(function (resolve, reject) {
+      obj.success = function(res) {
+        resolve(res);
+      };
+      obj.fail = function(err) {
+        reject(err);
+      };
+      fn(obj);
+    })
+  }
+}
+
+function draw (ctx, reserve) {
+  if ( reserve === void 0 ) reserve = false;
+
+  return new Promise(function (resolve) {
+    ctx.draw(reserve, resolve);
+  })
+}
+
+
+var getImageInfo = wxPromise(wx.getImageInfo);
+
+var canvasToTempFilePath = wxPromise(wx.canvasToTempFilePath);
 
 var base64 = createCommonjsModule(function (module, exports) {
 /*! http://mths.be/base64 v0.1.0 by @mathias | MIT license */
@@ -578,7 +705,7 @@ function convertToImage (canvasId, x, y, width, height, type, done) {
   if (/bmp/.test(type)) {
     getImageData(canvasId, x, y, width, height, function (data) {
       var strData = genBitmapImage(data);
-      isFunction(done) && done(makeURI(strData, 'image/' + type));
+      tools_7(done) && done(makeURI(strData, 'image/' + type));
     });
   } else {
     console.error('暂不支持生成\'' + type + '\'类型的base64图片');
@@ -612,10 +739,13 @@ var CanvasToBase64 = {
 function methods () {
   var self = this;
 
-  var id = self.id;
-  var deviceRadio = self.deviceRadio;
   var boundWidth = self.width; // 裁剪框默认宽度，即整个画布宽度
   var boundHeight = self.height; // 裁剪框默认高度，即整个画布高度
+
+  var id = self.id;
+  var targetId = self.targetId;
+  var pixelRatio = self.pixelRatio;
+  
   var ref = self.cut;
   var x = ref.x; if ( x === void 0 ) x = 0;
   var y = ref.y; if ( y === void 0 ) y = 0;
@@ -625,28 +755,34 @@ function methods () {
   self.updateCanvas = function () {
     if (self.croperTarget) {
       //  画布绘制图片
-      self.ctx.drawImage(self.croperTarget, self.imgLeft, self.imgTop, self.scaleWidth, self.scaleHeight);
+      self.ctx.drawImage(
+        self.croperTarget,
+        self.imgLeft,
+        self.imgTop,
+        self.scaleWidth,
+        self.scaleHeight
+      );
     }
-    isFunction(self.onBeforeDraw) && self.onBeforeDraw(self.ctx, self);
+    tools_7(self.onBeforeDraw) && self.onBeforeDraw(self.ctx, self);
 
     self.setBoundStyle(self.boundStyle); //	设置边界样式
-    self.ctx.draw();
-    return self
+
+    return draw(self.ctx)
   };
 
   self.pushOrign = function (src) {
     self.src = src;
 
-    isFunction(self.onBeforeImageLoad) && self.onBeforeImageLoad(self.ctx, self);
+    tools_7(self.onBeforeImageLoad) && self.onBeforeImageLoad(self.ctx, self);
 
-    wx.getImageInfo({
-      src: src,
-      success: function success (res) {
+    return getImageInfo({ src: src })
+      .then(function (res) {
         var innerAspectRadio = res.width / res.height;
+        var customAspectRadio = width / height;
 
         self.croperTarget = res.path;
 
-        if (innerAspectRadio < width / height) {
+        if (innerAspectRadio < customAspectRadio) {
           self.rectX = x;
           self.baseWidth = width;
           self.baseHeight = width / innerAspectRadio;
@@ -663,14 +799,12 @@ function methods () {
         self.scaleWidth = self.baseWidth;
         self.scaleHeight = self.baseHeight;
 
-        self.updateCanvas();
-
-        isFunction(self.onImageLoad) && self.onImageLoad(self.ctx, self);
-      }
-    });
-
-    self.update();
-    return self
+        self.update();
+        return self.updateCanvas()
+      })
+      .then(function () {
+        tools_7(self.onImageLoad) && self.onImageLoad(self.ctx, self);
+      })
   };
 
   self.getCropperBase64 = function (done) {
@@ -689,53 +823,40 @@ function methods () {
     var args = [], len = arguments.length;
     while ( len-- ) args[ len ] = arguments[ len ];
 
-    var ARG_TYPE = toString.call(args[0]);
+    var customOptions = args[0];
     var fn = args[args.length - 1];
+    
+    self.targetCtx.drawImage(
+      self.croperTarget,
+      self.imgLeft * pixelRatio,
+      self.imgTop * pixelRatio,
+      self.scaleWidth * pixelRatio,
+      self.scaleHeight * pixelRatio
+    );
 
-    switch (ARG_TYPE) {
-      case '[object Object]':
-        var ref = args[0];
-    var quality = ref.quality; if ( quality === void 0 ) quality = 10;
+    var canvasOptions = {
+      canvasId: targetId,
+      x: x * pixelRatio,
+      y: y * pixelRatio,
+      width: width * pixelRatio,
+      height: height * pixelRatio
+    };
 
-        if (typeof (quality) !== 'number') {
-          console.error(("quality：" + quality + " is invalid"));
-        } else if (quality < 0 || quality > 10) {
-          console.error("quality should be ranged in 0 ~ 10");
-        }
-        wx.canvasToTempFilePath({
-          canvasId: id,
-          x: x,
-          y: y,
-          width: width,
-          height: height,
-          destWidth: width * quality / (deviceRadio * 10),
-          destHeight: height * quality / (deviceRadio * 10),
-          success: function success (res) {
-            isFunction(fn) && fn.call(self, res.tempFilePath);
-          },
-          fail: function fail (res) {
-            isFunction(fn) && fn.call(self, null);
-          }
-        }); break
-      case '[object Function]':
-        wx.canvasToTempFilePath({
-          canvasId: id,
-          x: x,
-          y: y,
-          width: width,
-          height: height,
-          destWidth: width / deviceRadio,
-          destHeight: height / deviceRadio,
-          success: function success (res) {
-            isFunction(fn) && fn.call(self, res.tempFilePath);
-          },
-          fail: function fail (res) {
-            isFunction(fn) && fn.call(self, null);
-          }
-        }); break
-    }
+    return draw(self.targetCtx).then(function () {
+      if (tools_10(customOptions)) {
+        canvasOptions = Object.assign({}, canvasOptions, customOptions);
+      }
+      return canvasToTempFilePath(canvasOptions)
+    })
+    .then((function (res) {
+      var tempFilePath = res.tempFilePath;
 
-    return self
+      tools_7(fn) && fn.call(self, tempFilePath);
+      return tempFilePath
+    }))
+    .catch(function (err) {
+      tools_7(fn) && fn.call(self, null);
+    })
   };
 }
 
@@ -836,6 +957,8 @@ var handle = {
     var touch0 = ref[0];
     var touch1 = ref[1];
 
+    if (!self.src) { return }
+
     setTouchState(self, true, null, null);
 
     // 计算第一个触摸点的位置，并参照改点进行缩放
@@ -854,6 +977,8 @@ var handle = {
     var touch0 = ref[0];
     var touch1 = ref[1];
 
+    if (!self.src) { return }
+
     setTouchState(self, null, true);
 
     // 单指手势时触发
@@ -868,6 +993,8 @@ var handle = {
 
   touchEnd: function touchEnd (e) {
     var self = this;
+
+    if (!self.src) { return }
 
     setTouchState(self, false, false, true);
     self.__xtouchEnd();
