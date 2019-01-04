@@ -9,3 +9,11 @@
 .cropper-buttons{
     background-color: rgba(0, 0, 0, 0.95);
 }
+
+.btn{
+    height: 30px;
+    line-height: 30px;
+    padding: 0 24rpx;
+    border-radius: 2px;
+    color: #ffffff;
+}

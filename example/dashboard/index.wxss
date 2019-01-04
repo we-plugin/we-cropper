@@ -1,22 +1,13 @@
 .logo{
-    line-height: 5rem;
+    line-height: 1.5rem;
     text-align: center;
     font-size: 1.2rem;
+    padding: 75rpx 0 50rpx 0;
 }
 
 .dashboard-title{
     position: relative;
     color: #999;
-}
-
-.dashboard-title:after{
-    position:absolute;
-    left:5%;
-    bottom:-15px;
-    content:'';
-    width:90%;
-    height:3px;
-    background-color:#ebebeb;
 }
 
 .lists{
