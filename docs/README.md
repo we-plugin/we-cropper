@@ -174,11 +174,12 @@ this.wecropper.pushOrign(src)
 
 ```javascript
     getCropperImage () {
-      this.wecropper.getCropperImage((src) => {
-        if (src) {
+      this.wecropper.getCropperImage((tempFilePath) => {
+        // tempFilePath 为裁剪后的图片临时路径
+        if (tempFilePath) {
           wx.previewImage({
             current: '',
-            urls: [src]
+            urls: [tempFilePath]
           })
         } else {
           console.log('获取图片地址失败，请稍后重试')
