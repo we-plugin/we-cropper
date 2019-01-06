@@ -284,7 +284,7 @@ exports.isObj = exports.isObject = function (obj) {
  */
 var _toString = Object.prototype.toString;
 exports.isPlainObject = function (obj) {
-  return _toString.call(obj) === '[object Object]';
+  return _toString.call(obj) === '[object Object]'
 };
 
 /**
@@ -334,14 +334,14 @@ function observer () {
 }
 
 function wxPromise (fn) {
-  return function(obj) {
+  return function (obj) {
     if ( obj === void 0 ) obj = {};
 
     return new Promise(function (resolve, reject) {
-      obj.success = function(res) {
+      obj.success = function (res) {
         resolve(res);
       };
-      obj.fail = function(err) {
+      obj.fail = function (err) {
         reject(err);
       };
       fn(obj);
@@ -356,7 +356,6 @@ function draw (ctx, reserve) {
     ctx.draw(reserve, resolve);
   })
 }
-
 
 var getImageInfo = wxPromise(wx.getImageInfo);
 
@@ -745,7 +744,7 @@ function methods () {
   var id = self.id;
   var targetId = self.targetId;
   var pixelRatio = self.pixelRatio;
-  
+
   var ref = self.cut;
   var x = ref.x; if ( x === void 0 ) x = 0;
   var y = ref.y; if ( y === void 0 ) y = 0;
@@ -825,7 +824,7 @@ function methods () {
 
     var customOptions = args[0];
     var fn = args[args.length - 1];
-    
+
     self.targetCtx.drawImage(
       self.croperTarget,
       self.imgLeft * pixelRatio,
@@ -848,15 +847,15 @@ function methods () {
       }
       return canvasToTempFilePath(canvasOptions)
     })
-    .then((function (res) {
-      var tempFilePath = res.tempFilePath;
+      .then(function (res) {
+        var tempFilePath = res.tempFilePath;
 
-      tools_7(fn) && fn.call(self, tempFilePath);
-      return tempFilePath
-    }))
-    .catch(function (err) {
-      tools_7(fn) && fn.call(self, null);
-    })
+        tools_7(fn) && fn.call(self, tempFilePath);
+        return tempFilePath
+      })
+      .catch(function () {
+        tools_7(fn) && fn.call(self, null);
+      })
   };
 }
 

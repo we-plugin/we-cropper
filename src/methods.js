@@ -20,7 +20,7 @@ export default function methods () {
     targetId,
     pixelRatio
   } = self
-  
+
   let {
     x = 0,
     y = 0,
@@ -96,7 +96,7 @@ export default function methods () {
   self.getCropperImage = (...args) => {
     const customOptions = args[0]
     const fn = args[args.length - 1]
-    
+
     self.targetCtx.drawImage(
       self.croperTarget,
       self.imgLeft * pixelRatio,
@@ -119,14 +119,14 @@ export default function methods () {
       }
       return canvasToTempFilePath(canvasOptions)
     })
-    .then((res => {
-      const tempFilePath = res.tempFilePath
+      .then(res => {
+        const tempFilePath = res.tempFilePath
 
-      isFunc(fn) && fn.call(self, tempFilePath)
-      return tempFilePath
-    }))
-    .catch(err => {
-      isFunc(fn) && fn.call(self, null)
-    })
+        isFunc(fn) && fn.call(self, tempFilePath)
+        return tempFilePath
+      })
+      .catch(() => {
+        isFunc(fn) && fn.call(self, null)
+      })
   }
 }
