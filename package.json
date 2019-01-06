@@ -14,7 +14,9 @@
     "test": "npm run lint && npm run test:types && npm run test:unit",
     "test:unit": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register",
     "test:types": "npx tsc -p ./types/test/tsconfig.json",
-    "publish": "npm run test && ./node_modules/.bin/lerna publish"
+    "before-release": "npm run build && npm run test",
+    "release:core": "sh ./scripts/release/release.sh",
+    "release:packages": "npm run before-release && ./node_modules/.bin/lerna publish"
   },
   "repository": {
     "type": "git",
