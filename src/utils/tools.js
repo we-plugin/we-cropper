@@ -1,27 +1,27 @@
 /**
  * String type check
  */
-exports.isStr = (v) => typeof v === 'string';
+exports.isStr = (v) => typeof v === 'string'
 /**
  * Number type check
  */
-exports.isNum = (v) => typeof v === 'number';
+exports.isNum = (v) => typeof v === 'number'
 /**
  * Array type check
  */
-exports.isArr = Array.isArray;
+exports.isArr = Array.isArray
 /**
  * undefined type check
  */
-exports.isUndef = (v) => v === undefined;
+exports.isUndef = (v) => v === undefined
 
-exports.isTrue = (v) => v === true;
+exports.isTrue = (v) => v === true
 
-exports.isFalse = (v) => v === false;
+exports.isFalse = (v) => v === false
 /**
  * Function type check
  */
-exports.isFunc = (v) => typeof v === 'function';
+exports.isFunc = (v) => typeof v === 'function'
 /**
  * Quick object check - this is primarily used to tell
  * Objects from primitive values when we know the value
@@ -35,9 +35,9 @@ exports.isObj = exports.isObject = (obj) => {
  * Strict object type check. Only returns true
  * for plain JavaScript objects.
  */
-const _toString = Object.prototype.toString;
+const _toString = Object.prototype.toString
 exports.isPlainObject = (obj) => {
-  return _toString.call(obj) === '[object Object]';
+  return _toString.call(obj) === '[object Object]'
 }
 
 /**

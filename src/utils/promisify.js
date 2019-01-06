@@ -1,10 +1,10 @@
 export function wxPromise (fn) {
-  return function(obj = {}) {
+  return function (obj = {}) {
     return new Promise((resolve, reject) => {
-      obj.success = function(res) {
+      obj.success = function (res) {
         resolve(res)
       }
-      obj.fail = function(err) {
+      obj.fail = function (err) {
         reject(err)
       }
       fn(obj)
@@ -17,7 +17,6 @@ export function draw (ctx, reserve = false) {
     ctx.draw(reserve, resolve)
   })
 }
-
 
 export const getImageInfo = wxPromise(wx.getImageInfo)
 
