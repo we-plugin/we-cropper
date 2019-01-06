@@ -10,11 +10,11 @@ then
   npm test
 
   # commit
-  npm version $VERSION --message "release: $VERSION"
+  npm version $VERSION --message "build: $VERSION"
   npm run build
 
   git add -A
-  git commit -m "build: $VERSION"
+  git commit -m "release: $VERSION"
   git push
 
   # publish
