@@ -1119,6 +1119,8 @@ WeCropper.prototype.init = function init () {
 
   if (src) {
     self.pushOrign(src);
+  } else {
+    self.updateCanvas();
   }
   setTouchState(self, false, false, false);
 
