@@ -100,7 +100,6 @@ cd we-cropper
             .on('imageLoad', (ctx) => {
                 wx.hideToast()
             })
-            .updateCanvas()
     }
    
 ```
@@ -139,7 +138,7 @@ new weCropper({
 ```
 + 先实例化后载入
 
-当检测到通过 ```pushOrign``` 方法传入的值不为空时，会尝试通过 ```wx.getImageInfo```获取图片信息，```src```可以是图片的路径，可以是相对路径、临时文件路径、存储文件路径、网络图片路径，详情见 小程序文档·[wx.getImageInfo](https://developers.weixin.qq.com/miniprogram/dev/api/wx.getImageInfo.html)
+!> 当检测到通过 ```pushOrign``` 方法传入的值不为空时，会尝试通过 ```wx.getImageInfo```获取图片信息，```src```可以是图片的路径，可以是相对路径、临时文件路径、存储文件路径、网络图片路径，详情见 小程序文档·[wx.getImageInfo](https://developers.weixin.qq.com/miniprogram/dev/api/wx.getImageInfo.html)
 
 1. 实例化 we-cropper，并将实例挂载在 page 上
 
