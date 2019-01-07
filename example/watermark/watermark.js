@@ -16,16 +16,16 @@ Page({
     }
   },
   touchStart (e) {
-    this.wecropper.touchStart(e)
+    this.cropper.touchStart(e)
   },
   touchMove (e) {
-    this.wecropper.touchMove(e)
+    this.cropper.touchMove(e)
   },
   touchEnd (e) {
-    this.wecropper.touchEnd(e)
+    this.cropper.touchEnd(e)
   },
   getCropperImage () {
-    this.wecropper.getCropperImage((src) => {
+    this.cropper.getCropperImage((src) => {
       if (src) {
         wx.previewImage({
           current: '', // 当前显示图片的http链接
@@ -47,14 +47,14 @@ Page({
         const src = res.tempFilePaths[0]
         //  获取裁剪图片资源后，给data添加src属性及其值
 
-        self.wecropper.pushOrign(src)
+        self.cropper.pushOrign(src)
       }
     })
   },
   onLoad (option) {
     const { cropperOpt } = this.data
 
-    new WeCropper(cropperOpt)
+    this.cropper = new WeCropper(cropperOpt)
       .on('ready', (ctx) => {
         console.log(`wecropper is ready for work!`)
       })
