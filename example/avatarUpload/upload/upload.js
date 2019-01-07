@@ -1,5 +1,8 @@
 import WeCropper from '../../we-cropper/we-cropper.js'
 
+const app = getApp()
+const config = app.globalData.config
+
 const device = wx.getSystemInfoSync()
 const width = device.windowWidth
 const height = device.windowHeight - 50
@@ -19,20 +22,25 @@ Page({
         y: (height - 300) / 2,
         width: 300,
         height: 300
+      },
+      boundStyle: {
+        color: config.getThemeColor(),
+        mask: 'rgba(0,0,0,0.8)',
+        lineWidth: 1
       }
     }
   },
   touchStart (e) {
-    this.wecropper.touchStart(e)
+    this.cropper.touchStart(e)
   },
   touchMove (e) {
-    this.wecropper.touchMove(e)
+    this.cropper.touchMove(e)
   },
   touchEnd (e) {
-    this.wecropper.touchEnd(e)
+    this.cropper.touchEnd(e)
   },
   getCropperImage () {
-    this.wecropper.getCropperImage((avatar) => {
+    this.cropper.getCropperImage((avatar) => {
       if (avatar) {
         //  获取到裁剪后的图片
         wx.redirectTo({
@@ -54,16 +62,20 @@ Page({
         const src = res.tempFilePaths[0]
         //  获取裁剪图片资源后，给data添加src属性及其值
 
-        self.wecropper.pushOrign(src)
+        self.cropper.pushOrign(src)
       }
     })
   },
   onLoad (option) {
     const { cropperOpt } = this.data
 
+    cropperOpt.boundStyle.color = config.getThemeColor()
+
+    this.setData({ cropperOpt })
+
     if (option.src) {
       cropperOpt.src = option.src
-      new WeCropper(cropperOpt)
+      this.cropper = new WeCropper(cropperOpt)
         .on('ready', (ctx) => {
           console.log(`wecropper is ready for work!`)
         })
@@ -85,7 +97,6 @@ Page({
           console.log(`before canvas draw,i can do something`)
           console.log(`current canvas context:`, ctx)
         })
-        .updateCanvas()
     }
   }
 })

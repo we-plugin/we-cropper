@@ -9,7 +9,7 @@ const config = app.globalData.config
 const device = wx.getSystemInfoSync()
 const width = device.windowWidth
 const height = device.windowHeight - 50
-console.log(device)
+
 Page({
   data: {
     cropperOpt: {
@@ -31,20 +31,19 @@ Page({
         mask: 'rgba(0,0,0,0.8)',
         lineWidth: 1
       }
-    },
-    isOrigin: false // 是否选择原图
+    }
   },
   touchStart (e) {
-    this.wecropper.touchStart(e)
+    this.cropper.touchStart(e)
   },
   touchMove (e) {
-    this.wecropper.touchMove(e)
+    this.cropper.touchMove(e)
   },
   touchEnd (e) {
-    this.wecropper.touchEnd(e)
+    this.cropper.touchEnd(e)
   },
   getCropperImage () {
-    this.wecropper.getCropperImage()
+    this.cropper.getCropperImage()
       .then((src) => {
         wx.previewImage({
           current: '', // 当前显示图片的http链接
@@ -66,7 +65,7 @@ Page({
         const src = res.tempFilePaths[0]
         //  获取裁剪图片资源后，给data添加src属性及其值
 
-        self.wecropper.pushOrign(src)
+        self.cropper.pushOrign(src)
       }
     })
   },
@@ -77,7 +76,7 @@ Page({
 
     this.setData({ cropperOpt })
 
-    new WeCropper(cropperOpt)
+    this.cropper = new WeCropper(cropperOpt)
       .on('ready', (ctx) => {
         console.log(`wecropper is ready for work!`)
       })
@@ -91,6 +90,5 @@ Page({
       .on('imageLoad', (ctx) => {
         wx.hideToast()
       })
-      .updateCanvas()
   }
 })

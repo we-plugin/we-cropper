@@ -14,16 +14,16 @@ Page({
     }
   },
   touchStart (e) {
-    this.wecropper.touchStart(e)
+    this.cropper.touchStart(e)
   },
   touchMove (e) {
-    this.wecropper.touchMove(e)
+    this.cropper.touchMove(e)
   },
   touchEnd (e) {
-    this.wecropper.touchEnd(e)
+    this.cropper.touchEnd(e)
   },
   getCropperImage () {
-    this.wecropper.getCropperImage((src) => {
+    this.cropper.getCropperImage((src) => {
       if (src) {
         wx.previewImage({
           current: '', // 当前显示图片的http链接
@@ -35,12 +35,12 @@ Page({
     })
   },
   uploadTap () {
-    this.wecropper.pushOrign(NETWORK_IMG_URL)
+    this.cropper.pushOrign(NETWORK_IMG_URL)
   },
   onLoad (option) {
     const { cropperOpt } = this.data
 
-    new WeCropper(cropperOpt)
+    this.cropper = new WeCropper(cropperOpt)
       .on('ready', (ctx) => {
         console.log(`wecropper is ready for work!`)
       })
