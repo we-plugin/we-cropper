@@ -28,7 +28,7 @@ export default function methods () {
     height = boundHeight
   } = self.cut
 
-  self.updateCanvas = () => {
+  self.updateCanvas = (done) => {
     if (self.croperTarget) {
       //  画布绘制图片
       self.ctx.drawImage(
@@ -43,7 +43,8 @@ export default function methods () {
 
     self.setBoundStyle(self.boundStyle) //	设置边界样式
 
-    return draw(self.ctx)
+    self.ctx.draw(false, done)
+    return self
   }
 
   self.pushOrign = (src) => {
@@ -76,7 +77,10 @@ export default function methods () {
         self.scaleHeight = self.baseHeight
 
         self.update()
-        return self.updateCanvas()
+
+        return new Promise((resolve) => {
+          self.updateCanvas(resolve)
+        })
       })
       .then(() => {
         isFunc(self.onImageLoad) && self.onImageLoad(self.ctx, self)
