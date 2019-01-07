@@ -11,12 +11,12 @@
 
 <h2 align="center"> Usage</h2>
 
-原生小程序不支持npm引入第三方库，可将本项目克隆至本地再做进一步处理
+克隆至本地处理
 
 ```bash
 git clone https://github.com/we-plugin/we-cropper.git
 ```
-we-cropper保留了npm的引入方式，搭配第三方脚手架/框架可采用npm方式引入
+npm方式引入
 
 ```bash
 npm install we-cropper --save
