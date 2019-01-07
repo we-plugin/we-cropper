@@ -1,5 +1,5 @@
 /**
- * we-cropper v1.3.1
+ * we-cropper v1.3.2
  * (c) 2019 dlhandsome
  * @license MIT
  */
@@ -751,7 +751,7 @@ function methods () {
   var width = ref.width; if ( width === void 0 ) width = boundWidth;
   var height = ref.height; if ( height === void 0 ) height = boundHeight;
 
-  self.updateCanvas = function () {
+  self.updateCanvas = function (done) {
     if (self.croperTarget) {
       //  画布绘制图片
       self.ctx.drawImage(
@@ -766,7 +766,8 @@ function methods () {
 
     self.setBoundStyle(self.boundStyle); //	设置边界样式
 
-    return draw(self.ctx)
+    self.ctx.draw(false, done);
+    return self
   };
 
   self.pushOrign = function (src) {
@@ -799,7 +800,10 @@ function methods () {
         self.scaleHeight = self.baseHeight;
 
         self.update();
-        return self.updateCanvas()
+
+        return new Promise(function (resolve) {
+          self.updateCanvas(resolve);
+        })
       })
       .then(function () {
         tools_7(self.onImageLoad) && self.onImageLoad(self.ctx, self);
@@ -1084,7 +1088,7 @@ function cut () {
   };
 }
 
-var version = "1.3.1";
+var version = "1.3.2";
 
 var WeCropper = function WeCropper (params) {
   var self = this;
