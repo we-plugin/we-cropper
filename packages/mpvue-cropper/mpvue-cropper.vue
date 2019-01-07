@@ -1,4 +1,5 @@
 <template>
+<div>
   <canvas
       v-if="_canvasId"
       :canvasId="_canvasId"
@@ -8,12 +9,23 @@
       disable-scroll
       :style="{ width: _width + 'px', height: _height + 'px', background: 'rgba(0, 0, 0, .8)' }">
   </canvas>
+  <canvas
+    v-if="_targetId"
+    :canvas-id="_targetId"
+    disable-scroll
+    :style="{
+      position: 'fixed',
+      top: -_width * _pixelRatio + 'px',
+      left: -_height * _pixelRatio + 'px',
+      width: _width * _pixelRatio + 'px',
+      height: _height * _pixelRatio + 'px'
+    }">
+  </canvas>
+</div>
 </template>
 
 <script>
   import WeCropper from 'we-cropper'
-
-  let _wecropper
 
   export default {
     name: 'mpvue-cropper',
@@ -22,50 +34,63 @@
         type: Object
       }
     },
+    data () {
+      return {
+        _wecropper: null
+      }
+    },
     computed: {
       _canvasId () {
         return this.option.id
+      },
+      _targetId () {
+        return this.option.targetId
       },
       _width () {
         return this.option.width
       },
       _height () {
         return this.option.height
+      },
+      _pixelRatio () {
+        return this.option.pixelRatio
       }
     },
     methods: {
       touchstart ($event) {
-        _wecropper.touchStart($event.mp)
+        this._wecropper.touchStart($event.mp)
       },
       touchmove ($event) {
-        _wecropper.touchMove($event.mp)
+        this._wecropper.touchMove($event.mp)
       },
       touchend ($event) {
-        _wecropper.touchEnd($event.mp)
+        this._wecropper.touchEnd($event.mp)
       },
       pushOrigin (src) {
-        _wecropper.pushOrign(src)
+        this._wecropper.pushOrign(src)
       },
       updateCanvas () {
-        _wecropper.updateCanvas()
+        this._wecropper.updateCanvas()
       },
       getCropperBase64 () {
         return new Promise((resolve, reject) => {
-          _wecropper.getCropperImage(src => {
+          this._wecropper.getCropperImage(src => {
             src ? resolve(src) : reject()
           })
         })
       },
       getCropperImage () {
         return new Promise((resolve, reject) => {
-          _wecropper.getCropperImage(src => {
+          this._wecropper.getCropperImage(src => {
             src ? resolve(src) : reject()
           })
         })
       },
       init () {
-        _wecropper = new WeCropper(Object.assign(this.option, {
-          id: this._canvasId
+        this._wecropper = new WeCropper(Object.assign(this.option, {
+          id: this._canvasId,
+          targetId: this._targetId,
+          pixelRatio: this._pixelRatio
         }))
         .on('ready', (...args) => {
           this.$emit('ready', ...args)
@@ -79,7 +104,6 @@
         .on('beforeDraw', (...args) => {
           this.$emit('beforeDraw', ...args)
         })
-        .updateCanvas()
       }
     },
     onLoad () {
