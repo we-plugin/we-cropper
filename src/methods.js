@@ -101,28 +101,49 @@ export default function methods () {
     const customOptions = args[0]
     const fn = args[args.length - 1]
 
-    self.targetCtx.drawImage(
-      self.croperTarget,
-      self.imgLeft * pixelRatio,
-      self.imgTop * pixelRatio,
-      self.scaleWidth * pixelRatio,
-      self.scaleHeight * pixelRatio
-    )
-
     let canvasOptions = {
-      canvasId: targetId,
-      x: x * pixelRatio,
-      y: y * pixelRatio,
-      width: width * pixelRatio,
-      height: height * pixelRatio
+      canvasId: id,
+      x: x,
+      y: y,
+      width: width,
+      height: height
     }
 
-    return draw(self.targetCtx).then(() => {
-      if (isPlainObject(customOptions)) {
-        canvasOptions = Object.assign({}, canvasOptions, customOptions)
+    let task = () => Promise.resolve()
+
+    if (
+      isPlainObject(customOptions) &&
+      customOptions.original
+    ) {
+      // original mode
+      task = () => {
+        self.targetCtx.drawImage(
+          self.croperTarget,
+          self.imgLeft * pixelRatio,
+          self.imgTop * pixelRatio,
+          self.scaleWidth * pixelRatio,
+          self.scaleHeight * pixelRatio
+        )
+
+        canvasOptions = {
+          canvasId: targetId,
+          x: x * pixelRatio,
+          y: y * pixelRatio,
+          width: width * pixelRatio,
+          height: height * pixelRatio
+        }
+
+        return draw(self.targetCtx)
       }
-      return canvasToTempFilePath(canvasOptions)
-    })
+    }
+
+    return task()
+      .then(() => {
+        if (isPlainObject(customOptions)) {
+          canvasOptions = Object.assign({}, canvasOptions, customOptions)
+        }
+        return canvasToTempFilePath(canvasOptions)
+      })
       .then(res => {
         const tempFilePath = res.tempFilePath
 
