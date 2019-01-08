@@ -1,5 +1,5 @@
 /**
- * we-cropper v1.3.2
+ * we-cropper v1.3.3
  * (c) 2019 dlhandsome
  * @license MIT
  */
@@ -829,28 +829,49 @@ function methods () {
     var customOptions = args[0];
     var fn = args[args.length - 1];
 
-    self.targetCtx.drawImage(
-      self.croperTarget,
-      self.imgLeft * pixelRatio,
-      self.imgTop * pixelRatio,
-      self.scaleWidth * pixelRatio,
-      self.scaleHeight * pixelRatio
-    );
-
     var canvasOptions = {
-      canvasId: targetId,
-      x: x * pixelRatio,
-      y: y * pixelRatio,
-      width: width * pixelRatio,
-      height: height * pixelRatio
+      canvasId: id,
+      x: x,
+      y: y,
+      width: width,
+      height: height
     };
 
-    return draw(self.targetCtx).then(function () {
-      if (tools_10(customOptions)) {
-        canvasOptions = Object.assign({}, canvasOptions, customOptions);
-      }
-      return canvasToTempFilePath(canvasOptions)
-    })
+    var task = function () { return Promise.resolve(); };
+
+    if (
+      tools_10(customOptions) &&
+      customOptions.original
+    ) {
+      // original mode
+      task = function () {
+        self.targetCtx.drawImage(
+          self.croperTarget,
+          self.imgLeft * pixelRatio,
+          self.imgTop * pixelRatio,
+          self.scaleWidth * pixelRatio,
+          self.scaleHeight * pixelRatio
+        );
+
+        canvasOptions = {
+          canvasId: targetId,
+          x: x * pixelRatio,
+          y: y * pixelRatio,
+          width: width * pixelRatio,
+          height: height * pixelRatio
+        };
+
+        return draw(self.targetCtx)
+      };
+    }
+
+    return task()
+      .then(function () {
+        if (tools_10(customOptions)) {
+          canvasOptions = Object.assign({}, canvasOptions, customOptions);
+        }
+        return canvasToTempFilePath(canvasOptions)
+      })
       .then(function (res) {
         var tempFilePath = res.tempFilePath;
 
@@ -1088,7 +1109,7 @@ function cut () {
   };
 }
 
-var version = "1.3.2";
+var version = "1.3.3";
 
 var WeCropper = function WeCropper (params) {
   var self = this;
