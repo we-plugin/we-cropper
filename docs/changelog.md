@@ -1,10 +1,24 @@
 ## changelog
 
+### v1.3.3 （2019-01-08）
+
+- `A` 方法 `getCropperImage` 新增参数：`original`（默认值：`false`）
+
 ### v1.3.0 (2019-01-04)
 
 - `A` 新增 『API：构造器参数』`targetId`、`pixelRatio`
-- `A` 允许 `getImageCropper` 通过 `then` 链式调用
+- `A` 允许 `getCropperImage` 通过 `then` 链式调用
 - `F` 修复 获取裁剪图片模糊问题
+
+注意： 此版本`updateCanvas`方法返回 `Promise` 对象（原返回 we-cropper 实例），如有通过以下方式绑定实例时，会造成异常：
+
+```javascript
+this.cropper = new WeCropper(options)
+   .on()
+   .on()
+   .updateCanvas()
+```
+此问题在 v1.3.2 之后恢复向下兼容
 
 ### v1.2.5 (2018-12-19)
 
