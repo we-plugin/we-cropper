@@ -86,7 +86,7 @@ cd we-cropper
     onLoad (option) {
         const { cropperOpt } = this.data
         
-        this.cropper = this.new WeCropper(cropperOpt)
+        this.cropper = new WeCropper(cropperOpt)
             .on('ready', (ctx) => {
                 console.log(`wecropper is ready for work!`)
             })
