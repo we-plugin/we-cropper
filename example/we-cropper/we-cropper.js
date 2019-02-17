@@ -1,5 +1,5 @@
 /**
- * we-cropper v1.3.3
+ * we-cropper v1.3.4
  * (c) 2019 dlhandsome
  * @license MIT
  */
@@ -224,8 +224,8 @@ function prepare () {
     var targetId = self.targetId;
 
     if (id) {
-      self.ctx = wx.createCanvasContext(id);
-      self.targetCtx = wx.createCanvasContext(targetId);
+      self.ctx = self.ctx || wx.createCanvasContext(id);
+      self.targetCtx = self.targetCtx || wx.createCanvasContext(targetId);
     } else {
       console.error("constructor: create canvas context failed, 'id' must be valuable");
     }
@@ -1109,7 +1109,7 @@ function cut () {
   };
 }
 
-var version = "1.3.3";
+var version = "1.3.4";
 
 var WeCropper = function WeCropper (params) {
   var self = this;
