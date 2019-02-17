@@ -37,8 +37,8 @@ export default function prepare () {
     } = self
 
     if (id) {
-      self.ctx = wx.createCanvasContext(id)
-      self.targetCtx = wx.createCanvasContext(targetId)
+      self.ctx = self.ctx || wx.createCanvasContext(id)
+      self.targetCtx = self.targetCtx || wx.createCanvasContext(targetId)
     } else {
       console.error(`constructor: create canvas context failed, 'id' must be valuable`)
     }
