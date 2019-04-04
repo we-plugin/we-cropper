@@ -105,8 +105,7 @@ export default function methods () {
       x: x,
       y: y,
       width: width,
-      height: height,
-      componentContext: null
+      height: height
     }
 
     let task = () => Promise.resolve()
