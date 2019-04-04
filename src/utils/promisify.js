@@ -1,5 +1,5 @@
 export function wxPromise (fn) {
-  return function (obj = {}) {
+  return function (obj = {}, ...args) {
     return new Promise((resolve, reject) => {
       obj.success = function (res) {
         resolve(res)
@@ -7,7 +7,7 @@ export function wxPromise (fn) {
       obj.fail = function (err) {
         reject(err)
       }
-      fn(obj)
+      fn(obj, ...args)
     })
   }
 }

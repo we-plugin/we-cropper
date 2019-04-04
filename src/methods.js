@@ -97,16 +97,16 @@ export default function methods () {
     }, done)
   }
 
-  self.getCropperImage = (...args) => {
-    const customOptions = args[0]
-    const fn = args[args.length - 1]
+  self.getCropperImage = (opt, fn) => {
+    const customOptions = opt
 
     let canvasOptions = {
       canvasId: id,
       x: x,
       y: y,
       width: width,
-      height: height
+      height: height,
+      componentContext: null
     }
 
     let task = () => Promise.resolve()
@@ -142,7 +142,12 @@ export default function methods () {
         if (isPlainObject(customOptions)) {
           canvasOptions = Object.assign({}, canvasOptions, customOptions)
         }
-        return canvasToTempFilePath(canvasOptions)
+
+        const arg = customOptions.componentContext
+          ? [canvasOptions, customOptions.componentContext]
+          : [canvasOptions]
+
+        return canvasToTempFilePath.apply(null, arg)
       })
       .then(res => {
         const tempFilePath = res.tempFilePath
