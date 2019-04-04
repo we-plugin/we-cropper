@@ -1,5 +1,9 @@
 ## changelog
 
+### v1.3.4 （2019-04-04）
+
+- `A` 方法 `getCropperImage` 新增参数：`componentContext`（默认值：`false`）
+
 ### v1.3.3 （2019-01-08）
 
 - `A` 方法 `getCropperImage` 新增参数：`original`（默认值：`false`）

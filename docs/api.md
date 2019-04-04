@@ -160,6 +160,7 @@
         - original `Boolean` 是否使用原图模式（默认值 `false`） `v1.3.3支持` 
         - quality `Number` 图片的质量，目前仅对 jpg 有效。取值范围为 (0, 1]，不在范围内时当作 1.0 处理。`v1.3.3支持` 
         - fileType `String` 目标文件的类型  `v1.3.3支持` 
+        - componentContext `Object` 在自定义组件下，当前组件实例的this，以操作组件内 <canvas> 组件 `v1.3.4支持`
 
 - callback:
     - Type: `Function`
