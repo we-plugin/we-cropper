@@ -1,0 +1,15 @@
+<canvas
+    class="cropper"
+    disable-scroll="true"
+    bindtouchstart="touchStart"
+    bindtouchmove="touchMove"
+    bindtouchend="touchEnd"
+    style="width:{{options.width}}px;height:{{options.height}}px;background-color: rgba(0, 0, 0, 0.8)"
+    canvas-id="{{options.id}}">
+  </canvas>
+  <canvas
+    class="cropper"
+    disable-scroll="true"
+    style="position: fixed; top: -{{options.width * options.pixelRatio}}px; left: -{{options.height * options.pixelRatio}}px; width:{{options.width * options.pixelRatio}}px;height:{{options.height * options.pixelRatio}}px;"
+    canvas-id="{{options.targetId}}">
+  </canvas>
