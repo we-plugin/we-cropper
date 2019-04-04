@@ -72,19 +72,11 @@
       updateCanvas () {
         this._wecropper.updateCanvas()
       },
-      getCropperBase64 () {
-        return new Promise((resolve, reject) => {
-          this._wecropper.getCropperImage(src => {
-            src ? resolve(src) : reject()
-          })
-        })
+      getCropperBase64 (fn) {
+        return this._wecropper.getCropperBase64(fn)
       },
-      getCropperImage () {
-        return new Promise((resolve, reject) => {
-          this._wecropper.getCropperImage(src => {
-            src ? resolve(src) : reject()
-          })
-        })
+      getCropperImage (opt, fn) {
+        return this._wecropper.getCropperImage(opt, fn)
       },
       init () {
         this._wecropper = new WeCropper(Object.assign(this.option, {
