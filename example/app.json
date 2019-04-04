@@ -12,7 +12,7 @@
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarTitleText": "示例",
-    "navigationBarTextStyle": "#fff"
+    "navigationBarTextStyle": "white"
   },
   "networkTimeout": {
     "request": 10000,
