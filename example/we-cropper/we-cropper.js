@@ -1,5 +1,5 @@
 /**
- * we-cropper v1.3.4
+ * we-cropper v1.3.5
  * (c) 2019 dlhandsome
  * @license MIT
  */
@@ -335,8 +335,10 @@ function observer () {
 
 function wxPromise (fn) {
   return function (obj) {
-    if ( obj === void 0 ) obj = {};
+    var args = [], len = arguments.length - 1;
+    while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
 
+    if ( obj === void 0 ) obj = {};
     return new Promise(function (resolve, reject) {
       obj.success = function (res) {
         resolve(res);
@@ -344,7 +346,7 @@ function wxPromise (fn) {
       obj.fail = function (err) {
         reject(err);
       };
-      fn(obj);
+      fn.apply(void 0, [ obj ].concat( args ));
     })
   }
 }
@@ -822,12 +824,8 @@ function methods () {
     }, done);
   };
 
-  self.getCropperImage = function () {
-    var args = [], len = arguments.length;
-    while ( len-- ) args[ len ] = arguments[ len ];
-
-    var customOptions = args[0];
-    var fn = args[args.length - 1];
+  self.getCropperImage = function (opt, fn) {
+    var customOptions = opt;
 
     var canvasOptions = {
       canvasId: id,
@@ -870,7 +868,12 @@ function methods () {
         if (tools_10(customOptions)) {
           canvasOptions = Object.assign({}, canvasOptions, customOptions);
         }
-        return canvasToTempFilePath(canvasOptions)
+
+        var arg = customOptions.componentContext
+          ? [canvasOptions, customOptions.componentContext]
+          : [canvasOptions];
+
+        return canvasToTempFilePath.apply(null, arg)
       })
       .then(function (res) {
         var tempFilePath = res.tempFilePath;
@@ -1109,7 +1112,7 @@ function cut () {
   };
 }
 
-var version = "1.3.4";
+var version = "1.3.5";
 
 var WeCropper = function WeCropper (params) {
   var self = this;
