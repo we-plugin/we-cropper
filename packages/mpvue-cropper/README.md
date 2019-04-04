@@ -26,13 +26,13 @@ npm install mpvue-cropper --save
       :style="{ color:cropperOpt.boundStyle.color}">
     <div
       class="upload btn"
-      bindtap="uploadTap">
+      @tap="uploadTap">
       上传图片
     </div>
     <div
       class="getCropperImage btn"
       :style="{ backgroundColor: cropperOpt.boundStyle.color }"
-      bindtap="getCropperImage">
+      @tap="getCropperImage">
       生成图片
     </div>
   </div>
@@ -105,7 +105,7 @@ export default {
       })
     },
     getCropperImage () {
-      wecropper.getCropperImage()
+      wecropper.getCropperImage({ original: true })
         .then((src) => {
           wx.previewImage({
             current: '', // 当前显示图片的http链接

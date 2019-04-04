@@ -4,6 +4,6 @@
   "main": "mpvue-cropper.vue",
   "module": "mpvue-cropper.vue",
   "dependencies": {
-    "we-cropper": "^1.3.1"
+    "we-cropper": "^1.3.5"
   }
 }
