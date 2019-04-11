@@ -1,5 +1,5 @@
 /**
- * we-cropper v1.3.5
+ * we-cropper v1.3.6
  * (c) 2019 dlhandsome
  * @license MIT
  */
@@ -869,8 +869,12 @@ function methods () {
           canvasOptions = Object.assign({}, canvasOptions, customOptions);
         }
 
-        var arg = customOptions.componentContext
-          ? [canvasOptions, customOptions.componentContext]
+        if (tools_7(customOptions)) {
+          fn = customOptions;
+        }
+
+        var arg = canvasOptions.componentContext
+          ? [canvasOptions, canvasOptions.componentContext]
           : [canvasOptions];
 
         return canvasToTempFilePath.apply(null, arg)
@@ -1112,7 +1116,7 @@ function cut () {
   };
 }
 
-var version = "1.3.5";
+var version = "1.3.6";
 
 var WeCropper = function WeCropper (params) {
   var self = this;
