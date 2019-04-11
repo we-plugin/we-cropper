@@ -142,8 +142,12 @@ export default function methods () {
           canvasOptions = Object.assign({}, canvasOptions, customOptions)
         }
 
-        const arg = customOptions.componentContext
-          ? [canvasOptions, customOptions.componentContext]
+        if (isFunc(customOptions)) {
+          fn = customOptions
+        }
+
+        const arg = canvasOptions.componentContext
+          ? [canvasOptions, canvasOptions.componentContext]
           : [canvasOptions]
 
         return canvasToTempFilePath.apply(null, arg)
