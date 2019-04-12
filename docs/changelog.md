@@ -1,6 +1,10 @@
 ## changelog
 
-### v1.3.4 （2019-04-04）
+### v1.3.6 (2019-04-11)
+
+- `F` 修复 [ISSUE #115](https://github.com/we-plugin/we-cropper/issues/115)
+
+### v1.3.5 （2019-04-04）
 
 - `A` 方法 `getCropperImage` 新增参数：`componentContext`（默认值：`false`）
 
