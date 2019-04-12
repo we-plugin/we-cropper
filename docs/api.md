@@ -154,7 +154,7 @@
 
 #### wecropper.getCropperImage(opt,callback)
 
-- opt: (可选参数)
+- opt: (可选参数)  继承了 ```wx.canvasToTempFilePath``` 参数
     - Type: `Object`
     - Options:
         - original `Boolean` 是否使用原图模式（默认值 `false`） `v1.3.3支持` 
