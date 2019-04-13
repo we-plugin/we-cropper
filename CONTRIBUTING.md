@@ -1,6 +1,17 @@
 # Contributing
 
-我们提倡您通过提 issue 和 pull request 方式来促进 we-cropper 的发展。                      
+我们提倡您通过提 issue 和 pull request 方式来促进 we-cropper 的发展。 
+
+```bash
+# step 01
+git clone https://github.com/we-plugin/we-cropper.git
+# step 02
+npm install
+#step 03
+npm run dev
+```
+欢迎任意形式的贡献
+
 
 ## Issue 提交
 
@@ -58,3 +69,7 @@ $ git rebase <name>/<branch>
 #### commit 信息提交
 
 commit 信息请遵循[commit消息约定](./CONTRIBUTING_COMMIT.md)，以便可以自动生成 `CHANGELOG` 。具体格式请参考 commit 文档规范。
+
+
+#### Thanks
+@夏左左
