@@ -38,17 +38,4 @@ npm install we-cropper --save
 
 - [常见问题 · FAQ](https://github.com/we-plugin/we-cropper/wiki/FAQ)
 
-<h2 align="center">Contributing</h2>
-
-```bash
-# step 01
-git clone https://github.com/we-plugin/we-cropper.git
-# step 02
-npm install
-#step 03
-npm run dev
-```
-欢迎任意形式的贡献
-
-<h2 align="center">Thanks</h2>
-@夏左左
+- [贡献指南 · Contributing](https://github.com/we-plugin/we-cropper/blob/master/CONTRIBUTING.md)
