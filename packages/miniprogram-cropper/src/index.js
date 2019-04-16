@@ -8,18 +8,19 @@ Component({
       value: {}
     }
   },
-  attached () {
-    if (!this.option) {
-      return console.warn(
+  attached() {
+    if (this.option) {
+      this.init()
+    } else {
+      console.warn(
         '[miniprogram-cropper] ' +
-        '请传入option参数\n参数配置见文档：' + 
+        '请传入option参数\n参数配置见文档：' +
         'https://we-plugin.github.io/we-cropper/#/api'
       )
     }
-    this.init()
   },
   methods: {
-    init () {
+    init() {
       const {
         id,
         targetId
@@ -28,35 +29,35 @@ Component({
         ctx: wx.createCanvasContext(id, this),
         targetCtx: wx.createCanvasContext(targetId, this)
       })
-  
+
       this.__wecropper__ = new WeCropper(option)
     },
     // 这里是一个自定义方法
-    touchStart (e) {
+    touchStart(e) {
       this.__wecropper__.touchStart(e)
     },
 
-    touchMove (e) {
+    touchMove(e) {
       this.__wecropper__.touchMove(e)
     },
 
-    touchEnd (e) {
+    touchEnd(e) {
       this.__wecropper__.touchEnd(e)
     },
 
-    pushOrign (src) {
+    pushOrign(src) {
       this.__wecropper__.pushOrign(src)
     },
 
-    updateCanvas () {
+    updateCanvas() {
       this.__wecropper__.updateCanvas()
     },
 
-    getCropperBase64 (fn) {
+    getCropperBase64(fn) {
       return this.__wecropper__.getCropperBase64(fn)
     },
 
-    getCropperImage (opt, fn) {
+    getCropperImage(opt, fn) {
       const option = Object.assign({
         // 传入自定义组件上下文
         componentContext: this,

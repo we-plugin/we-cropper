@@ -44,6 +44,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'linebreak-style': 'off',
     'no-catch-shadow': 'error',
+    "no-console": "off",
     'no-continue': 'off',
     'no-div-regex': 'warn',
     'no-else-return': 'off',
