@@ -64,7 +64,7 @@ this.crop.getCropperImage()
 
 **page.wxml**
 ```xml
-<comp id="crop" options="{{cropperOpt}}"></comp>
+<miniprogram-cropper id="crop" options="{{cropperOpt}}"></miniprogram-cropper>
 
  <view
     class="cropper-buttons" 

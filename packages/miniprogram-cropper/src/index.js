@@ -9,7 +9,7 @@ Component({
     }
   },
   attached() {
-    if (this.option) {
+    if (this.options) {
       this.init()
     } else {
       console.warn(
@@ -24,8 +24,8 @@ Component({
       const {
         id,
         targetId
-      } = this.properties.option
-      const option = Object.assign(this.properties.option, {
+      } = this.properties.options
+      const option = Object.assign(this.properties.options, {
         ctx: wx.createCanvasContext(id, this),
         targetCtx: wx.createCanvasContext(targetId, this)
       })
