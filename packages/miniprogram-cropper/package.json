@@ -1,6 +1,6 @@
 {
   "name": "miniprogram-cropper",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "miniprogram_dist/index.js",
   "scripts": {
