@@ -1,5 +1,9 @@
 ## changelog
 
+### v1.3.7 (2019-04-17)
+
+- `A` 方法 ```getCropperImage```、```getCropperBase64```添加异常信息参数
+
 ### v1.3.6 (2019-04-11)
 
 - `F` 修复 [ISSUE #115](https://github.com/we-plugin/we-cropper/issues/115)
