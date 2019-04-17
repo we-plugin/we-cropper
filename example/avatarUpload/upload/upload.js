@@ -40,14 +40,17 @@ Page({
     this.cropper.touchEnd(e)
   },
   getCropperImage () {
-    this.cropper.getCropperImage((avatar) => {
-      if (avatar) {
-        //  获取到裁剪后的图片
-        wx.redirectTo({
-          url: `../index/index?avatar=${avatar}`
+    this.cropper.getCropperImage(function (path, err) {
+      if (err) {
+        wx.showModal({
+          title: '温馨提示',
+          content: err.message
         })
       } else {
-        console.log('获取图片失败，请稍后重试')
+        wx.previewImage({
+          current: '', // 当前显示图片的 http 链接
+          urls: [path] // 需要预览的图片 http 链接列表
+        })
       }
     })
   },
