@@ -23,14 +23,17 @@ Page({
     this.cropper.touchEnd(e)
   },
   getCropperImage () {
-    this.cropper.getCropperImage((src) => {
-      if (src) {
-        wx.previewImage({
-          current: '', // 当前显示图片的http链接
-          urls: [src] // 需要预览的图片http链接列表
+    this.cropper.getCropperImage(function (path, err) {
+      if (err) {
+        wx.showModal({
+          title: '温馨提示',
+          content: err.message
         })
       } else {
-        console.log('获取图片地址失败，请稍后重试')
+        wx.previewImage({
+          current: '', // 当前显示图片的http链接
+          urls: [path] // 需要预览的图片http链接列表
+        })
       }
     })
   },

@@ -50,8 +50,11 @@ Page({
           urls: [src] // 需要预览的图片http链接列表
         })
       })
-      .catch(() => {
-        console.log('获取图片地址失败，请稍后重试')
+      .catch((err) => {
+        wx.showModal({
+          title: '温馨提示',
+          content: err.message
+        })
       })
   },
   uploadTap () {
