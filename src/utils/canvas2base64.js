@@ -40,11 +40,10 @@ function getImageData (canvasId, x, y, width, height, done) {
     width,
     height,
     success (res) {
-      done(res)
+      done(res, null)
     },
     fail (res) {
-      done(null)
-      console.error('canvasGetImageData error: ' + res)
+      done(null, res)
     }
   })
 }
@@ -173,9 +172,9 @@ function convertToImage (canvasId, x, y, width, height, type, done = () => {}) {
   if (type === undefined) { type = 'png' }
   type = fixType(type)
   if (/bmp/.test(type)) {
-    getImageData(canvasId, x, y, width, height, (data) => {
+    getImageData(canvasId, x, y, width, height, (data, err) => {
       const strData = genBitmapImage(data)
-      isFunc(done) && done(makeURI(strData, 'image/' + type))
+      isFunc(done) && done(makeURI(strData, 'image/' + type), err)
     })
   } else {
     console.error('暂不支持生成\'' + type + '\'类型的base64图片')

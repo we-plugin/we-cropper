@@ -155,11 +155,16 @@ export default function methods () {
       .then(res => {
         const tempFilePath = res.tempFilePath
 
-        isFunc(fn) && fn.call(self, tempFilePath)
-        return tempFilePath
+        return isFunc(fn)
+          ? fn.call(self, tempFilePath, null)
+          : tempFilePath
       })
-      .catch(() => {
-        isFunc(fn) && fn.call(self, null)
+      .catch((err) => {
+        if (isFunc(fn)) {
+          fn.call(self, null, err)
+        } else {
+          throw err
+        }
       })
   }
 }
