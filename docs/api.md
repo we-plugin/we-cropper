@@ -166,6 +166,7 @@
     - Type: `Function`
     - Params:
         - `src`: 裁剪后的图片路径
+        - `err`: 异常信息
 
 - return：
     - Type: `Promise`
@@ -208,6 +209,7 @@ this.wecropper.getCropperImage(tempFilePath => {
     - Type: `Function`
     - Params:
         - `base64`: 裁剪后的图片（base64编码）
+        - `err`: 异常信息
         
 获取裁剪图片（base64编码）
         
