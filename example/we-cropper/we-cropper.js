@@ -1,5 +1,5 @@
 /**
- * we-cropper v1.3.6
+ * we-cropper v1.3.7
  * (c) 2019 dlhandsome
  * @license MIT
  */
@@ -569,11 +569,10 @@ function getImageData (canvasId, x, y, width, height, done) {
     width: width,
     height: height,
     success: function success (res) {
-      done(res);
+      done(res, null);
     },
     fail: function fail (res) {
-      done(null);
-      console.error('canvasGetImageData error: ' + res);
+      done(null, res);
     }
   });
 }
@@ -704,9 +703,9 @@ function convertToImage (canvasId, x, y, width, height, type, done) {
   if (type === undefined) { type = 'png'; }
   type = fixType(type);
   if (/bmp/.test(type)) {
-    getImageData(canvasId, x, y, width, height, function (data) {
+    getImageData(canvasId, x, y, width, height, function (data, err) {
       var strData = genBitmapImage(data);
-      tools_7(done) && done(makeURI(strData, 'image/' + type));
+      tools_7(done) && done(makeURI(strData, 'image/' + type), err);
     });
   } else {
     console.error('暂不支持生成\'' + type + '\'类型的base64图片');
@@ -882,11 +881,16 @@ function methods () {
       .then(function (res) {
         var tempFilePath = res.tempFilePath;
 
-        tools_7(fn) && fn.call(self, tempFilePath);
-        return tempFilePath
+        return tools_7(fn)
+          ? fn.call(self, tempFilePath, null)
+          : tempFilePath
       })
-      .catch(function () {
-        tools_7(fn) && fn.call(self, null);
+      .catch(function (err) {
+        if (tools_7(fn)) {
+          fn.call(self, null, err);
+        } else {
+          throw err
+        }
       })
   };
 }
@@ -1116,7 +1120,7 @@ function cut () {
   };
 }
 
-var version = "1.3.6";
+var version = "1.3.7";
 
 var WeCropper = function WeCropper (params) {
   var self = this;
