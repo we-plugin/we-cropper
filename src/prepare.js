@@ -26,7 +26,8 @@ export default function prepare () {
           'this.mycropper.getCropperImage()'
         )
         return self
-      }
+      },
+      configurable: true
     })
   }
 
