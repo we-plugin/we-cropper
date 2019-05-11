@@ -16,7 +16,8 @@
     "test:types": "npx tsc -p ./types/test/tsconfig.json",
     "before-release": "npm run build && npm run test",
     "release:core": "sh ./scripts/release/release.sh",
-    "release:packages": "npm run before-release && ./node_modules/.bin/lerna publish"
+    "release:packages": "npm run before-release && ./node_modules/.bin/lerna publish",
+    "postinstall": "opencollective-postinstall"
   },
   "repository": {
     "type": "git",
@@ -51,6 +52,12 @@
     "uglify-js": "^3.1.10"
   },
   "dependencies": {
-    "base-64": "^0.1.0"
+    "base-64": "^0.1.0",
+    "opencollective-postinstall": "^2.0.2",
+    "opencollective": "^1.0.3"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/we-cropper"
   }
 }
