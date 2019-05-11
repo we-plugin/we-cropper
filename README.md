@@ -4,7 +4,7 @@
 <br>
 
 [![travis-ci](https://travis-ci.org/we-plugin/we-cropper.svg?branch=master)](https://www.travis-ci.org/we-plugin/we-cropper)
-[![npm-version](https://img.shields.io/npm/v/we-cropper.svg)](https://www.npmjs.com/package/we-cropper)
+[![Backers on Open Collective](https://opencollective.com/we-cropper/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/we-cropper/sponsors/badge.svg)](#sponsors) [![npm-version](https://img.shields.io/npm/v/we-cropper.svg)](https://www.npmjs.com/package/we-cropper)
 <h1>we-cropper</h1>
 <p>一款灵活小巧的canvas图片裁剪器 <a href="https://unpkg.com/we-cropper@1.2.0/docs/assets/online.jpg">在线体验</a></p>
 </div>
@@ -39,3 +39,33 @@ npm install we-cropper --save
 - [常见问题 · FAQ](https://github.com/we-plugin/we-cropper/wiki/FAQ)
 
 - [贡献指南 · Contributing](https://github.com/we-plugin/we-cropper/blob/master/CONTRIBUTING.md)
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/we-plugin/we-cropper/graphs/contributors"><img src="https://opencollective.com/we-cropper/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/we-cropper#backer)]
+
+<a href="https://opencollective.com/we-cropper#backers" target="_blank"><img src="https://opencollective.com/we-cropper/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/we-cropper#sponsor)]
+
+<a href="https://opencollective.com/we-cropper/sponsor/0/website" target="_blank"><img src="https://opencollective.com/we-cropper/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/we-cropper/sponsor/1/website" target="_blank"><img src="https://opencollective.com/we-cropper/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/we-cropper/sponsor/2/website" target="_blank"><img src="https://opencollective.com/we-cropper/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/we-cropper/sponsor/3/website" target="_blank"><img src="https://opencollective.com/we-cropper/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/we-cropper/sponsor/4/website" target="_blank"><img src="https://opencollective.com/we-cropper/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/we-cropper/sponsor/5/website" target="_blank"><img src="https://opencollective.com/we-cropper/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/we-cropper/sponsor/6/website" target="_blank"><img src="https://opencollective.com/we-cropper/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/we-cropper/sponsor/7/website" target="_blank"><img src="https://opencollective.com/we-cropper/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/we-cropper/sponsor/8/website" target="_blank"><img src="https://opencollective.com/we-cropper/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/we-cropper/sponsor/9/website" target="_blank"><img src="https://opencollective.com/we-cropper/sponsor/9/avatar.svg"></a>
+
+
