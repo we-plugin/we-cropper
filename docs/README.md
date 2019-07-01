@@ -194,9 +194,10 @@ onLoad () {
 
 + [Pull requests](https://github.com/we-plugin/we-cropper)
 
-+ we-cropper交流群(已超过100人，添加作者微信邀请入群)
++ we-cropper交流群(已超过100人，添加Sail小助手微信邀请入群)
 
-<img src="https://github.com/dlhandsome/me/blob/master/we-cropper.qrcode.png?raw=true" width="350">
+<img src="![image](https://user-images.githubusercontent.com/16918885/60417025-eb71ed80-9c11-11e9-916a-5876b2fa321c.png)
+" width="350">
 
 ## 鼓励作者
 
