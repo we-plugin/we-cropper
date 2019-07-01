@@ -196,8 +196,7 @@ onLoad () {
 
 + we-cropper交流群(已超过100人，添加Sail小助手微信邀请入群)
 
-<img src="![image](https://user-images.githubusercontent.com/16918885/60417025-eb71ed80-9c11-11e9-916a-5876b2fa321c.png)
-" width="350">
+<img src="https://user-images.githubusercontent.com/16918885/60417025-eb71ed80-9c11-11e9-916a-5876b2fa321c.png" width="350">
 
 ## 鼓励作者
 
