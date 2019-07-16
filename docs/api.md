@@ -160,12 +160,12 @@
         - original `Boolean` 是否使用原图模式（默认值 `false`） `v1.3.3支持` 
         - quality `Number` 图片的质量，目前仅对 jpg 有效。取值范围为 (0, 1]，不在范围内时当作 1.0 处理。`v1.3.3支持` 
         - fileType `String` 目标文件的类型  `v1.3.3支持` 
-        - componentContext `Object` 在自定义组件下，当前组件实例的this，以操作组件内 <canvas> 组件 `v1.3.4支持`
+        - componentContext `Object` 在自定义组件下，当前组件实例的this，以操作组件内 `<canvas>` 组件 `v1.3.4支持`
 
 - callback:
     - Type: `Function`
     - Params:
-        - `src`: 裁剪后的图片路径
+        - `path`: 裁剪后的图片路径
         - `err`: 异常信息
 
 - return：
@@ -178,10 +178,10 @@
 ```javascript
 // 通过 then 链式调用
 this.wecropper.getCropperImage()
-  .then((src) => {
+  .then((path) => {
     wx.previewImage({
       current: '', // 当前显示图片的http链接
-      urls: [src] // 需要预览的图片http链接列表
+      urls: [path] // 需要预览的图片http链接列表
     })
   })
   .catch(() => {
@@ -189,14 +189,17 @@ this.wecropper.getCropperImage()
   })
 
 // 亦可通过回调函数
-this.wecropper.getCropperImage(tempFilePath => {
-  if (tempFilePath) {
-    wx.previewImage({
-      current: '', // 当前显示图片的http链接
-      urls: [src] // 需要预览的图片http链接列表
+this.wecropper.getCropperImage(function (path, err) {
+  if (err) {
+    wx.showModal({
+      title: '温馨提示',
+      content: err.message
     })
   } else {
-    console.log('获取图片地址失败，请稍后重试')
+    wx.previewImage({
+      current: '', // 当前显示图片的http链接
+      urls: [path] // 需要预览的图片http链接列表
+    })
   }
 })
 ```
