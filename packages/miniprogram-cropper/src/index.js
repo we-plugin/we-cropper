@@ -3,18 +3,18 @@ import WeCropper from 'we-cropper'
 Component({
   properties: {
     // 这里定义了innerText属性，属性值可以在组件使用时指定
-    option: {
+    options: {
       type: Object,
       value: {}
     }
   },
   attached() {
-    if (this.options) {
+    if (this.properties.options) {
       this.init()
     } else {
       console.warn(
         '[miniprogram-cropper] ' +
-        '请传入option参数\n参数配置见文档：' +
+        '请传入options参数\n参数配置见文档：' +
         'https://we-plugin.github.io/we-cropper/#/api'
       )
     }
