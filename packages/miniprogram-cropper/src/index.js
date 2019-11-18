@@ -9,12 +9,12 @@ Component({
     }
   },
   attached() {
-    if (this.options) {
+    if (this.properties.options) {
       this.init()
     } else {
       console.warn(
         '[miniprogram-cropper] ' +
-        '请传入option参数\n参数配置见文档：' +
+        '请传入options参数\n参数配置见文档：' +
         'https://we-plugin.github.io/we-cropper/#/api'
       )
     }
