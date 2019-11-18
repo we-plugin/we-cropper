@@ -1,5 +1,5 @@
 /**
- * we-cropper v1.3.7
+ * we-cropper v1.3.8
  * (c) 2019 dlhandsome
  * @license MIT
  */
@@ -215,7 +215,8 @@ function prepare () {
           'this.mycropper.getCropperImage()'
         );
         return self
-      }
+      },
+      configurable: true
     });
   };
 
@@ -1120,7 +1121,7 @@ function cut () {
   };
 }
 
-var version = "1.3.7";
+var version = "1.3.8";
 
 var WeCropper = function WeCropper (params) {
   var self = this;
