@@ -9,7 +9,7 @@
 <p>一款灵活小巧的canvas图片裁剪器 <a href="https://unpkg.com/we-cropper@1.2.0/docs/assets/online.jpg">在线体验</a></p>
 </div>
 
-<h2 align="center"> Usage</h2>
+## Usage
 
 克隆至本地处理
 
@@ -22,7 +22,7 @@ npm方式引入
 npm install we-cropper --save
 ```
 
-<h2 align="center">Links</h2>
+## Links
 
 - [文档 · Document](https://we-plugin.github.io/we-cropper/#/)
 
