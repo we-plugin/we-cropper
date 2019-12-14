@@ -9,6 +9,11 @@
             上传图片
         </view>
         <view
+                class="removeImage"
+                bindtap="removeImage">
+            移除图片
+        </view>
+        <view
                 class="getCropperImage"
                 bindtap="getCropperImage">
             生成图片

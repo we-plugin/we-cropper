@@ -47,7 +47,7 @@ export default function methods () {
     return self
   }
 
-  self.pushOrign = (src) => {
+  self.pushOrigin = self.pushOrign = (src) => {
     self.src = src
 
     isFunc(self.onBeforeImageLoad) && self.onBeforeImageLoad(self.ctx, self)
@@ -85,6 +85,12 @@ export default function methods () {
       .then(() => {
         isFunc(self.onImageLoad) && self.onImageLoad(self.ctx, self)
       })
+  }
+
+  self.removeImage = () => {
+    self.src = ''
+    self.croperTarget = ''
+    return draw(self.ctx)
   }
 
   self.getCropperBase64 = (done = () => {}) => {

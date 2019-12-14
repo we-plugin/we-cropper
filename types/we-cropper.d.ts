@@ -29,6 +29,14 @@ declare class WeCropper {
    * 载入图片
    */
   pushOrign(src: string): any;
+   /**
+   * 载入图片
+   */
+  pushOrigin(src: string): any;
+   /**
+   * 移除图片
+   */
+  removeImage(): any;
   /**
    * 获取裁剪图片（base64编码）
    */

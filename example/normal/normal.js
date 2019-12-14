@@ -13,6 +13,9 @@ Page({
       zoom: 8
     }
   },
+  removeImage () {
+    this.cropper.removeImage()
+  },
   touchStart (e) {
     this.cropper.touchStart(e)
   },
