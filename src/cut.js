@@ -29,26 +29,27 @@ export default function cut () {
 	 * @param color	边界颜色
 	 */
   self.setBoundStyle = ({ color = '#04b00f', mask = 'rgba(0, 0, 0, 0.3)', lineWidth = 1 } = {}) => {
+    const half = lineWidth / 2;
     const boundOption = [
       {
-        start: { x: x - lineWidth, y: y + 10 - lineWidth },
-        step1: { x: x - lineWidth, y: y - lineWidth },
-        step2: { x: x + 10 - lineWidth, y: y - lineWidth }
+        start: { x: x - half, y: y + 10 - half },
+        step1: { x: x - half, y: y - half },
+        step2: { x: x + 10 - half, y: y - half }
       },
       {
-        start: { x: x - lineWidth, y: y + height - 10 + lineWidth },
-        step1: { x: x - lineWidth, y: y + height + lineWidth },
-        step2: { x: x + 10 - lineWidth, y: y + height + lineWidth }
+        start: { x: x - half, y: y + height - 10 + half },
+        step1: { x: x - half, y: y + height + half },
+        step2: { x: x + 10 - half, y: y + height + half }
       },
       {
-        start: { x: x + width - 10 + lineWidth, y: y - lineWidth },
-        step1: { x: x + width + lineWidth, y: y - lineWidth },
-        step2: { x: x + width + lineWidth, y: y + 10 - lineWidth }
+        start: { x: x + width - 10 + half, y: y - half },
+        step1: { x: x + width + half, y: y - half },
+        step2: { x: x + width + half, y: y + 10 - half }
       },
       {
-        start: { x: x + width + lineWidth, y: y + height - 10 + lineWidth },
-        step1: { x: x + width + lineWidth, y: y + height + lineWidth },
-        step2: { x: x + width - 10 + lineWidth, y: y + height + lineWidth }
+        start: { x: x + width + half, y: y + height - 10 + half },
+        step1: { x: x + width + half, y: y + height + half },
+        step2: { x: x + width - 10 + half, y: y + height + half }
       }
     ]
 
