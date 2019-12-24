@@ -14,7 +14,7 @@ export default function observer () {
     if (EVENT_TYPE.indexOf(event) > -1) {
       if (isFunc(fn)) {
         event === 'ready'
-          ? fn(self)
+          ? Promise.resolve().then(() => { fn(self) })
           : self[`on${firstLetterUpper(event)}`] = fn
       }
     } else {
