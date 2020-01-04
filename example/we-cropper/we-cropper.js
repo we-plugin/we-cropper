@@ -1,6 +1,6 @@
 /**
- * we-cropper v1.3.8
- * (c) 2019 dlhandsome
+ * we-cropper v1.3.9
+ * (c) 2020 dlhandsome
  * @license MIT
  */
 (function (global, factory) {
@@ -772,7 +772,7 @@ function methods () {
     return self
   };
 
-  self.pushOrign = function (src) {
+  self.pushOrigin = self.pushOrign = function (src) {
     self.src = src;
 
     tools_7(self.onBeforeImageLoad) && self.onBeforeImageLoad(self.ctx, self);
@@ -810,6 +810,12 @@ function methods () {
       .then(function () {
         tools_7(self.onImageLoad) && self.onImageLoad(self.ctx, self);
       })
+  };
+
+  self.removeImage = function () {
+    self.src = '';
+    self.croperTarget = '';
+    return draw(self.ctx)
   };
 
   self.getCropperBase64 = function (done) {
@@ -1077,26 +1083,27 @@ function cut () {
     var mask = ref.mask; if ( mask === void 0 ) mask = 'rgba(0, 0, 0, 0.3)';
     var lineWidth = ref.lineWidth; if ( lineWidth === void 0 ) lineWidth = 1;
 
+    var half = lineWidth / 2;
     var boundOption = [
       {
-        start: { x: x - lineWidth, y: y + 10 - lineWidth },
-        step1: { x: x - lineWidth, y: y - lineWidth },
-        step2: { x: x + 10 - lineWidth, y: y - lineWidth }
+        start: { x: x - half, y: y + 10 - half },
+        step1: { x: x - half, y: y - half },
+        step2: { x: x + 10 - half, y: y - half }
       },
       {
-        start: { x: x - lineWidth, y: y + height - 10 + lineWidth },
-        step1: { x: x - lineWidth, y: y + height + lineWidth },
-        step2: { x: x + 10 - lineWidth, y: y + height + lineWidth }
+        start: { x: x - half, y: y + height - 10 + half },
+        step1: { x: x - half, y: y + height + half },
+        step2: { x: x + 10 - half, y: y + height + half }
       },
       {
-        start: { x: x + width - 10 + lineWidth, y: y - lineWidth },
-        step1: { x: x + width + lineWidth, y: y - lineWidth },
-        step2: { x: x + width + lineWidth, y: y + 10 - lineWidth }
+        start: { x: x + width - 10 + half, y: y - half },
+        step1: { x: x + width + half, y: y - half },
+        step2: { x: x + width + half, y: y + 10 - half }
       },
       {
-        start: { x: x + width + lineWidth, y: y + height - 10 + lineWidth },
-        step1: { x: x + width + lineWidth, y: y + height + lineWidth },
-        step2: { x: x + width - 10 + lineWidth, y: y + height + lineWidth }
+        start: { x: x + width + half, y: y + height - 10 + half },
+        step1: { x: x + width + half, y: y + height + half },
+        step2: { x: x + width - 10 + half, y: y + height + half }
       }
     ];
 
@@ -1121,7 +1128,7 @@ function cut () {
   };
 }
 
-var version = "1.3.8";
+var version = "1.3.9";
 
 var WeCropper = function WeCropper (params) {
   var self = this;
