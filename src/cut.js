@@ -29,7 +29,7 @@ export default function cut () {
 	 * @param color	边界颜色
 	 */
   self.setBoundStyle = ({ color = '#04b00f', mask = 'rgba(0, 0, 0, 0.3)', lineWidth = 1 } = {}) => {
-    const half = lineWidth / 2;
+    const half = lineWidth / 2
     const boundOption = [
       {
         start: { x: x - half, y: y + 10 - half },
