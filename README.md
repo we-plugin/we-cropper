@@ -6,7 +6,7 @@
 [![travis-ci](https://travis-ci.org/we-plugin/we-cropper.svg?branch=master)](https://www.travis-ci.org/we-plugin/we-cropper)
 [![Backers on Open Collective](https://opencollective.com/we-cropper/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/we-cropper/sponsors/badge.svg)](#sponsors) [![npm-version](https://img.shields.io/npm/v/we-cropper.svg)](https://www.npmjs.com/package/we-cropper)
 <h1>we-cropper</h1>
-<p>一款灵活小巧的canvas图片裁剪器 <a href="https://unpkg.com/we-cropper@1.2.0/docs/assets/online.jpg">在线体验</a></p>
+<p>一款灵活小巧的canvas图片裁剪器</p>
 </div>
 
 ## Usage
@@ -39,6 +39,12 @@ npm install we-cropper --save
 - [常见问题 · FAQ](https://github.com/we-plugin/we-cropper/wiki/FAQ)
 
 - [贡献指南 · Contributing](https://github.com/we-plugin/we-cropper/blob/master/CONTRIBUTING.md)
+
+## Online demo
+
+<br>
+<img src=https://user-images.githubusercontent.com/16918885/77881549-d0600700-7291-11ea-9904-2c509c3990bb.jpg width=120 />
+<br>
 
 ## Contributors
 
