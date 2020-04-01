@@ -28,7 +28,7 @@ npm install we-cropper --save
 
 - [变更 · ChangeLog](https://we-plugin.github.io/we-cropper/#/changelog)
 
-- [示例 · Example](https://github.com/we-plugin/we-cropper/tree/master/example)
+- [示例 · Example](https://github.com/dlhandsome/sail-laboratory/tree/master/miniprogram/pages/we-cropper)
 
 - [开源协议 · The MIT License](http://opensource.org/licenses/MIT)
 
