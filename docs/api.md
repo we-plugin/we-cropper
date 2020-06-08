@@ -152,6 +152,10 @@
 
 载入图片
 
+#### wecropper.removeImage() `v1.3.9支持` 
+
+清除图片
+
 #### wecropper.getCropperImage(opt,callback)
 
 - opt: (可选参数)  继承了 ```wx.canvasToTempFilePath``` 参数
