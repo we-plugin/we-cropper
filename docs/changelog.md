@@ -1,5 +1,13 @@
 ## changelog
 
+### v1.3.9 (2020-01-05)
+
+- `A`  新增 『API：方法』清除图片`removeImage`
+
+### v1.3.8 (2019-10-18)
+
+- `F`  ```wecropper```属性可删除
+
 ### v1.3.7 (2019-04-17)
 
 - `A` 方法 ```getCropperImage```、```getCropperBase64```添加异常信息参数
