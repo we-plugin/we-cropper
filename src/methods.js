@@ -1,6 +1,5 @@
 import {
-  isFunc,
-  isPlainObject
+  isFunc
 } from './utils/tools'
 import {
   draw,
@@ -104,7 +103,8 @@ export default function methods () {
   }
 
   self.getCropperImage = (opt, fn) => {
-    const customOptions = opt
+    const customOptions = Object.assign({fileType: 'jpg'}, opt)
+    const callback = isFunc(opt) ? opt : isFunc(fn) ? fn : null
 
     let canvasOptions = {
       canvasId: id,
@@ -116,10 +116,7 @@ export default function methods () {
 
     let task = () => Promise.resolve()
 
-    if (
-      isPlainObject(customOptions) &&
-      customOptions.original
-    ) {
+    if (customOptions.original) {
       // original mode
       task = () => {
         self.targetCtx.drawImage(
@@ -144,14 +141,7 @@ export default function methods () {
 
     return task()
       .then(() => {
-        if (isPlainObject(customOptions)) {
-          canvasOptions = Object.assign({}, canvasOptions, customOptions)
-        }
-
-        if (isFunc(customOptions)) {
-          fn = customOptions
-        }
-
+        Object.assign(canvasOptions, customOptions)
         const arg = canvasOptions.componentContext
           ? [canvasOptions, canvasOptions.componentContext]
           : [canvasOptions]
@@ -160,14 +150,13 @@ export default function methods () {
       })
       .then(res => {
         const tempFilePath = res.tempFilePath
-
-        return isFunc(fn)
-          ? fn.call(self, tempFilePath, null)
+        return callback
+          ? callback.call(self, tempFilePath, null)
           : tempFilePath
       })
       .catch((err) => {
-        if (isFunc(fn)) {
-          fn.call(self, null, err)
+        if (callback) {
+          callback.call(self, null, err)
         } else {
           throw err
         }
