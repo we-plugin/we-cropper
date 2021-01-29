@@ -1,6 +1,6 @@
 /**
- * we-cropper v1.3.9
- * (c) 2020 dlhandsome
+ * we-cropper v1.3.10
+ * (c) 2021 dlhandsome
  * @license MIT
  */
 (function (global, factory) {
@@ -235,85 +235,51 @@ function prepare () {
   self.deviceRadio = windowWidth / 750;
 }
 
-var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-
-
-
-
-function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
-}
-
-var tools = createCommonjsModule(function (module, exports) {
 /**
  * String type check
  */
-exports.isStr = function (v) { return typeof v === 'string'; };
+
 /**
  * Number type check
  */
-exports.isNum = function (v) { return typeof v === 'number'; };
+
 /**
  * Array type check
  */
-exports.isArr = Array.isArray;
+
 /**
  * undefined type check
  */
-exports.isUndef = function (v) { return v === undefined; };
 
-exports.isTrue = function (v) { return v === true; };
 
-exports.isFalse = function (v) { return v === false; };
+
+
+
 /**
  * Function type check
  */
-exports.isFunc = function (v) { return typeof v === 'function'; };
+var isFunc = function (v) { return typeof v === 'function'; };
 /**
  * Quick object check - this is primarily used to tell
  * Objects from primitive values when we know the value
  * is a JSON-compliant type.
  */
-exports.isObj = exports.isObject = function (obj) {
-  return obj !== null && typeof obj === 'object'
-};
 
-/**
- * Strict object type check. Only returns true
- * for plain JavaScript objects.
- */
-var _toString = Object.prototype.toString;
-exports.isPlainObject = function (obj) {
-  return _toString.call(obj) === '[object Object]'
-};
 
-/**
- * Check whether the object has the property.
- */
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-exports.hasOwn = function (obj, key) {
-  return hasOwnProperty.call(obj, key)
-};
+
+
+
 
 /**
  * Perform no operation.
  * Stubbing args to make Flow happy without leaving useless transpiled code
  * with ...rest (https://flow.org/blog/2017/05/07/Strict-Function-Call-Arity/)
  */
-exports.noop = function (a, b, c) {};
+
 
 /**
  * Check if val is a valid array index.
  */
-exports.isValidArrayIndex = function (val) {
-  var n = parseFloat(String(val));
-  return n >= 0 && Math.floor(n) === n && isFinite(val)
-};
-});
-
-var tools_7 = tools.isFunc;
-var tools_10 = tools.isPlainObject;
 
 var EVENT_TYPE = ['ready', 'beforeImageLoad', 'beforeDraw', 'imageLoad'];
 
@@ -322,7 +288,7 @@ function observer () {
 
   self.on = function (event, fn) {
     if (EVENT_TYPE.indexOf(event) > -1) {
-      if (tools_7(fn)) {
+      if (isFunc(fn)) {
         event === 'ready'
           ? fn(self)
           : self[("on" + (firstLetterUpper(event)))] = fn;
@@ -363,6 +329,16 @@ function draw (ctx, reserve) {
 var getImageInfo = wxPromise(wx.getImageInfo);
 
 var canvasToTempFilePath = wxPromise(wx.canvasToTempFilePath);
+
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+
+
+
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
 
 var base64 = createCommonjsModule(function (module, exports) {
 /*! http://mths.be/base64 v0.1.0 by @mathias | MIT license */
@@ -706,7 +682,7 @@ function convertToImage (canvasId, x, y, width, height, type, done) {
   if (/bmp/.test(type)) {
     getImageData(canvasId, x, y, width, height, function (data, err) {
       var strData = genBitmapImage(data);
-      tools_7(done) && done(makeURI(strData, 'image/' + type), err);
+      isFunc(done) && done(makeURI(strData, 'image/' + type), err);
     });
   } else {
     console.error('暂不支持生成\'' + type + '\'类型的base64图片');
@@ -764,7 +740,7 @@ function methods () {
         self.scaleHeight
       );
     }
-    tools_7(self.onBeforeDraw) && self.onBeforeDraw(self.ctx, self);
+    isFunc(self.onBeforeDraw) && self.onBeforeDraw(self.ctx, self);
 
     self.setBoundStyle(self.boundStyle); //	设置边界样式
 
@@ -775,7 +751,7 @@ function methods () {
   self.pushOrigin = self.pushOrign = function (src) {
     self.src = src;
 
-    tools_7(self.onBeforeImageLoad) && self.onBeforeImageLoad(self.ctx, self);
+    isFunc(self.onBeforeImageLoad) && self.onBeforeImageLoad(self.ctx, self);
 
     return getImageInfo({ src: src })
       .then(function (res) {
@@ -808,7 +784,7 @@ function methods () {
         })
       })
       .then(function () {
-        tools_7(self.onImageLoad) && self.onImageLoad(self.ctx, self);
+        isFunc(self.onImageLoad) && self.onImageLoad(self.ctx, self);
       })
   };
 
@@ -831,7 +807,8 @@ function methods () {
   };
 
   self.getCropperImage = function (opt, fn) {
-    var customOptions = opt;
+    var customOptions = Object.assign({fileType: 'jpg'}, opt);
+    var callback = isFunc(opt) ? opt : isFunc(fn) ? fn : null;
 
     var canvasOptions = {
       canvasId: id,
@@ -843,10 +820,7 @@ function methods () {
 
     var task = function () { return Promise.resolve(); };
 
-    if (
-      tools_10(customOptions) &&
-      customOptions.original
-    ) {
+    if (customOptions.original) {
       // original mode
       task = function () {
         self.targetCtx.drawImage(
@@ -871,14 +845,7 @@ function methods () {
 
     return task()
       .then(function () {
-        if (tools_10(customOptions)) {
-          canvasOptions = Object.assign({}, canvasOptions, customOptions);
-        }
-
-        if (tools_7(customOptions)) {
-          fn = customOptions;
-        }
-
+        Object.assign(canvasOptions, customOptions);
         var arg = canvasOptions.componentContext
           ? [canvasOptions, canvasOptions.componentContext]
           : [canvasOptions];
@@ -887,14 +854,13 @@ function methods () {
       })
       .then(function (res) {
         var tempFilePath = res.tempFilePath;
-
-        return tools_7(fn)
-          ? fn.call(self, tempFilePath, null)
+        return callback
+          ? callback.call(self, tempFilePath, null)
           : tempFilePath
       })
       .catch(function (err) {
-        if (tools_7(fn)) {
-          fn.call(self, null, err);
+        if (callback) {
+          callback.call(self, null, err);
         } else {
           throw err
         }
@@ -1128,7 +1094,7 @@ function cut () {
   };
 }
 
-var version = "1.3.9";
+var version = "1.3.10";
 
 var WeCropper = function WeCropper (params) {
   var self = this;
