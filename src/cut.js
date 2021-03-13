@@ -1,3 +1,5 @@
+import { adapt2d } from './utils/helper'
+
 export default function cut () {
   const self = this
   const boundWidth = self.width // 裁剪框默认宽度，即整个画布宽度
@@ -6,10 +8,10 @@ export default function cut () {
   let { x = 0, y = 0, width = boundWidth, height = boundHeight } = self.cut
 
   /**
-	 * 设置边界
-	 * @param imgLeft 图片左上角横坐标值
-	 * @param imgTop 图片左上角纵坐标值
-	 */
+   * 设置边界
+   * @param imgLeft 图片左上角横坐标值
+   * @param imgTop 图片左上角纵坐标值
+   */
   self.outsideBound = (imgLeft, imgTop) => {
     self.imgLeft = imgLeft >= x
       ? x
@@ -25,9 +27,9 @@ export default function cut () {
   }
 
   /**
-	 * 设置边界样式
-	 * @param color	边界颜色
-	 */
+   * 设置边界样式
+   * @param color	边界颜色
+   */
   self.setBoundStyle = ({ color = '#04b00f', mask = 'rgba(0, 0, 0, 0.3)', lineWidth = 1 } = {}) => {
     const half = lineWidth / 2
     const boundOption = [
@@ -55,7 +57,7 @@ export default function cut () {
 
     // 绘制半透明层
     self.ctx.beginPath()
-    self.ctx.setFillStyle(mask)
+    adapt2d(self, 'fillStyle', mask)
     self.ctx.fillRect(0, 0, x, boundHeight)
     self.ctx.fillRect(x, 0, width, y)
     self.ctx.fillRect(x, y + height, width, boundHeight - y - height)
@@ -64,8 +66,8 @@ export default function cut () {
 
     boundOption.forEach(op => {
       self.ctx.beginPath()
-      self.ctx.setStrokeStyle(color)
-      self.ctx.setLineWidth(lineWidth)
+      adapt2d(self, 'strokeStyle', color)
+      adapt2d(self, 'lineWidth', lineWidth)
       self.ctx.moveTo(op.start.x, op.start.y)
       self.ctx.lineTo(op.step1.x, op.step1.y)
       self.ctx.lineTo(op.step2.x, op.step2.y)

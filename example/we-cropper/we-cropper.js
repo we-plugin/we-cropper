@@ -1,5 +1,5 @@
 /**
- * we-cropper v1.3.10
+ * we-cropper v1.4.0
  * (c) 2021 dlhandsome
  * @license MIT
  */
@@ -11,6 +11,11 @@
 
 var device = void 0;
 var TOUCH_STATE = ['touchstarted', 'touchmoved', 'touchended'];
+var adaptAPI = {
+  strokeStyle: 'setStrokeStyle',
+  fillStyle: 'setFillStyle',
+  lineWidth: 'setLineWidth'
+};
 
 function firstLetterUpper (str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -36,6 +41,14 @@ function	getDevice () {
     device = wx.getSystemInfoSync();
   }
   return device
+}
+
+function adapt2d (context, handle, value) {
+  if (context.type === '2d') {
+    context.ctx[handle] = value;
+  } else {
+    context.ctx[adaptAPI[handle]](value);
+  }
 }
 
 var tmp = {};
@@ -227,6 +240,10 @@ function prepare () {
     if (id) {
       self.ctx = self.ctx || wx.createCanvasContext(id);
       self.targetCtx = self.targetCtx || wx.createCanvasContext(targetId);
+
+      if (self.ctx.constructor.name === 'CanvasRenderingContext2D') {
+        self.type = '2d';
+      }
     } else {
       console.error("constructor: create canvas context failed, 'id' must be valuable");
     }
@@ -322,13 +339,30 @@ function draw (ctx, reserve) {
   if ( reserve === void 0 ) reserve = false;
 
   return new Promise(function (resolve) {
-    ctx.draw(reserve, resolve);
+    ctx.draw && ctx.draw(reserve, resolve);
   })
 }
 
 var getImageInfo = wxPromise(wx.getImageInfo);
 
 var canvasToTempFilePath = wxPromise(wx.canvasToTempFilePath);
+
+var loadCanvasImage = function (context, src) {
+  return new Promise(function (resolve, reject) {
+    if (context.type === '2d') {
+      var img = context.canvas.createImage();
+      img.onload = function () {
+        resolve(img);
+      };
+      img.onerror = function (e) {
+        reject(e);
+      };
+      img.src = src;
+    } else {
+      resolve(src);
+    }
+  })
+};
 
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -744,7 +778,11 @@ function methods () {
 
     self.setBoundStyle(self.boundStyle); //	设置边界样式
 
-    self.ctx.draw(false, done);
+    if (self.type !== '2d') {
+      self.ctx.draw(false, done);
+    }
+
+    done && done();
     return self
   };
 
@@ -753,45 +791,52 @@ function methods () {
 
     isFunc(self.onBeforeImageLoad) && self.onBeforeImageLoad(self.ctx, self);
 
-    return getImageInfo({ src: src })
-      .then(function (res) {
-        var innerAspectRadio = res.width / res.height;
-        var customAspectRadio = width / height;
+    return loadCanvasImage(self, src).then(function (img) {
+      self.croperTarget = img;
 
-        self.croperTarget = res.path;
+      return getImageInfo({ src: src })
+        .then(function (res) {
+          var innerAspectRadio = res.width / res.height;
+          var customAspectRadio = width / height;
 
-        if (innerAspectRadio < customAspectRadio) {
-          self.rectX = x;
-          self.baseWidth = width;
-          self.baseHeight = width / innerAspectRadio;
-          self.rectY = y - Math.abs((height - self.baseHeight) / 2);
-        } else {
-          self.rectY = y;
-          self.baseWidth = height * innerAspectRadio;
-          self.baseHeight = height;
-          self.rectX = x - Math.abs((width - self.baseWidth) / 2);
-        }
+          if (innerAspectRadio < customAspectRadio) {
+            self.rectX = x;
+            self.baseWidth = width;
+            self.baseHeight = width / innerAspectRadio;
+            self.rectY = y - Math.abs((height - self.baseHeight) / 2);
+          } else {
+            self.rectY = y;
+            self.baseWidth = height * innerAspectRadio;
+            self.baseHeight = height;
+            self.rectX = x - Math.abs((width - self.baseWidth) / 2);
+          }
 
-        self.imgLeft = self.rectX;
-        self.imgTop = self.rectY;
-        self.scaleWidth = self.baseWidth;
-        self.scaleHeight = self.baseHeight;
+          self.imgLeft = self.rectX;
+          self.imgTop = self.rectY;
+          self.scaleWidth = self.baseWidth;
+          self.scaleHeight = self.baseHeight;
 
-        self.update();
+          self.update();
 
-        return new Promise(function (resolve) {
-          self.updateCanvas(resolve);
+          return new Promise(function (resolve) {
+            self.updateCanvas(resolve);
+          })
         })
-      })
-      .then(function () {
-        isFunc(self.onImageLoad) && self.onImageLoad(self.ctx, self);
-      })
+        .then(function () {
+          isFunc(self.onImageLoad) && self.onImageLoad(self.ctx, self);
+        })
+    })
   };
 
   self.removeImage = function () {
     self.src = '';
     self.croperTarget = '';
-    return draw(self.ctx)
+
+    if (self.type === '2d') {
+      return self.ctx.clearRect(0, 0, self.canvas.width, self.canvas.height)
+    } else {
+      return draw(self.ctx, false, self.type)
+    }
   };
 
   self.getCropperBase64 = function (done) {
@@ -817,6 +862,10 @@ function methods () {
       width: width,
       height: height
     };
+
+    if (self.type === '2d') {
+      canvasOptions.canvas = self.canvas;
+    }
 
     var task = function () { return Promise.resolve(); };
 
@@ -850,7 +899,7 @@ function methods () {
           ? [canvasOptions, canvasOptions.componentContext]
           : [canvasOptions];
 
-        return canvasToTempFilePath.apply(null, arg)
+          return canvasToTempFilePath.apply(null, arg)
       })
       .then(function (res) {
         var tempFilePath = res.tempFilePath;
@@ -1021,10 +1070,10 @@ function cut () {
   var height = ref.height; if ( height === void 0 ) height = boundHeight;
 
   /**
-	 * 设置边界
-	 * @param imgLeft 图片左上角横坐标值
-	 * @param imgTop 图片左上角纵坐标值
-	 */
+   * 设置边界
+   * @param imgLeft 图片左上角横坐标值
+   * @param imgTop 图片左上角纵坐标值
+   */
   self.outsideBound = function (imgLeft, imgTop) {
     self.imgLeft = imgLeft >= x
       ? x
@@ -1040,9 +1089,9 @@ function cut () {
   };
 
   /**
-	 * 设置边界样式
-	 * @param color	边界颜色
-	 */
+   * 设置边界样式
+   * @param color	边界颜色
+   */
   self.setBoundStyle = function (ref) {
     if ( ref === void 0 ) ref = {};
     var color = ref.color; if ( color === void 0 ) color = '#04b00f';
@@ -1075,7 +1124,7 @@ function cut () {
 
     // 绘制半透明层
     self.ctx.beginPath();
-    self.ctx.setFillStyle(mask);
+    adapt2d(self, 'fillStyle', mask);
     self.ctx.fillRect(0, 0, x, boundHeight);
     self.ctx.fillRect(x, 0, width, y);
     self.ctx.fillRect(x, y + height, width, boundHeight - y - height);
@@ -1084,8 +1133,8 @@ function cut () {
 
     boundOption.forEach(function (op) {
       self.ctx.beginPath();
-      self.ctx.setStrokeStyle(color);
-      self.ctx.setLineWidth(lineWidth);
+      adapt2d(self, 'strokeStyle', color);
+      adapt2d(self, 'lineWidth', lineWidth);
       self.ctx.moveTo(op.start.x, op.start.y);
       self.ctx.lineTo(op.step1.x, op.step1.y);
       self.ctx.lineTo(op.step2.x, op.step2.y);
@@ -1094,7 +1143,7 @@ function cut () {
   };
 }
 
-var version = "1.3.10";
+var version = "1.4.0";
 
 var WeCropper = function WeCropper (params) {
   var self = this;
