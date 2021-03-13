@@ -100,7 +100,7 @@ export default function methods () {
     if (self.type === '2d') {
       return self.ctx.clearRect(0, 0, self.canvas.width, self.canvas.height)
     } else {
-      return draw(self.ctx, false, self.type)
+      return draw(self.ctx)
     }
   }
 
@@ -162,7 +162,7 @@ export default function methods () {
           ? [canvasOptions, canvasOptions.componentContext]
           : [canvasOptions]
 
-          return canvasToTempFilePath.apply(null, arg)
+        return canvasToTempFilePath.apply(null, arg)
       })
       .then(res => {
         const tempFilePath = res.tempFilePath
