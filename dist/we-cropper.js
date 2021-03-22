@@ -241,7 +241,8 @@ function prepare () {
       self.ctx = self.ctx || wx.createCanvasContext(id);
       self.targetCtx = self.targetCtx || wx.createCanvasContext(targetId);
 
-      if (self.ctx.constructor.name === 'CanvasRenderingContext2D') {
+      // 2d 没有这个方法
+      if (typeof self.ctx.setStrokeStyle !== 'function') {
         self.type = '2d';
       }
     } else {
@@ -835,7 +836,7 @@ function methods () {
     if (self.type === '2d') {
       return self.ctx.clearRect(0, 0, self.canvas.width, self.canvas.height)
     } else {
-      return draw(self.ctx, false, self.type)
+      return draw(self.ctx)
     }
   };
 
@@ -899,7 +900,7 @@ function methods () {
           ? [canvasOptions, canvasOptions.componentContext]
           : [canvasOptions];
 
-          return canvasToTempFilePath.apply(null, arg)
+        return canvasToTempFilePath.apply(null, arg)
       })
       .then(function (res) {
         var tempFilePath = res.tempFilePath;

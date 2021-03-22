@@ -41,7 +41,8 @@ export default function prepare () {
       self.ctx = self.ctx || wx.createCanvasContext(id)
       self.targetCtx = self.targetCtx || wx.createCanvasContext(targetId)
 
-      if (self.ctx.constructor.name === 'CanvasRenderingContext2D') {
+      // 2d 没有这个方法
+      if (typeof self.ctx.setStrokeStyle !== 'function') {
         self.type = '2d'
       }
     } else {
