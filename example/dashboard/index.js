@@ -20,6 +20,10 @@ Page({
       {
         url: '../cutInside/cutInside',
         name: '局部裁剪'
+      },
+      {
+        url: '../canvas2d/canvas2d',
+        name: 'canvas2d'
       }
     ]
   }
