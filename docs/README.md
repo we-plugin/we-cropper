@@ -104,6 +104,39 @@ cd we-cropper
    
 ```
 
+> canvas2d 使用示例
+
+```javascript
+        const { cropperOpt } = this.data
+
+        this.createSelectorQuery().select(`#${cropperOpt.id}`).fields({ node: true, size: true }).exec((res) => {
+            const canvas = res[0].node
+            const ctx = canvas.getContext('2d')
+
+            const dpr = wx.getSystemInfoSync().pixelRatio
+            canvas.width = res[0].width * dpr
+            canvas.height = res[0].height * dpr
+            ctx.scale(dpr, dpr)
+            cropperOpt.canvas = canvas
+            cropperOpt.ctx = ctx
+
+            this.cropper = new WeCropper(cropperOpt)
+            .on('ready', (ctx) => {
+                console.log(`wecropper is ready for work!`)
+            })
+            .on('beforeImageLoad', (ctx) => {
+                wx.showToast({
+                    title: '上传中',
+                    icon: 'loading',
+                    duration: 20000
+                })
+            })
+            .on('imageLoad', (ctx) => {
+                wx.hideToast()
+            })
+        })
+```
+
 > 事件绑定
 
 !> 插件通过touchStart、touchMove、touchEnd方法来接收事件对象。

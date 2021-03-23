@@ -23,6 +23,26 @@
 
 设备像素比 （必填）
 
+#### ctx
+
+- Type: `Object`
+- Default: `-`
+
+自定义画布上下文，可用于 canvas2d
+
+#### targetCtx
+
+- Type: `Object`
+- Default: `-`
+
+自定义画布上下文，可用于 canvas2d
+
+#### canvas
+
+- Type: `Object`
+- Default: `-`
+
+自定义画布，当使用 canvas2d 时必填
 #### width
 
 - Type: `Number`
