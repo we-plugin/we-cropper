@@ -4,7 +4,8 @@ import {
 import {
   draw,
   getImageInfo,
-  canvasToTempFilePath
+  canvasToTempFilePath,
+  loadCanvasImage
 } from './utils/promisify'
 import CanvasToBase64 from './utils/canvas2base64'
 
@@ -42,7 +43,11 @@ export default function methods () {
 
     self.setBoundStyle(self.boundStyle) //	设置边界样式
 
-    self.ctx.draw(false, done)
+    if (self.type !== '2d') {
+      self.ctx.draw(false, done)
+    }
+
+    done && done()
     return self
   }
 
@@ -51,45 +56,52 @@ export default function methods () {
 
     isFunc(self.onBeforeImageLoad) && self.onBeforeImageLoad(self.ctx, self)
 
-    return getImageInfo({ src })
-      .then(res => {
-        let innerAspectRadio = res.width / res.height
-        let customAspectRadio = width / height
+    return loadCanvasImage(self, src).then((img) => {
+      self.croperTarget = img
 
-        self.croperTarget = res.path
+      return getImageInfo({ src })
+        .then(res => {
+          let innerAspectRadio = res.width / res.height
+          let customAspectRadio = width / height
 
-        if (innerAspectRadio < customAspectRadio) {
-          self.rectX = x
-          self.baseWidth = width
-          self.baseHeight = width / innerAspectRadio
-          self.rectY = y - Math.abs((height - self.baseHeight) / 2)
-        } else {
-          self.rectY = y
-          self.baseWidth = height * innerAspectRadio
-          self.baseHeight = height
-          self.rectX = x - Math.abs((width - self.baseWidth) / 2)
-        }
+          if (innerAspectRadio < customAspectRadio) {
+            self.rectX = x
+            self.baseWidth = width
+            self.baseHeight = width / innerAspectRadio
+            self.rectY = y - Math.abs((height - self.baseHeight) / 2)
+          } else {
+            self.rectY = y
+            self.baseWidth = height * innerAspectRadio
+            self.baseHeight = height
+            self.rectX = x - Math.abs((width - self.baseWidth) / 2)
+          }
 
-        self.imgLeft = self.rectX
-        self.imgTop = self.rectY
-        self.scaleWidth = self.baseWidth
-        self.scaleHeight = self.baseHeight
+          self.imgLeft = self.rectX
+          self.imgTop = self.rectY
+          self.scaleWidth = self.baseWidth
+          self.scaleHeight = self.baseHeight
 
-        self.update()
+          self.update()
 
-        return new Promise((resolve) => {
-          self.updateCanvas(resolve)
+          return new Promise((resolve) => {
+            self.updateCanvas(resolve)
+          })
         })
-      })
-      .then(() => {
-        isFunc(self.onImageLoad) && self.onImageLoad(self.ctx, self)
-      })
+        .then(() => {
+          isFunc(self.onImageLoad) && self.onImageLoad(self.ctx, self)
+        })
+    })
   }
 
   self.removeImage = () => {
     self.src = ''
     self.croperTarget = ''
-    return draw(self.ctx)
+
+    if (self.type === '2d') {
+      return self.ctx.clearRect(0, 0, self.canvas.width, self.canvas.height)
+    } else {
+      return draw(self.ctx)
+    }
   }
 
   self.getCropperBase64 = (done = () => {}) => {
@@ -112,6 +124,10 @@ export default function methods () {
       y: y,
       width: width,
       height: height
+    }
+
+    if (self.type === '2d') {
+      canvasOptions.canvas = self.canvas
     }
 
     let task = () => Promise.resolve()

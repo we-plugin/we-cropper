@@ -40,6 +40,11 @@ export default function prepare () {
     if (id) {
       self.ctx = self.ctx || wx.createCanvasContext(id)
       self.targetCtx = self.targetCtx || wx.createCanvasContext(targetId)
+
+      // 2d 没有这个方法
+      if (typeof self.ctx.setStrokeStyle !== 'function') {
+        self.type = '2d'
+      }
     } else {
       console.error(`constructor: create canvas context failed, 'id' must be valuable`)
     }

@@ -1,5 +1,10 @@
-let	device = void 0
+let device = void 0
 const TOUCH_STATE = ['touchstarted', 'touchmoved', 'touchended']
+const adaptAPI = {
+  strokeStyle: 'setStrokeStyle',
+  fillStyle: 'setFillStyle',
+  lineWidth: 'setLineWidth'
+}
 
 export function firstLetterUpper (str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -22,4 +27,12 @@ export function	getDevice () {
     device = wx.getSystemInfoSync()
   }
   return device
+}
+
+export function adapt2d (context, handle, value) {
+  if (context.type === '2d') {
+    context.ctx[handle] = value
+  } else {
+    context.ctx[adaptAPI[handle]](value)
+  }
 }
