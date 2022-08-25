@@ -1,6 +1,6 @@
 {
   "name": "mpvue-cropper",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "main": "mpvue-cropper.vue",
   "module": "mpvue-cropper.vue",
   "dependencies": {
