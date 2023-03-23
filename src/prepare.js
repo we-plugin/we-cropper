@@ -34,12 +34,13 @@ export default function prepare () {
   self.createCtx = () => {
     const {
       id,
-      targetId
+      targetId,
+      createCanvasContext
     } = self
 
     if (id) {
-      self.ctx = self.ctx || wx.createCanvasContext(id)
-      self.targetCtx = self.targetCtx || wx.createCanvasContext(targetId)
+      self.ctx = self.ctx || wx.createCanvasContext(id, createCanvasContext)
+      self.targetCtx = self.targetCtx || wx.createCanvasContext(targetId, createCanvasContext)
 
       // 2d 没有这个方法
       if (typeof self.ctx.setStrokeStyle !== 'function') {
