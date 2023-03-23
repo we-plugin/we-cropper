@@ -82,7 +82,8 @@
         this._wecropper = new WeCropper(Object.assign(this.option, {
           id: this._canvasId,
           targetId: this._targetId,
-          pixelRatio: this._pixelRatio
+          pixelRatio: this._pixelRatio,
+          componentInstance: this,
         }))
         .on('ready', (...args) => {
           this.$emit('ready', ...args)
@@ -98,7 +99,7 @@
         })
       }
     },
-    onLoad () {
+    mounted () {
       if (!this.option) {
         return console.warn('[mpvue-cropper] 请传入option参数\n参数配置见文档：https://we-plugin.github.io/we-cropper/#/api')
       }
